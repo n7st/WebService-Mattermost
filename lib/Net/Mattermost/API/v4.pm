@@ -121,6 +121,7 @@ sub _build_ldap           { shift->_new_resource('LDAP')          }
 sub _build_oauth          { shift->_new_resource('OAuth')         }
 sub _build_plugins        { shift->_new_resource('Plugins')       }
 sub _build_preferences    { shift->_new_resource('Preferences')   }
+sub _build_reactions      { shift->_new_resource('Reactions')     }
 sub _build_roles          { shift->_new_resource('Roles')         }
 sub _build_saml           { shift->_new_resource('SAML')          }
 sub _build_schemes        { shift->_new_resource('Schemes')       }

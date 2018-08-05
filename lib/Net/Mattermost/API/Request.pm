@@ -24,13 +24,8 @@ sub _build_url {
     my $base_url = $self->base_url;
     my $resource = $self->resource;
 
-    if ($base_url !~ /\/$/) {
-        $base_url .= '/';
-    }
-
-    if ($self->endpoint ne '' && $resource !~ /\/$/) {
-        $resource .= '/';
-    }
+    $base_url .= '/' if $base_url !~ /\/$/;
+    $resource .= '/' if $self->endpoint ne '' && $resource !~ /\/$/;
 
     my $url = sprintf('%s%s%s', $base_url, $resource, $self->endpoint);
     p $url;
