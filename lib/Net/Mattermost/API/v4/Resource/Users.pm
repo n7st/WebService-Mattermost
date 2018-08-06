@@ -27,7 +27,8 @@ sub search_by_email {
 
     return $self->_call({
         method   => $self->get,
-        endpoint => "email/${email}",
+        endpoint => 'email/%s',
+        ids      => [ $email ],
     });
 }
 
