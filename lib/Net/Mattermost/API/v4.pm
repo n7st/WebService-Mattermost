@@ -33,11 +33,8 @@ use Net::Mattermost::Helper::Resource 'v4';
 ################################################################################
 
 has base_url => (is => 'ro', isa => Str, required => 1);
-has username => (is => 'ro', isa => Str, required => 0);
-has password => (is => 'ro', isa => Str, required => 0);
 
 has authenticate => (is => 'ro', isa => Bool,     default => 0);
-has auth_token   => (is => 'rw', isa => Str,      default => '');
 has resources    => (is => 'rw', isa => ArrayRef, default => sub { [] },
     handles_via => 'Array',
     handles     => {
@@ -72,17 +69,13 @@ has webhooks       => (is => 'ro', isa => InstanceOf[v4 'Webhooks'],      lazy =
 sub BUILD {
     my $self = shift;
 
-    if ($self->authenticate && $self->username && $self->password) {
-        my $ret = $self->users->login($self->username, $self->password);
+    foreach my $name (sort $self->meta->get_attribute_list) {
+        my $attr = $self->meta->get_attribute($name);
 
-        if ($ret->is_success) {
-            $self->auth_token($ret->headers->header('Token'));
+        if ($attr->has_builder) {
+            my $cref = $self->can($name);
 
-            foreach my $resource (@{$self->resources}) {
-                $resource->auth_token($self->auth_token);
-            }
-        } else {
-            p $ret;
+            $self->$cref;
         }
     }
 
@@ -96,9 +89,8 @@ sub _new_resource {
     my $name = shift;
 
     my $resource = v4($name)->new({
-        resource   => lc $name,
-        base_url   => $self->base_url,
-        auth_token => $self->auth_token,
+        resource => lc $name,
+        base_url => $self->base_url,
     });
 
     $self->add_resource($resource);
