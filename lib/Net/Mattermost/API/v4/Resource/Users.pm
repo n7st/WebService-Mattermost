@@ -1,5 +1,6 @@
 package Net::Mattermost::API::v4::Resource::Users;
 
+use DDP;
 use Moo;
 
 extends 'Net::Mattermost::API::v4::Resource';
@@ -29,6 +30,17 @@ sub search_by_email {
         method   => $self->get,
         endpoint => 'email/%s',
         ids      => [ $email ],
+    });
+}
+
+sub create {
+    my $self = shift;
+    my $args = shift;
+
+    return $self->_call({
+        method     => $self->post,
+        parameters => $args,
+        required   => [ qw(username password email) ],
     });
 }
 

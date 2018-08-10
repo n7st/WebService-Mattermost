@@ -1,6 +1,7 @@
 package Net::Mattermost::API::v4::Resource;
 
 use DDP;
+use List::MoreUtils 'all';
 use Moo;
 use Types::Standard qw(HashRef Str);
 use Switch::Plain;
@@ -20,12 +21,19 @@ has get     => (is => 'ro', isa => Str,     default => 'GET');
 has headers => (is => 'ro', isa => HashRef, default => sub { {} });
 has post    => (is => 'ro', isa => Str,     default => 'POST');
 has put     => (is => 'ro', isa => Str,     default => 'PUT');
+has rules   => (is => 'rw', isa => HashRef, default => sub { {} });
 
 ################################################################################
 
 sub _call {
     my $self = shift;
     my $args = shift;
+
+    if ($args->{required}) {
+        my $validation = $self->_validate($args->{parameters}, $args->{required});
+
+        return $validation unless $validation->{valid};
+    }
 
     my %headers = ('Keep-Alive' => 1);
 
@@ -71,6 +79,29 @@ sub _as_request {
     $args->{endpoint} ||= '';
 
     return Net::Mattermost::API::Request->new($args);
+}
+
+sub _validate {
+    my $self     = shift;
+    my $args     = shift;
+    my $required = shift;
+
+    # Grab a slice of the keys from given arguments
+    my %slice = %{$args}{@{$required}};
+
+    return { valid => 1 } if all { defined($_) } values %slice;
+
+    my @missing;
+
+    foreach my $kx (@{$required}) {
+        push @missing, $kx unless $args->{$kx};
+    }
+
+    return {
+        valid   => 0,
+        missing => \@missing,
+        error   => sprintf('Required parameters missing: %s', join(', ', @missing)),
+    };
 }
 
 ################################################################################
