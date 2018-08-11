@@ -1,6 +1,5 @@
 package Net::Mattermost::API::v4::Resource::Users;
 
-use DDP;
 use Moo;
 
 extends 'Net::Mattermost::API::v4::Resource';
@@ -41,6 +40,38 @@ sub create {
         method     => $self->post,
         parameters => $args,
         required   => [ qw(username password email) ],
+    });
+}
+
+sub list {
+    my $self = shift;
+    my $args = shift;
+
+    return $self->_call({
+        method     => $self->get,
+        parameters => $args,
+    });
+}
+
+sub list_by_ids {
+    my $self = shift;
+    my $ids  = shift;
+
+    return $self->_call({
+        endpoint   => 'ids',
+        method     => $self->post,
+        parameters => $ids,
+    });
+}
+
+sub list_by_usernames {
+    my $self      = shift;
+    my $usernames = shift;
+
+    return $self->_call({
+        endpoint   => 'usernames',
+        method     => $self->post,
+        parameters => $usernames,
     });
 }
 

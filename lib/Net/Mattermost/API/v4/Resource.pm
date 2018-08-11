@@ -45,6 +45,7 @@ sub _call {
     my $request = $self->_as_request($args);
     my $tx;
 
+    p $request;
     sswitch ($request->method) {
         case $self->post: {
             $tx = $self->ua->post(
@@ -76,7 +77,8 @@ sub _as_request {
     $args->{base_url} = $self->base_url;
     $args->{resource} = $self->resource;
 
-    $args->{endpoint} ||= '';
+    $args->{endpoint}   ||= '';
+    $args->{parameters} ||= {};
 
     return Net::Mattermost::API::Request->new($args);
 }

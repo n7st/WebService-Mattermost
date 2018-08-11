@@ -4,7 +4,7 @@ use DDP;
 use Mojo::URL;
 use Mojo::Util 'url_escape';
 use Moo;
-use Types::Standard qw(ArrayRef Enum HashRef InstanceOf Str);
+use Types::Standard qw(Any ArrayRef Enum HashRef InstanceOf Str);
 
 ################################################################################
 
@@ -13,7 +13,8 @@ has endpoint => (is => 'ro', isa => Str,                              required =
 has method   => (is => 'ro', isa => Enum [ qw(DELETE GET POST PUT) ], required => 1);
 has resource => (is => 'ro', isa => Str,                              required => 1);
 
-has parameters => (is => 'ro', isa => HashRef,  default => sub { {} });
+# Some endpoints require parameters as a HashRef, some as an ArrayRef
+has parameters => (is => 'ro', isa => Any,      default => sub { {} });
 has ids        => (is => 'ro', isa => ArrayRef, default => sub { [] });
 
 has url => (is => 'ro', isa => InstanceOf['Mojo::URL'], lazy => 1, builder => 1);
