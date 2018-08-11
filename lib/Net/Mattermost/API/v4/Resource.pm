@@ -4,9 +4,9 @@ use DDP;
 use List::MoreUtils 'all';
 use Moo;
 use Types::Standard qw(HashRef Str);
-use Switch::Plain;
 
 use Net::Mattermost::API::Request;
+use Net::Mattermost::API::Response;
 
 with 'Net::Mattermost::Role::UserAgent';
 
@@ -43,31 +43,22 @@ sub _call {
     }
 
     my $request = $self->_as_request($args);
-    my $tx;
+    my $method  = lc $request->method;
 
-    p $request;
-    sswitch ($request->method) {
-        case $self->post: {
-            $tx = $self->ua->post(
-                $request->url => \%headers,
-                json          => $request->parameters,
-            );
-        }
-        case $self->get: {
-            $tx = $self->ua->get(
-                $request->url => \%headers,
-                form          => $request->parameters,
-            );
-        }
-        case $self->put: {
+    my $form_type;
 
-        }
-        case $self->delete: {
-
-        }
+    if (grep { $_ eq $request->method } ($self->put, $self->post)) {
+        $form_type = 'json';
+    } else {
+        $form_type = 'form';
     }
 
-    return $tx->res;
+    my $tx = $self->ua->$method(
+        $request->url => \%headers,
+        $form_type    => $request->parameters,
+    );
+
+    return $self->_as_response($tx->res);
 }
 
 sub _as_request {
@@ -81,6 +72,20 @@ sub _as_request {
     $args->{parameters} ||= {};
 
     return Net::Mattermost::API::Request->new($args);
+}
+
+sub _as_response {
+    my $self = shift;
+    my $res  = shift;
+
+    return Net::Mattermost::API::Response->new({
+        code        => $res->code,
+        headers     => $res->headers,
+        is_error    => $res->is_error,
+        is_success  => $res->is_success,
+        message     => $res->message,
+        raw_content => $res->body,
+    });
 }
 
 sub _validate {

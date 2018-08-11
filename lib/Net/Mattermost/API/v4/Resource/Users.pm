@@ -75,6 +75,58 @@ sub list_by_usernames {
     });
 }
 
+sub search {
+    my $self = shift;
+    my $args = shift;
+
+    return $self->_call({
+        endpoint   => 'search',
+        method     => $self->post,
+        parameters => $args,
+        required   => [ 'term' ],
+    });
+}
+
+sub autocomplete {
+    my $self = shift;
+    my $args = shift;
+
+    return $self->_call({
+        endpoint   => 'autocomplete',
+        method     => $self->get,
+        parameters => $args,
+        required   => [ 'name' ],
+    });
+}
+
+sub get_by_id {
+    my $self = shift;
+    my $id   = shift;
+
+    return $self->_call({
+        method   => $self->get,
+        endpoint => '%s',
+        ids      => [ $id ],
+    });
+}
+
+sub update {
+    my $self = shift;
+    my $id   = shift;
+    my $args = shift;
+
+    unless ($id) {
+        # TODO: return error
+    }
+
+    return $self->_call({
+        method     => $self->put,
+        endpoint   => '%s',
+        ids        => [ $id ],
+        parameters => $args,
+    });
+}
+
 ################################################################################
 
 1;
