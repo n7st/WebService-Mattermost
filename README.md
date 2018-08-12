@@ -3,10 +3,27 @@
 Suite for interacting with Mattermost chat servers. Includes API and WebSocket
 gateways.
 
+## Installation
+
+### From CPAN
+
+```
+% cpanm Net::Mattermost
+```
+
+### Manual
+
+```
+% git clone ssh://git@git.netsplit.uk:7170/mike/Net-Mattermost.git
+% cd Net-Mattermost
+% dzil listdeps | cpanm
+% dzil authordeps | cpanm
+% dzil install
+```
+
 ## API usage
 
 ```perl
-
 use Net::Mattermost;
 
 my $mattermost = Net::Mattermost->new({
