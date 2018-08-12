@@ -50,6 +50,7 @@ has jobs           => (is => 'ro', isa => InstanceOf[v4 'Jobs'],          lazy =
 has ldap           => (is => 'ro', isa => InstanceOf[v4 'LDAP'],          lazy => 1, builder => 1);
 has oauth          => (is => 'ro', isa => InstanceOf[v4 'OAuth'],         lazy => 1, builder => 1);
 has plugins        => (is => 'ro', isa => InstanceOf[v4 'Plugins'],       lazy => 1, builder => 1);
+has posts          => (is => 'ro', isa => InstanceOf[v4 'Posts'],         lazy => 1, builder => 1);
 has reactions      => (is => 'ro', isa => InstanceOf[v4 'Reactions'],     lazy => 1, builder => 1);
 has roles          => (is => 'ro', isa => InstanceOf[v4 'Roles'],         lazy => 1, builder => 1);
 has saml           => (is => 'ro', isa => InstanceOf[v4 'SAML'],          lazy => 1, builder => 1);
@@ -108,6 +109,7 @@ sub _build_jobs           { shift->_new_resource('Jobs')                        
 sub _build_ldap           { shift->_new_resource('LDAP')                            }
 sub _build_oauth          { shift->_new_resource('OAuth')                           }
 sub _build_plugins        { shift->_new_resource('Plugins')                         }
+sub _build_posts          { shift->_new_resource('Posts')                           }
 sub _build_reactions      { shift->_new_resource('Reactions')                       }
 sub _build_roles          { shift->_new_resource('Roles')                           }
 sub _build_saml           { shift->_new_resource('SAML')                            }
