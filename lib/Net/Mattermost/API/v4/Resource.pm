@@ -51,6 +51,8 @@ sub _call {
         $form_type = 'form';
     }
 
+    $form_type = $args->{override_data_type} if $args->{override_data_type};
+
     my $tx = $self->ua->$method(
         $request->url => \%headers,
         $form_type    => $request->parameters,
@@ -107,6 +109,18 @@ sub _validate {
         valid   => 0,
         missing => \@missing,
         error   => sprintf('Required parameters missing: %s', join(', ', @missing)),
+    };
+}
+
+sub _error_return {
+    my $self  = shift;
+    my $error = shift;
+
+    $error = sprintf('%s. No API query was made.', $error);
+
+    return {
+        error   => 1,
+        message => $error,
     };
 }
 

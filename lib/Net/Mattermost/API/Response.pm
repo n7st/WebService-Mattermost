@@ -22,7 +22,7 @@ has content => (is => 'rw', isa => Any, default => sub { {} });
 sub BUILD {
     my $self = shift;
 
-    if ($self->raw_content) {
+    if ($self->raw_content && $self->raw_content =~ /^[\{\[]/) {
         $self->content(decode_json($self->raw_content));
     }
 
