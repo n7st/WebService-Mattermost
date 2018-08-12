@@ -19,6 +19,11 @@ around [ qw(
     generate_mfa_secret_by_id
     get_by_id
     get_profile_image_by_id
+    get_preferences_by_id
+    save_preferences_by_id
+    delete_preferences_by_id
+    list_preferences_by_category
+    get_specific_preference_by_id
     get_sessions_by_id
     patch_by_id
     reset_password_by_id
@@ -475,6 +480,66 @@ sub update_authentication_method_by_id {
         endpoint  => '%s/auth',
         ids       => [ $id ],
         paramters => $args,
+    });
+}
+
+sub get_preferences_by_id {
+    my $self = shift;
+    my $id   = shift;
+
+    return $self->_call({
+        method   => $self->get,
+        endpoint => '%s/preferences',
+        ids      => [ $id ],
+    });
+}
+
+sub get_specific_preference_by_id {
+    my $self       = shift;
+    my $user_id    = shift;
+    my $category   = shift;
+    my $preference = shift;
+
+    return $self->_call({
+        method   => $self->get,
+        endpoint => '%s/preferences/%s/name/%s',
+        ids      => [ $user_id, $category, $preference ],
+    });
+}
+
+sub list_preferences_by_category {
+    my $self     = shift;
+    my $user_id  = shift;
+    my $category = shift;
+
+    return $self->_call({
+        method   => $self->get,
+        endpoint => '%s/preferences/%s',
+        ids      => [ $user_id, $category ],
+    });
+}
+
+sub delete_preferences_by_id {
+    my $self = shift;
+    my $id   = shift;
+
+    return $self->_call({
+        method   => $self->delete,
+        endpoint => '%s/preferences/delete',
+        ids      => [ $id ],
+    });
+}
+
+sub save_preferences_by_id {
+    my $self = shift;
+    my $id   = shift;
+    my $args = shift;
+
+    return $self->_call({
+        method     => $self->put,
+        endpoint   => '%s/preferences',
+        ids        => [ $id ],
+        parameters => $args,
     });
 }
 
