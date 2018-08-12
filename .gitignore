@@ -37,3 +37,5 @@ inc/
 test.pl
 *.swp
 *.sw0
+lib/Example/
+script/
