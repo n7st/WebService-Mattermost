@@ -4,7 +4,7 @@ use Moo::Role;
 use Types::Standard 'InstanceOf';
 
 use Net::Mattermost::Util::UserAgent;
-use Net::Mattermost::Helper::Resource 'util';
+use Net::Mattermost::Helper::Alias 'util';
 
 ################################################################################
 

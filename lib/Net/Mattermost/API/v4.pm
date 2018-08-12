@@ -1,6 +1,5 @@
 package Net::Mattermost::API::v4;
 
-use DDP;
 use Moo;
 use MooX::HandlesVia;
 use Types::Standard qw(ArrayRef Bool InstanceOf Str);
@@ -28,7 +27,7 @@ use Net::Mattermost::API::v4::Resource::System;
 use Net::Mattermost::API::v4::Resource::Teams;
 use Net::Mattermost::API::v4::Resource::Users;
 use Net::Mattermost::API::v4::Resource::Webhooks;
-use Net::Mattermost::Helper::Resource 'v4';
+use Net::Mattermost::Helper::Alias 'v4';
 
 ################################################################################
 

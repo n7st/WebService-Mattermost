@@ -1,4 +1,4 @@
-package Net::Mattermost::Helper::Resource;
+package Net::Mattermost::Helper::Alias;
 
 use strict;
 use warnings;
@@ -36,7 +36,7 @@ __END__
 
 =head1 NAME
 
-Net::Mattermost::Helper::Resource
+Net::Mattermost::Helper::Alias
 
 =head1 DESCRIPTION
 
@@ -50,9 +50,10 @@ Static helpers used in the library.
 
 Format the name of an endpoint for the version 4 API.
 
-    use Net::Mattermost::Helper::Resource 'v4';
+    use Net::Mattermost::Helper::Alias 'v4';
 
-    print v4 'Teams'; # prints Net::Mattermost::API::v4::Resource::Teams
+    print v4   'Teams';     # prints Net::Mattermost::API::v4::Resource::Teams
+    print util 'UserAgent'; # prints Net::Mattermost::Util::UserAgent
 
 =back
 

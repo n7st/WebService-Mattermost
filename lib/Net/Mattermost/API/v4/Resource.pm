@@ -1,6 +1,5 @@
 package Net::Mattermost::API::v4::Resource;
 
-use DDP;
 use List::MoreUtils 'all';
 use Moo;
 use Types::Standard qw(HashRef Str);
@@ -21,7 +20,6 @@ has get     => (is => 'ro', isa => Str,     default => 'GET');
 has headers => (is => 'ro', isa => HashRef, default => sub { {} });
 has post    => (is => 'ro', isa => Str,     default => 'POST');
 has put     => (is => 'ro', isa => Str,     default => 'PUT');
-has rules   => (is => 'rw', isa => HashRef, default => sub { {} });
 
 ################################################################################
 
@@ -81,9 +79,10 @@ sub _as_response {
     return Net::Mattermost::API::Response->new({
         code        => $res->code,
         headers     => $res->headers,
-        is_error    => $res->is_error,
-        is_success  => $res->is_success,
+        is_error    => $res->is_error   ? 1 : 0,
+        is_success  => $res->is_success ? 1 : 0,
         message     => $res->message,
+        prev        => $res,
         raw_content => $res->body,
     });
 }
@@ -125,6 +124,15 @@ Net::Mattermost::API::v4::Resource - base class for API resources.
 =head2 ATTRIBUTES
 
 =over 4
+
+=item C<auth_token>
+
+An auth token to use in the headers for every API call. Authentication is
+required to use the Mattermost API.
+
+=item C<base_url>
+
+The API's base URL.
 
 =item C<resource>
 
