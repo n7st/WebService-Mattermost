@@ -21,7 +21,6 @@ use Net::Mattermost::API::v4::Resource::Reactions;
 use Net::Mattermost::API::v4::Resource::Roles;
 use Net::Mattermost::API::v4::Resource::SAML;
 use Net::Mattermost::API::v4::Resource::Schemes;
-use Net::Mattermost::API::v4::Resource::Status;
 use Net::Mattermost::API::v4::Resource::System;
 use Net::Mattermost::API::v4::Resource::Teams;
 use Net::Mattermost::API::v4::Resource::Users;
@@ -55,7 +54,6 @@ has reactions      => (is => 'ro', isa => InstanceOf[v4 'Reactions'],     lazy =
 has roles          => (is => 'ro', isa => InstanceOf[v4 'Roles'],         lazy => 1, builder => 1);
 has saml           => (is => 'ro', isa => InstanceOf[v4 'SAML'],          lazy => 1, builder => 1);
 has schemes        => (is => 'ro', isa => InstanceOf[v4 'Schemes'],       lazy => 1, builder => 1);
-has status         => (is => 'ro', isa => InstanceOf[v4 'Status'],        lazy => 1, builder => 1);
 has system         => (is => 'ro', isa => InstanceOf[v4 'System'],        lazy => 1, builder => 1);
 has teams          => (is => 'ro', isa => InstanceOf[v4 'Teams'],         lazy => 1, builder => 1);
 has users          => (is => 'ro', isa => InstanceOf[v4 'Users'],         lazy => 1, builder => 1);
@@ -113,7 +111,6 @@ sub _build_reactions      { shift->_new_resource('Reactions')     }
 sub _build_roles          { shift->_new_resource('Roles')         }
 sub _build_saml           { shift->_new_resource('SAML')          }
 sub _build_schemes        { shift->_new_resource('Schemes')       }
-sub _build_status         { shift->_new_resource('Status')        }
 sub _build_system         { shift->_new_resource('System')        }
 sub _build_teams          { shift->_new_resource('Teams')         }
 sub _build_users          { shift->_new_resource('Users')         }

@@ -1,13 +1,19 @@
 package Net::Mattermost::API::v4::Resource::Users;
 
 use Moo;
-use Types::Standard qw(ArrayRef Str);
+use Types::Standard qw(ArrayRef InstanceOf Str);
+
+use Net::Mattermost::API::v4::Resource::Users::Status;
+use Net::Mattermost::API::v4::Resource::Users::Preferences;
+use Net::Mattermost::Helper::Alias 'v4';
 
 extends 'Net::Mattermost::API::v4::Resource';
 
 ################################################################################
 
-has available_user_roles => (is => 'ro', isa => ArrayRef, lazy => 1, builder => 1);
+has available_user_roles => (is => 'ro', isa => ArrayRef,                            lazy => 1, builder => 1);
+has status               => (is => 'ro', isa => InstanceOf[v4 'Users::Status'],      lazy => 1, builder => 1);
+has preferences          => (is => 'ro', isa => InstanceOf[v4 'Users::Preferences'], lazy => 1, builder => 1);
 
 has role_system_admin => (is => 'ro', isa => Str, default => 'system_admin');
 has role_system_user  => (is => 'ro', isa => Str, default => 'system_user');
@@ -19,11 +25,6 @@ around [ qw(
     generate_mfa_secret_by_id
     get_by_id
     get_profile_image_by_id
-    get_preferences_by_id
-    save_preferences_by_id
-    delete_preferences_by_id
-    list_preferences_by_category
-    get_specific_preference_by_id
     get_sessions_by_id
     patch_by_id
     reset_password_by_id
@@ -483,63 +484,16 @@ sub update_authentication_method_by_id {
     });
 }
 
-sub get_preferences_by_id {
-    my $self = shift;
-    my $id   = shift;
+################################################################################
 
-    return $self->_call({
-        method   => $self->get,
-        endpoint => '%s/preferences',
-        ids      => [ $id ],
-    });
-}
-
-sub get_specific_preference_by_id {
-    my $self       = shift;
-    my $user_id    = shift;
-    my $category   = shift;
-    my $preference = shift;
-
-    return $self->_call({
-        method   => $self->get,
-        endpoint => '%s/preferences/%s/name/%s',
-        ids      => [ $user_id, $category, $preference ],
-    });
-}
-
-sub list_preferences_by_category {
+sub _new_user_resource {
     my $self     = shift;
-    my $user_id  = shift;
-    my $category = shift;
+    my $resource = shift;
 
-    return $self->_call({
-        method   => $self->get,
-        endpoint => '%s/preferences/%s',
-        ids      => [ $user_id, $category ],
-    });
-}
-
-sub delete_preferences_by_id {
-    my $self = shift;
-    my $id   = shift;
-
-    return $self->_call({
-        method   => $self->delete,
-        endpoint => '%s/preferences/delete',
-        ids      => [ $id ],
-    });
-}
-
-sub save_preferences_by_id {
-    my $self = shift;
-    my $id   = shift;
-    my $args = shift;
-
-    return $self->_call({
-        method     => $self->put,
-        endpoint   => '%s/preferences',
-        ids        => [ $id ],
-        parameters => $args,
+    return v4($resource)->new({
+        auth_token => $self->auth_token,
+        resource   => 'users',
+        base_url   => $self->base_url,
     });
 }
 
@@ -549,6 +503,18 @@ sub _build_available_user_roles {
     my $self = shift;
 
     return [ $self->role_system_admin, $self->role_system_user ];
+}
+
+sub _build_preferences {
+    my $self = shift;
+
+    return $self->_new_user_resource('Users::Preferences');
+}
+
+sub _build_status {
+    my $self = shift;
+
+    return $self->_new_user_resource('Users::Status');
 }
 
 ################################################################################
