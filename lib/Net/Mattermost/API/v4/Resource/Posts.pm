@@ -30,7 +30,7 @@ Net::Mattermost::API::v4::Resource::Posts
 
 =head2 USAGE
 
-    usee Net::Mattermost;
+    use Net::Mattermost;
 
     my $mm = Net::Mattermost->new({
         authenticate => 1,
@@ -39,7 +39,7 @@ Net::Mattermost::API::v4::Resource::Posts
         base_url     => 'https://my.mattermost.server.com/api/v4/',
     });
 
-    my $posts = $mm->api->posts;
+    my $posts = $mm->api->v4->posts;
 
 =head2 METHODS
 

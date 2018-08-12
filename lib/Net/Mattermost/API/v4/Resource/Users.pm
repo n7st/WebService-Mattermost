@@ -539,7 +539,7 @@ Net::Mattermost::API::v4::Resource::Users
         base_url     => 'https://my.mattermost.server.com/api/v4/',
     });
 
-    my $resource = $mm->api->users;
+    my $resource = $mm->api->v4->users;
 
 =head2 METHODS
 

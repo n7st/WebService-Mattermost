@@ -1,10 +1,10 @@
 package Net::Mattermost;
 
-use DDP;
+use Carp 'croak';
 use Moo;
 use Types::Standard qw(Bool InstanceOf Str);
 
-use Net::Mattermost::API::v4;
+use Net::Mattermost::API;
 
 ################################################################################
 
@@ -14,8 +14,9 @@ has base_url => (is => 'ro', isa => Str, required => 1);
 
 has authenticate => (is => 'ro', isa => Bool, default => 0);
 has auth_token   => (is => 'rw', isa => Str,  default => '');
+has api_version  => (is => 'ro', isa => Str,  default => 'v4');
 
-has api => (is => 'ro', isa => InstanceOf['Net::Mattermost::API::v4'], lazy => 1, builder => 1);
+has api => (is => 'ro', isa => InstanceOf['Net::Mattermost::API'], lazy => 1, builder => 1);
 
 ################################################################################
 
@@ -23,16 +24,17 @@ sub BUILD {
     my $self = shift;
 
     if ($self->authenticate && $self->username && $self->password) {
+        my $ver = $self->api_version;
+
         # Log into Mattermost at runtime. The entire API requires an auth token
         # which is sent back from the login method.
-        my $ret = $self->api->users->login($self->username, $self->password);
+        my $ret = $self->api->$ver->users->login($self->username, $self->password);
 
         if ($ret->is_success) {
             $self->auth_token($ret->headers->header('Token'));
             $self->_set_resource_auth_token();
-            p $self->auth_token;
         } else {
-            p $ret; # TODO: fatal
+            croak $ret->message; # TODO: fatal
         }
     } elsif ($self->auth_token) {
         $self->_set_resource_auth_token();
@@ -46,9 +48,11 @@ sub BUILD {
 sub _set_resource_auth_token {
     my $self  = shift;
 
+    my $ver = $self->api_version;
+
     # Set the auth token against every available resource class after a
     # successful login to the Mattermost server
-    foreach my $resource (@{$self->api->resources}) {
+    foreach my $resource (@{$self->api->$ver->resources}) {
         $resource->auth_token($self->auth_token);
     }
 
@@ -60,7 +64,7 @@ sub _set_resource_auth_token {
 sub _build_api {
     my $self = shift;
 
-    return Net::Mattermost::API::v4->new({ base_url => $self->base_url });
+    return Net::Mattermost::API->new({ base_url => $self->base_url });
 }
 
 ################################################################################

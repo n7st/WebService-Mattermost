@@ -50,7 +50,7 @@ Net::Mattermost::API::v4::Resource::Brand
         base_url     => 'https://my.mattermost.server.com/api/v4/',
     });
 
-    my $brand = $mm->api->brand;
+    my $brand = $mm->api->v4->brand;
 
 =head2 METHODS
 

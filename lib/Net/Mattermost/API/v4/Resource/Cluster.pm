@@ -37,7 +37,7 @@ Net::Mattermost::API::v4::Resource::Cluster
         base_url     => 'https://my.mattermost.server.com/api/v4/',
     });
 
-    my $cluster = $mm->api->cluster;
+    my $cluster = $mm->api->v4->cluster;
 
 =head2 METHODS
 
