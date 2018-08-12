@@ -34,7 +34,7 @@ sub BUILD {
             $self->auth_token($ret->headers->header('Token'));
             $self->_set_resource_auth_token();
         } else {
-            croak $ret->message; # TODO: fatal
+            croak $ret->message;
         }
     } elsif ($self->auth_token) {
         $self->_set_resource_auth_token();
