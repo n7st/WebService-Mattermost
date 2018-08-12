@@ -80,11 +80,12 @@ sub BUILD {
 ################################################################################
 
 sub _new_resource {
-    my $self = shift;
-    my $name = shift;
+    my $self     = shift;
+    my $name     = shift;
+    my $alt_name = shift || lc $name;
 
     my $resource = v4($name)->new({
-        resource => lc $name,
+        resource => $alt_name,
         base_url => $self->base_url,
     });
 
@@ -95,26 +96,26 @@ sub _new_resource {
 
 ################################################################################
 
-sub _build_brand          { shift->_new_resource('Brand')         }
-sub _build_channels       { shift->_new_resource('Channels')      }
-sub _build_cluster        { shift->_new_resource('Cluster')       }
-sub _build_compliance     { shift->_new_resource('Compliance')    }
-sub _build_data_retention { shift->_new_resource('DataRetention') }
-sub _build_elasticsearch  { shift->_new_resource('ElasticSearch') }
-sub _build_emoji          { shift->_new_resource('Emoji')         }
-sub _build_files          { shift->_new_resource('Files')         }
-sub _build_jobs           { shift->_new_resource('Jobs')          }
-sub _build_ldap           { shift->_new_resource('LDAP')          }
-sub _build_oauth          { shift->_new_resource('OAuth')         }
-sub _build_plugins        { shift->_new_resource('Plugins')       }
-sub _build_reactions      { shift->_new_resource('Reactions')     }
-sub _build_roles          { shift->_new_resource('Roles')         }
-sub _build_saml           { shift->_new_resource('SAML')          }
-sub _build_schemes        { shift->_new_resource('Schemes')       }
-sub _build_system         { shift->_new_resource('System')        }
-sub _build_teams          { shift->_new_resource('Teams')         }
-sub _build_users          { shift->_new_resource('Users')         }
-sub _build_webhooks       { shift->_new_resource('Webhooks')      }
+sub _build_brand          { shift->_new_resource('Brand')                           }
+sub _build_channels       { shift->_new_resource('Channels')                        }
+sub _build_cluster        { shift->_new_resource('Cluster')                         }
+sub _build_compliance     { shift->_new_resource('Compliance')                      }
+sub _build_data_retention { shift->_new_resource('DataRetention', 'data_retention') }
+sub _build_elasticsearch  { shift->_new_resource('ElasticSearch')                   }
+sub _build_emoji          { shift->_new_resource('Emoji')                           }
+sub _build_files          { shift->_new_resource('Files')                           }
+sub _build_jobs           { shift->_new_resource('Jobs')                            }
+sub _build_ldap           { shift->_new_resource('LDAP')                            }
+sub _build_oauth          { shift->_new_resource('OAuth')                           }
+sub _build_plugins        { shift->_new_resource('Plugins')                         }
+sub _build_reactions      { shift->_new_resource('Reactions')                       }
+sub _build_roles          { shift->_new_resource('Roles')                           }
+sub _build_saml           { shift->_new_resource('SAML')                            }
+sub _build_schemes        { shift->_new_resource('Schemes')                         }
+sub _build_system         { shift->_new_resource('System')                          }
+sub _build_teams          { shift->_new_resource('Teams')                           }
+sub _build_users          { shift->_new_resource('Users')                           }
+sub _build_webhooks       { shift->_new_resource('Webhooks')                        }
 
 ################################################################################
 
