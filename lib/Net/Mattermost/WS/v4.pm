@@ -17,7 +17,7 @@ has websocket_url => (is => 'ro', isa => Str, lazy => 1, builder => 1);
 
 has ping_interval => (is => 'ro', isa => Int,  default => 15);
 has ignore_self   => (is => 'ro', isa => Bool, default => 1);
-has last          => (is => 'rw', isa => Int,  default => 0);
+has last_seq      => (is => 'rw', isa => Int,  default => 0);
 
 ################################################################################
 
@@ -29,15 +29,15 @@ sub connect {
     $self->ua->websocket($self->websocket_url => sub {
         my ($ua, $tx) = @_;
 
-        my $last = 0;
-
         unless ($tx->is_websocket) {
             die 'WebSocket handshake failed';
         }
 
-        Mojo::IOLoop->recurring($self->ping_interval => sub {
-            $self->last(++$self->last);
-            $tx->send(json => { seq => $self->last, action => 'ping' });
+        Mojo::IOLoop->recurring(15 => sub {
+            my $last_seq = $self->last_seq;
+            $self->last_seq($last_seq++);
+            p $self->last_seq;
+            $tx->send(encode_json({ seq => ++$last_seq, action => 'ping' }));
         });
 
         $tx->on(message => sub { $self->on_message(@_) });
@@ -73,8 +73,6 @@ sub on_finish {
 
     p $code;
     p $reason;
-
-    die;
 }
 
 sub on_message {
@@ -82,7 +80,7 @@ sub on_message {
     my $tx      = shift;
     my $message = decode_json(shift);
 
-    $self->last($message->{seq}) if $message->{seq};
+    $self->last_seq($message->{seq}) if $message->{seq};
 
     return unless $message && $message->{event};
 
