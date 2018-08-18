@@ -6,6 +6,23 @@ extends 'Net::Mattermost::API::v4::Resource';
 
 ################################################################################
 
+sub create {
+    my $self = shift;
+    my $args = shift;
+
+    if ($args->{message} && $args->{message} =~ /^\d+$/) {
+        # Messages should always be strings - don't interpret them as a boolean
+        # value
+        $args->{message} .= '';
+    }
+
+    return $self->_call({
+        method     => $self->post,
+        parameters => $args,
+        required   => [ qw(channel_id message) ],
+    });
+}
+
 sub reactions_for_id {
     my $self = shift;
     my $id   = shift;
