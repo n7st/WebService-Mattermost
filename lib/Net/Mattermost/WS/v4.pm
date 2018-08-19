@@ -5,7 +5,7 @@ use Mojo::IOLoop;
 use Mojo::JSON qw(decode_json encode_json);
 use Moo;
 use MooX::HandlesVia;
-use Types::Standard qw(Bool Int Str);
+use Types::Standard qw(ArrayRef Bool InstanceOf Int Maybe Str);
 
 extends 'Net::Mattermost';
 with    qw(
@@ -15,15 +15,26 @@ with    qw(
 
 ################################################################################
 
-has websocket_url => (is => 'ro', isa => Str, lazy => 1, builder => 1);
+has ioloop        => (is => 'rw', isa => InstanceOf['Mojo::IOLoop'],    lazy => 1, builder => 1);
+has websocket_url => (is => 'ro', isa => Str,                           lazy => 1, builder => 1);
+has _ua           => (is => 'rw', isa => InstanceOf['Mojo::UserAgent'], lazy => 1, builder => 1);
 
-has ping_interval => (is => 'ro', isa => Int,  default => 15);
-has ignore_self   => (is => 'ro', isa => Bool, default => 1);
-has debug         => (is => 'ro', isa => Bool, default => 0);
-has last_seq      => (is => 'rw', isa => Int,  default => 1,
+has ws => (is => 'rw', isa => Maybe[InstanceOf['Mojo::Base']]);
+
+has debug                  => (is => 'ro', isa => Bool, default => 0);
+has ignore_self            => (is => 'ro', isa => Bool, default => 1);
+has ping_interval          => (is => 'ro', isa => Int,  default => 15);
+has reconnection_wait_time => (is => 'ro', isa => Int,  default => 2);
+has last_seq               => (is => 'rw', isa => Int,  default => 1,
     handles_via => 'Number',
     handles     => {
         inc_last_seq => 'add',
+    });
+has loops                  => (is => 'rw', isa => ArrayRef[InstanceOf['Mojo::IOLoop']], default => sub { [] },
+    handles_via => 'Array',
+    handles     => {
+        add_loop    => 'push',
+        clear_loops => 'clear',
     });
 
 ################################################################################
@@ -36,42 +47,49 @@ sub BUILD {
     return $self->next::method(@_);
 }
 
-sub connect {
+sub start {
     my $self = shift;
     my $re   = shift;
 
-    # Spawn a unique user-agent for the gateway rather than using the
-    # role-packaged one. We still need the headers from the UserAgent role
-    # which will also be applied to this one.
-    my $ua = Mojo::UserAgent->new();
+    $self->_connect();
+    $self->ioloop->start unless $self->ioloop->is_running();
 
-    $ua->on(start => sub { $self->_on_start(@_) });
+    return;
+}
 
-    $ua->websocket($self->websocket_url => sub {
+################################################################################
+
+sub _connect {
+    my $self = shift;
+
+    $self->_ua->on(start => sub { $self->_on_start(@_) });
+
+    $self->_ua->websocket($self->websocket_url => sub {
         my ($ua, $tx) = @_;
+
+        $self->ws($tx);
 
         unless ($tx->is_websocket) {
             $self->logger->logdief('WebSocket handshake failed: %s', $tx->res->error->{message});
         }
 
-        Mojo::IOLoop->recurring(15 => sub { $self->_ping($tx) });
+        $self->logger->debug('Adding ping loop');
+        $self->add_loop($self->ioloop->recurring(15 => sub { $self->_ping($tx) }));
 
         $tx->on(error   => sub { $self->_on_error(@_)   });
         $tx->on(finish  => sub { $self->_on_finish(@_)  });
         $tx->on(message => sub { $self->_on_message(@_) });
     });
 
-    return Mojo::IOLoop->start if !Mojo::IOLoop->is_running || $re;
+    return 1;
 }
-
-################################################################################
 
 sub _ping {
     my $self = shift;
     my $tx   = shift;
 
     if ($self->debug) {
-        $self->logger->debugf('[Seq: %d] Ping', $self->last_seq);
+        $self->logger->debugf('[Seq: %d] Sending ping', $self->last_seq);
     }
 
     return $tx->send(encode_json({
@@ -104,12 +122,15 @@ sub _on_finish {
     my $code   = shift;
     my $reason = shift || 'Unknown';
 
-    # Clear up stale Mojo::IOLoop items so the bot can reconnect
-    Mojo::IOLoop->reset();
-
     $self->logger->infof('WebSocket connection closed: [%d] %s', $code, $reason);
+    $self->logger->infof('Reconnecting in %d seconds...', $self->reconnection_wait_time);
 
-    return $self->_reconnect();
+    $self->ws->finish;
+
+    # Delay the reconnection a little
+    Mojo::IOLoop->timer($self->reconnection_wait_time => sub {
+        return $self->_reconnect();
+    });
 }
 
 sub _on_message {
@@ -118,12 +139,13 @@ sub _on_message {
     my $message = decode_json(shift);
 
     if ($message->{seq}) {
+        $self->logger->debugf('[Seq: %d]', $message->{seq}) if $self->debug;
         $self->last_seq($message->{seq});
     }
 
     p $message;
 
-    return unless $message && $message->{event};
+    return $self->_on_non_event($message) unless $message && $message->{event};
 
     my $output;
 
@@ -159,6 +181,17 @@ sub _on_message {
     return 1;
 }
 
+sub _on_non_event {
+    my $self    = shift;
+    my $message = shift;
+
+    if ($self->debug && $message->{data} && $message->{data}->{text}) {
+        $self->logger->debugf('[Seq: %d] Received %s', $self->last_seq, $message->{data}->{text});
+    }
+
+    return 1;
+}
+
 sub _on_error {
     my $self    = shift;
     my $ws      = shift;
@@ -170,12 +203,32 @@ sub _on_error {
 sub _reconnect {
     my $self = shift;
 
+    # Reset things which have been altered during the course of the last
+    # connection
+    $self->last_seq(1);
     $self->_try_authentication();
+    $self->_clean_up_loops();
+    $self->ws(undef);
+    $self->_ua($self->_build__ua);
 
-    return $self->connect(1);
+    return $self->_connect();
+}
+
+sub _clean_up_loops {
+    my $self = shift;
+
+    foreach my $loop (@{$self->loops}) {
+        $self->ioloop->remove($loop);
+    }
+
+    return $self->clear_loops();
 }
 
 ################################################################################
+
+sub _build__ua { Mojo::UserAgent->new }
+
+sub _build_ioloop { Mojo::IOLoop->singleton }
 
 sub _build_websocket_url {
     my $self = shift;
