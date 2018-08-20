@@ -8,7 +8,7 @@ use Net::Mattermost::Helper::Alias 'util';
 
 ################################################################################
 
-has logger => (is => 'ro', isa => InstanceOf['Log::Log4perl::Logger'], lazy => 1, builder => 1);
+has logger => (is => 'ro', isa => InstanceOf['Mojo::Log'], lazy => 1, builder => 1);
 
 ################################################################################
 
@@ -27,7 +27,7 @@ Net::Mattermost::Role::Logger
 
 =head1 DESCRIPTION
 
-Bundle a C<Log::Log4perl::Logger> object into a Moo class.
+Bundle a C<Mojo::Log> object into a Moo class.
 
 =head2 SYNOPSIS
 
@@ -47,8 +47,7 @@ Bundle a C<Log::Log4perl::Logger> object into a Moo class.
 
 =item C<logger>
 
-A C<Log::Log4perl::Logger> object instantiated with easy_init and a level of
-C<$DEBUG>.
+A C<Mojo::Log> object.
 
 =back
 

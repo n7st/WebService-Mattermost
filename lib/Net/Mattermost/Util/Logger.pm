@@ -1,24 +1,23 @@
 package Net::Mattermost::Util::Logger;
 
-use Log::Log4perl::Level;
-use Log::Log4perl ':easy';
 use Moo;
 use Mojo::Util 'monkey_patch';
+use Mojo::Log;
 use Types::Standard 'InstanceOf';
 
 ################################################################################
 
-has logger => (is => 'ro', isa => InstanceOf['Log::Log4perl::Logger'], lazy => 1, builder => 1);
+has logger => (is => 'ro', isa => InstanceOf['Mojo::Log'], lazy => 1, builder => 1);
 
-has logger_store => (is => 'rw', isa => InstanceOf['Log::Log4perl::Logger']);
+has logger_store => (is => 'rw', isa => InstanceOf['Mojo::Log']);
 
 ################################################################################
 
-monkey_patch 'Log::Log4perl::Logger',
-    debugf  => sub { shift->debug(sprintf(shift, @_))  },
-    infof   => sub { shift->info(sprintf(shift, @_))   },
-    logdief => sub { shift->logdie(sprintf(shift, @_)) },
-    warnf   => sub { shift->warn(sprintf(shift, @_))   };
+monkey_patch 'Mojo::Log',
+    debugf => sub { shift->debug(sprintf(shift, @_)) },
+    infof  => sub { shift->info(sprintf(shift, @_))  },
+    fatalf => sub { shift->fatal(sprintf(shift, @_)) },
+    warnf  => sub { shift->warn(sprintf(shift, @_))  };
 
 ################################################################################
 
@@ -26,9 +25,7 @@ sub _build_logger {
     my $self = shift;
 
     unless ($self->logger_store) {
-        Log::Log4perl::easy_init($DEBUG);
-
-        $self->logger_store(Log::Log4perl::get_logger());
+        $self->logger_store(Mojo::Log->new());
     }
 
     return $self->logger_store;

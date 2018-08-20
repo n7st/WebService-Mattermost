@@ -1,5 +1,6 @@
 package Net::Mattermost::WS::v4;
 
+use Encode 'encode';
 use DDP;
 use Mojo::IOLoop;
 use Mojo::JSON qw(decode_json encode_json);
@@ -49,7 +50,6 @@ sub BUILD {
 
 sub start {
     my $self = shift;
-    my $re   = shift;
 
     $self->_connect();
     $self->ioloop->start unless $self->ioloop->is_running();
@@ -70,7 +70,7 @@ sub _connect {
         $self->ws($tx);
 
         unless ($tx->is_websocket) {
-            $self->logger->logdief('WebSocket handshake failed: %s', $tx->res->error->{message});
+            $self->logger->fatalf('WebSocket handshake failed: %s', $tx->res->error->{message});
         }
 
         $self->logger->debug('Adding ping loop');
@@ -136,14 +136,16 @@ sub _on_finish {
 sub _on_message {
     my $self    = shift;
     my $tx      = shift;
-    my $message = decode_json(shift);
+    my $input   = shift;
+
+    return unless $input;
+
+    my $message = decode_json(encode('utf8', $input));
 
     if ($message->{seq}) {
         $self->logger->debugf('[Seq: %d]', $message->{seq}) if $self->debug;
         $self->last_seq($message->{seq});
     }
-
-    p $message;
 
     return $self->_on_non_event($message) unless $message && $message->{event};
 
@@ -155,6 +157,10 @@ sub _on_message {
 
         if ($post_data->{message} eq '!die') {
             $tx->finish(1010, 'Requested');
+        }
+
+        if ($post_data->{message} eq '!alive') {
+            p $message;
         }
 
         # TODO
