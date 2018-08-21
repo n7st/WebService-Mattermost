@@ -1,7 +1,6 @@
 package Net::Mattermost::WS::v4;
 
 use Encode 'encode';
-use DDP;
 use Mojo::IOLoop;
 use Mojo::JSON qw(decode_json encode_json);
 use Moo;
@@ -178,22 +177,14 @@ sub _on_message {
 
     my $message_args = { message => $message };
 
-    #if ($self->ignore_self && $message->{data}->{post}) {
     if ($message->{data}->{post}) {
         my $post_data = decode_json($message->{data}->{post});
 
+        # Early return if the message is from the bot's own user ID (to halt
+        # recursion)
+        return if $self->ignore_self && $post_data->{user_id} eq $self->user_id;
+
         $message_args->{post_data} = $post_data;
-
-        if ($post_data->{message} eq '!die') {
-            $tx->finish(1010, 'Requested');
-        }
-
-        if ($post_data->{message} eq '!alive') {
-            p $message;
-        }
-
-        # TODO
-        #return if $post_data->{user_id} = $self->user_id;
     }
 
     $self->emit(message => $message_args);
@@ -315,7 +306,9 @@ extended in a child class, or used in a script.
         password => 'password',
         base_url => 'https://mattermost.server.com/api/v4/',
 
-        debug => 1, # optional
+        # Optional arguments
+        debug       => 1, # Show extra connection information
+        ignore_self => 0, # May cause recursion!
     });
 
     $bot->on(message => sub {
