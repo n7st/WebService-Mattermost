@@ -7,12 +7,11 @@ use Moo;
 use MooX::HandlesVia;
 use Types::Standard qw(ArrayRef HashRef Bool InstanceOf Int Maybe Str);
 
-extends qw(
-    Net::Mattermost
-    Mojo::EventEmitter
-);
+extends 'Mojo::EventEmitter';
 
 with qw(
+    Net::Mattermost::Role::API
+    Net::Mattermost::Role::Authenticate
     Net::Mattermost::Role::Logger
     Net::Mattermost::Role::UserAgent
 );
@@ -48,6 +47,7 @@ sub BUILD {
     my $self = shift;
 
     $self->authenticate(1);
+    $self->try_authentication();
 
     # Set up expected subroutines for a child class to catch. The events can
     # also be caught raw in a script.
@@ -60,7 +60,7 @@ sub BUILD {
         }
     }
 
-    return $self->next::method(@_);
+    return 1;
 }
 
 sub start {

@@ -1,83 +1,23 @@
 package Net::Mattermost;
 
 use Moo;
-use Types::Standard qw(Bool InstanceOf Str);
 
 use Net::Mattermost::API;
 
-with 'Net::Mattermost::Role::Logger';
-
-################################################################################
-
-has username => (is => 'ro', isa => Str, required => 0);
-has password => (is => 'ro', isa => Str, required => 0);
-has base_url => (is => 'ro', isa => Str, required => 1);
-
-has authenticate => (is => 'rw', isa => Bool, default => 0);
-has auth_token   => (is => 'rw', isa => Str,  default => '');
-has api_version  => (is => 'ro', isa => Str,  default => 'v4');
-has user_id      => (is => 'rw', isa => Str,  default => '');
-
-has api => (is => 'ro', isa => InstanceOf['Net::Mattermost::API'], lazy => 1, builder => 1);
+with qw(
+    Net::Mattermost::Role::API
+    Net::Mattermost::Role::Authenticate
+    Net::Mattermost::Role::Logger
+);
 
 ################################################################################
 
 sub BUILD {
     my $self = shift;
 
-    $self->_try_authentication();
+    $self->try_authentication();
 
     return 1;
-}
-
-################################################################################
-
-sub _set_resource_auth_token {
-    my $self  = shift;
-
-    my $ver = $self->api_version;
-
-    # Set the auth token against every available resource class after a
-    # successful login to the Mattermost server
-    foreach my $resource (@{$self->api->$ver->resources}) {
-        $resource->auth_token($self->auth_token);
-    }
-
-    return 1;
-}
-
-sub _try_authentication {
-    my $self = shift;
-
-    if ($self->authenticate && $self->username && $self->password) {
-        my $ver = $self->api_version;
-
-        # Log into Mattermost at runtime. The entire API requires an auth token
-        # which is sent back from the login method.
-        my $ret = $self->api->$ver->users->login($self->username, $self->password);
-
-        if ($ret->is_success) {
-            $self->auth_token($ret->headers->header('Token'));
-            $self->user_id($ret->content->{id});
-            $self->_set_resource_auth_token();
-        } else {
-            $self->logger->logdie($ret->message);
-        }
-    } elsif ($self->authenticate && !($self->username && $self->password)) {
-        $self->logger->logdie('"username" and "password" are required attributes for authentication');
-    } elsif ($self->auth_token) {
-        $self->_set_resource_auth_token();
-    }
-
-    return 1;
-}
-
-################################################################################
-
-sub _build_api {
-    my $self = shift;
-
-    return Net::Mattermost::API->new({ base_url => $self->base_url });
 }
 
 ################################################################################
