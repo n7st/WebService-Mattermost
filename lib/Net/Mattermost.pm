@@ -16,6 +16,7 @@ has base_url => (is => 'ro', isa => Str, required => 1);
 has authenticate => (is => 'rw', isa => Bool, default => 0);
 has auth_token   => (is => 'rw', isa => Str,  default => '');
 has api_version  => (is => 'ro', isa => Str,  default => 'v4');
+has user_id      => (is => 'rw', isa => Str,  default => '');
 
 has api => (is => 'ro', isa => InstanceOf['Net::Mattermost::API'], lazy => 1, builder => 1);
 
@@ -57,6 +58,7 @@ sub _try_authentication {
 
         if ($ret->is_success) {
             $self->auth_token($ret->headers->header('Token'));
+            $self->user_id($ret->content->{id});
             $self->_set_resource_auth_token();
         } else {
             $self->logger->logdie($ret->message);
