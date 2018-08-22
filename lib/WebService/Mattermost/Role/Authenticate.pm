@@ -10,7 +10,6 @@ requires qw(api logger);
 has [ qw(username password) ] => (is => 'ro', isa => Str, required => 1);
 
 has [ qw(auth_token user_id) ] => (is => 'rw', isa => Str,  default => '');
-has api_version                => (is => 'ro', isa => Str,  default => 'v4');
 has authenticate               => (is => 'rw', isa => Bool, default => 0);
 
 ################################################################################
@@ -19,11 +18,9 @@ sub try_authentication {
     my $self = shift;
 
     if ($self->authenticate && $self->username && $self->password) {
-        my $ver = $self->api_version;
-
         # Log into Mattermost at runtime. The entire API requires an auth token
         # which is sent back from the login method.
-        my $ret = $self->api->$ver->users->login($self->username, $self->password);
+        my $ret = $self->api->users->login($self->username, $self->password);
 
         if ($ret->is_success) {
             $self->auth_token($ret->headers->header('Token'));
@@ -46,11 +43,9 @@ sub try_authentication {
 sub _set_resource_auth_token {
     my $self  = shift;
 
-    my $ver = $self->api_version;
-
     # Set the auth token against every available resource class after a
     # successful login to the Mattermost server
-    foreach my $resource (@{$self->api->$ver->resources}) {
+    foreach my $resource (@{$self->api->resources}) {
         $resource->auth_token($self->auth_token);
     }
 
