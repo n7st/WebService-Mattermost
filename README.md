@@ -85,7 +85,7 @@ sub gw_message_no_event {}
 
 Or used in a script:
 
-```
+```perl
 use Net::Mattermost::WS::v4;
 
 my $bot = Net::Mattermost::WS::v4->new({
