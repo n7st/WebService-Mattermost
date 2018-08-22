@@ -1,6 +1,5 @@
 package WebService::Mattermost::WS::v4;
 
-use DDP;
 use Encode 'encode';
 use Mojo::IOLoop;
 use Mojo::JSON qw(decode_json encode_json);
@@ -30,12 +29,14 @@ has debug                  => (is => 'ro', isa => Bool, default => 0);
 has ignore_self            => (is => 'ro', isa => Bool, default => 1);
 has ping_interval          => (is => 'ro', isa => Int,  default => 15);
 has reconnection_wait_time => (is => 'ro', isa => Int,  default => 2);
-has last_seq               => (is => 'rw', isa => Int,  default => 1,
+
+has last_seq => (is => 'rw', isa => Int,  default => 1,
     handles_via => 'Number',
     handles     => {
         inc_last_seq => 'add',
     });
-has loops                  => (is => 'rw', isa => ArrayRef[InstanceOf['Mojo::IOLoop']], default => sub { [] },
+
+has loops => (is => 'rw', isa => ArrayRef[InstanceOf['Mojo::IOLoop']], default => sub { [] },
     handles_via => 'Array',
     handles     => {
         add_loop    => 'push',
