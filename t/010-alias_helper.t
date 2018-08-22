@@ -8,8 +8,8 @@ use Test::Most tests => 2;
 
 use lib "$FindBin::RealBin/../lib";
 
-use Net::Mattermost::Helper::Alias qw(v4 util);
+use WebService::Mattermost::Helper::Alias qw(v4 util);
 
-is util('Hello'), 'Net::Mattermost::Util::Hello', 'Util alias helper success';
-is v4('Hello'),   'Net::Mattermost::API::v4::Resource::Hello', 'v4 alias helper success';
+is util('Hello'), 'WebService::Mattermost::Util::Hello', 'Util alias helper success';
+is v4('Hello'),   'WebService::Mattermost::API::v4::Resource::Hello', 'v4 alias helper success';
 
