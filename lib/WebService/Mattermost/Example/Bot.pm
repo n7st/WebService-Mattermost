@@ -36,7 +36,7 @@ sub gw_message {
     if ($self->message_has_content($args) && $args->{post_data}->{message} =~ /ping/i) {
         # Use the "posts" resource from the API integration to send a message
         # back to the channel
-        $self->api->v4->posts->create({
+        $self->api->posts->create({
             channel_id => $args->{post_data}->{channel_id},
             message    => 'Pong',
         });

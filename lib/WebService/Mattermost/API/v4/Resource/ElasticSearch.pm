@@ -40,7 +40,7 @@ WebService::Mattermost::API::v4::Resource::ElasticSearch
         base_url     => 'https://my.mattermost.server.com/api/v4/',
     });
 
-    my $elasticsearch = $mm->api->v4->elasticsearch;
+    my $elasticsearch = $mm->api->elasticsearch;
 
 =head2 METHODS
 

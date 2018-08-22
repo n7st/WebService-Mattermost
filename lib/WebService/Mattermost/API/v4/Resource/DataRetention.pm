@@ -34,7 +34,7 @@ WebService::Mattermost::API::v4::Resource::DataRetention
         base_url     => 'https://my.mattermost.server.com/api/v4/',
     });
 
-    my $data_retention = $mm->api->v4->data_retention;
+    my $data_retention = $mm->api->data_retention;
 
 =head2 METHODS
 

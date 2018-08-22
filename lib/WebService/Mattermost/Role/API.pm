@@ -1,7 +1,7 @@
 package WebService::Mattermost::Role::API;
 
 use Moo::Role;
-use Types::Standard qw(InstanceOf Str);
+use Types::Standard qw(Object Str);
 
 use WebService::Mattermost::API;
 
@@ -9,14 +9,22 @@ use WebService::Mattermost::API;
 
 has base_url => (is => 'ro', isa => Str, required => 1);
 
-has api => (is => 'ro', isa => InstanceOf['WebService::Mattermost::API'], lazy => 1, builder => 1);
+has api_version => (is => 'ro', isa => Str, default => 'v4');
+
+has api => (is => 'ro', isa => Object, lazy => 1, builder => 1);
 
 ################################################################################
 
 sub _build_api {
     my $self = shift;
 
-    return WebService::Mattermost::API->new({ base_url => $self->base_url });
+    my $wrapper = WebService::Mattermost::API->new({
+        base_url => $self->base_url,
+    });
+
+    my $version = $self->api_version;
+
+    return $wrapper->$version;
 }
 
 ################################################################################
@@ -41,7 +49,7 @@ Add access to the Mattermost API to a class.
     sub something {
         my $self = shift;
 
-        # API available under $self->api->v4->[...]
+        # API available under $self->api->[...]
     }
 
 =head2 ATTRIBUTES
