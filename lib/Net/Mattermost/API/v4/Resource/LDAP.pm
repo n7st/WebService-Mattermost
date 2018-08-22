@@ -9,19 +9,13 @@ extends 'Net::Mattermost::API::v4::Resource';
 sub sync {
     my $self = shift;
 
-    return $self->_call({
-        method   => $self->post,
-        endpoint => 'sync',
-    });
+    return $self->_post({ endpoint => 'sync' });
 }
 
 sub test {
     my $self = shift;
 
-    return $self->_call({
-        method   => $self->post,
-        endpoint => 'test',
-    });
+    return $self->_post({ endpoint => 'test' });
 }
 
 ################################################################################

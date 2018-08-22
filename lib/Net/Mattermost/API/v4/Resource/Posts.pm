@@ -16,8 +16,7 @@ sub create {
         $args->{message} .= '';
     }
 
-    return $self->_call({
-        method     => $self->post,
+    return $self->_post({
         parameters => $args,
         required   => [ qw(channel_id message) ],
     });
@@ -27,8 +26,7 @@ sub reactions_for_id {
     my $self = shift;
     my $id   = shift;
 
-    return $self->_call({
-        method   => $self->get,
+    return $self->_get({
         endpoint => '%s/reactions',
         ids      => [ $id ],
     });

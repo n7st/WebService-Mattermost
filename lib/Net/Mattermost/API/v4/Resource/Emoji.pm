@@ -9,9 +9,7 @@ extends 'Net::Mattermost::API::v4::Resource';
 sub custom {
     my $self = shift;
 
-    return $self->_call({
-        method => $self->get,
-    });
+    return $self->_get({});
 }
 
 ################################################################################

@@ -9,10 +9,7 @@ extends 'Net::Mattermost::API::v4::Resource';
 sub policy {
     my $self = shift;
 
-    return $self->_call({
-        method   => $self->get,
-        endpoint => 'policy',
-    });
+    return $self->_get({ endpoint => 'policy' });
 }
 
 ################################################################################

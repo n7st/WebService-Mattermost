@@ -3,8 +3,8 @@
 use strict;
 use warnings;
 
-use Test::Most tests => 1;
+use Test::Most tests => 2;
 
-# Every module is imported into and built by Net::Mattermost
 use_ok 'Net::Mattermost';
+use_ok 'Net::Mattermost::WS::v4';
 

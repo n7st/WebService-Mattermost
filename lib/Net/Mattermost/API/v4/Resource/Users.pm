@@ -95,8 +95,7 @@ sub login {
     my $username = shift;
     my $password = shift;
 
-    return $self->_call({
-        method     => $self->post,
+    return $self->_post({
         endpoint   => 'login',
         parameters => {
             login_id => $username,
@@ -109,8 +108,7 @@ sub search_by_email {
     my $self  = shift;
     my $email = shift;
 
-    return $self->_call({
-        method   => $self->get,
+    return $self->_get({
         endpoint => 'email/%s',
         ids      => [ $email ],
     });
@@ -120,8 +118,7 @@ sub create {
     my $self = shift;
     my $args = shift;
 
-    return $self->_call({
-        method     => $self->post,
+    return $self->_post({
         parameters => $args,
         required   => [ qw(username password email) ],
     });
@@ -131,10 +128,7 @@ sub list {
     my $self = shift;
     my $args = shift;
 
-    return $self->_call({
-        method     => $self->get,
-        parameters => $args,
-    });
+    return $self->_get({ parameters => $args });
 }
 
 sub list_by_ids {
@@ -152,9 +146,8 @@ sub list_by_usernames {
     my $self      = shift;
     my $usernames = shift;
 
-    return $self->_call({
+    return $self->_post({
         endpoint   => 'usernames',
-        method     => $self->post,
         parameters => $usernames,
     });
 }
@@ -163,9 +156,8 @@ sub search {
     my $self = shift;
     my $args = shift;
 
-    return $self->_call({
+    return $self->_post({
         endpoint   => 'search',
-        method     => $self->post,
         parameters => $args,
         required   => [ 'term' ],
     });
@@ -175,9 +167,8 @@ sub autocomplete {
     my $self = shift;
     my $args = shift;
 
-    return $self->_call({
+    return $self->_get({
         endpoint   => 'autocomplete',
-        method     => $self->get,
         parameters => $args,
         required   => [ 'name' ],
     });
@@ -187,8 +178,7 @@ sub get_by_id {
     my $self = shift;
     my $id   = shift;
 
-    return $self->_call({
-        method   => $self->get,
+    return $self->_get({
         endpoint => '%s',
         ids      => [ $id ],
     });
@@ -199,8 +189,7 @@ sub update_by_id {
     my $id   = shift;
     my $args = shift;
 
-    return $self->_call({
-        method     => $self->put,
+    return $self->_put({
         endpoint   => '%s',
         ids        => [ $id ],
         parameters => $args,
@@ -225,8 +214,7 @@ sub deactivate_by_id {
     my $self = shift;
     my $id   = shift;
 
-    return $self->_call({
-        method   => $self->delete,
+    return $self->_delete({
         endpoint => '%s',
         ids      => [ $id ],
     });
@@ -237,8 +225,7 @@ sub patch_by_id {
     my $id   = shift;
     my $args = shift;
 
-    return $self->_call({
-        method     => $self->put,
+    return $self->_put({
         endpoint   => '%s/patch',
         ids        => [ $id ],
         parameters => $args,
@@ -257,8 +244,7 @@ sub update_role_by_id {
         return $self->_error_return($err);
     }
 
-    return $self->_call({
-        method     => $self->put,
+    return $self->_put({
         endpoint   => '%s/roles',
         ids        => [ $id ],
         parameters => {
@@ -271,8 +257,7 @@ sub get_profile_image_by_id {
     my $self = shift;
     my $id   = shift;
 
-    return $self->_call({
-        method   => $self->get,
+    return $self->_get({
         endpoint => '%s/image',
         ids      => [ $id ],
     });
@@ -287,8 +272,7 @@ sub set_profile_image_by_id {
         return $self->_error_return(sprintf('%s is not a valid file', $filename));
     }
 
-    return $self->_call({
-        method             => $self->post,
+    return $self->_post({
         endpoint           => '%s/image',
         ids                => [ $id ],
         override_data_type => 'form',
@@ -302,8 +286,7 @@ sub get_by_username {
     my $self     = shift;
     my $username = shift;
 
-    return $self->_call({
-        method   => $self->get,
+    return $self->_get({
         endpoint => 'username/%s',
         ids      => [ $username ],
     });
@@ -314,8 +297,7 @@ sub reset_password_by_id {
     my $id   = shift;
     my $args = shift;
 
-    return $self->_call({
-        method     => $self->post,
+    return $self->_post({
         endpoint   => 'password/reset',
         parameters => $args,
     });
@@ -326,8 +308,7 @@ sub update_mfa_by_id {
     my $id   = shift;
     my $args = shift;
 
-    return $self->_call({
-        method     => $self->put,
+    return $self->_put({
         endpoint   => '%s/mfa',
         ids        => [ $id ],
         parameters => $args,
@@ -338,8 +319,7 @@ sub generate_mfa_secret_by_id {
     my $self = shift;
     my $id   = shift;
 
-    return $self->_call({
-        method   => $self->post,
+    return $self->_post({
         endpoint => '%s/mfa/generate',
         ids      => [ $id ],
     });
@@ -349,8 +329,7 @@ sub check_mfa_by_username {
     my $self     = shift;
     my $username = shift;
 
-    return $self->_call({
-        method     => $self->post,
+    return $self->_post({
         endpoint   => 'mfa',
         parameters => {
             login_id => $username,
@@ -363,8 +342,7 @@ sub update_password_by_id {
     my $id   = shift;
     my $args = shift;
 
-    return $self->_call({
-        method     => $self->put,
+    return $self->_put({
         endpoint   => '%s/password',
         ids        => [ $id ],
         parameters => $args,
@@ -375,8 +353,7 @@ sub send_password_reset_email {
     my $self  = shift;
     my $email = shift;
 
-    return $self->_call({
-        method     => $self->post,
+    return $self->_post({
         endpoint   => 'password/reset/send',
         parameters => {
             email => $email,
@@ -388,10 +365,9 @@ sub get_by_email {
     my $self  = shift;
     my $email = shift;
 
-    return $self->_call({
-        method    => $self->get,
-        endpoint  => 'email/%s',
-        ids       => [ $email ],
+    return $self->_get({
+        endpoint => 'email/%s',
+        ids      => [ $email ],
     });
 }
 
@@ -399,8 +375,7 @@ sub get_sessions_by_id {
     my $self = shift;
     my $id   = shift;
 
-    return $self->_call({
-        method   => $self->get,
+    return $self->_get({
         endpoint => '%s/sessions',
         ids      => [ $id ],
     });
@@ -411,8 +386,7 @@ sub revoke_session_by_id {
     my $user_id    = shift;
     my $session_id = shift;
 
-    return $self->_call({
-        method     => $self->post,
+    return $self->_post({
         endpoint   => '%s/sessions/revoke',
         ids        => [ $user_id ],
         parameters => {
@@ -425,8 +399,7 @@ sub get_user_access_token {
     my $self = shift;
     my $id   = shift;
 
-    return $self->_call({
-        method   => $self->get,
+    return $self->_get({
         endpoint => 'tokens/%s',
         ids      => [ $id ],
     });
@@ -436,8 +409,7 @@ sub disable_personal_access_token {
     my $self = shift;
     my $id   = shift;
 
-    return $self->_call({
-        method     => $self->post,
+    return $self->_post({
         endpoint   => 'tokens/disable',
         parameters => {
             token => $id,
@@ -449,8 +421,7 @@ sub enable_personal_access_token {
     my $self = shift;
     my $id   = shift;
 
-    return $self->_call({
-        method     => $self->post,
+    return $self->_post({
         endpoint   => 'tokens/enable',
         parameters => {
             token => $id,
@@ -462,8 +433,7 @@ sub search_tokens {
     my $self = shift;
     my $term = shift;
 
-    return $self->_call({
-        method     => $self->post,
+    return $self->_post({
         endpoint   => 'tokens/search',
         parameters => {
             term => $term,
@@ -476,8 +446,7 @@ sub update_authentication_method_by_id {
     my $id   = shift;
     my $args = shift;
 
-    return $self->_call({
-        method    => $self->put,
+    return $self->_put({
         endpoint  => '%s/auth',
         ids       => [ $id ],
         paramters => $args,

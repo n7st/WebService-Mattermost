@@ -12,8 +12,7 @@ sub react {
     my $emoji_name = shift;
     my $user_id    = shift;
 
-    return $self->_call({
-        method     => $self->post,
+    return $self->_post({
         parameters => {
             post_id    => $post_id,
             emoji_name => $emoji_name,
