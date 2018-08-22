@@ -25,6 +25,8 @@ See individual POD files for details.
 
 ## API usage
 
+Currently, only API version 4 (latest) is supported.
+
 ```perl
 use WebService::Mattermost;
 
@@ -36,7 +38,7 @@ my $mattermost = WebService::Mattermost->new({
 });
 
 # API methods available under:
-my $api = $mattermost->api->v4;
+my $api = $mattermost->api;
 
 ```
 

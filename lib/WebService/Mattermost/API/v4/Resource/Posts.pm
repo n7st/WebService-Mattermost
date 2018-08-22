@@ -54,7 +54,7 @@ WebService::Mattermost::API::v4::Resource::Posts
         base_url     => 'https://my.mattermost.server.com/api/v4/',
     });
 
-    my $posts = $mm->api->v4->posts;
+    my $posts = $mm->api->posts;
 
 =head2 METHODS
 
