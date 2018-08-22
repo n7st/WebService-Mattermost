@@ -1,4 +1,4 @@
-# Net::Mattermost
+# WebService::Mattermost
 
 Suite for interacting with Mattermost chat servers. Includes API and WebSocket
 gateways.
@@ -8,14 +8,14 @@ gateways.
 ### From CPAN
 
 ```
-% cpanm Net::Mattermost
+% cpanm WebService::Mattermost
 ```
 
 ### Manual
 
 ```
-% git clone ssh://git@git.netsplit.uk:7170/mike/Net-Mattermost.git
-% cd Net-Mattermost
+% git clone ssh://git@git.netsplit.uk:7170/mike/WebService-Mattermost.git
+% cd WebService-Mattermost
 % dzil listdeps | cpanm
 % dzil authordeps | cpanm
 % dzil install
@@ -24,9 +24,9 @@ gateways.
 ## API usage
 
 ```perl
-use Net::Mattermost;
+use WebService::Mattermost;
 
-my $mattermost = Net::Mattermost->new({
+my $mattermost = WebService::Mattermost->new({
     authenticate => 1, # Log into Mattermost
     username     => 'email@address.com',
     password     => 'hunter2',
@@ -45,24 +45,25 @@ package SomePackage;
 
 use Moo;
 
-extends 'Net::Mattermost::WS::v4';
+extends 'WebService::Mattermost::WS::v4';
 
-# Methods from Net::Mattermost::WS::v4 which may be overridden
-sub on_connect {
+# WebService::Mattermost::WS::v4 emits events which can be caught with these
+# methods. None of them are required and they all pass two arguments ($self,
+# HashRef $args).
+sub gw_ws_started {}
 
+sub gw_ws_finished {}
+
+sub gw_message {
+    my $self = shift;
+    my $args = shift;
+
+    # The message's data is in $args
 }
 
-sub on_message {
+sub gw_error {}
 
-}
-
-sub on_quit {
-
-}
-
-sub on_default_event {
-
-}
+sub gw_message_no_event {}
 
 1;
 ```
