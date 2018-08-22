@@ -3,6 +3,8 @@
 Suite for interacting with Mattermost chat servers. Includes API and WebSocket
 gateways.
 
+See individual POD files for details.
+
 ## Installation
 
 ### From CPAN
@@ -40,6 +42,17 @@ my $api = $mattermost->api->v4;
 
 ## WebSocket gateway usage
 
+Several events are emitted:
+
+* `gw_ws_started` when the bot opens its WebSocket connection.
+* `gw_ws_finished` when the connection closes.
+* `gw_ws_error` if an error occurs.
+* `gw_message` on a "message" event.
+* Unless it has no event type attached to it, where `gw_message_no_event` is
+  emitted (this is usually a "ping" response).
+
+The WebSocket gateway can be extended in a Moo or Moose class:
+
 ```perl
 package SomePackage;
 
@@ -66,6 +79,30 @@ sub gw_error {}
 sub gw_message_no_event {}
 
 1;
+```
+
+Or used in a script:
+
+```
+use Net::Mattermost::WS::v4;
+
+my $bot = Net::Mattermost::WS::v4->new({
+    username => 'usernamehere',
+    password => 'password',
+    base_url => 'https://mattermost.server.com/api/v4/',
+
+    # Optional arguments
+    debug       => 1, # Show extra connection information
+    ignore_self => 0, # May cause recursion!
+});
+
+$bot->on(message => sub {
+    my ($bot, $args) = @_;
+
+    # $args contains the decoded message content
+});
+
+$bot->start(); # Add me last
 ```
 
 ## License
