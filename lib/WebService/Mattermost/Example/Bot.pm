@@ -45,7 +45,7 @@ sub gw_message {
     return 1;
 }
 
-sub gw_error {
+sub gw_ws_error {
     my $self = shift;
     my $args = shift;
 
@@ -117,7 +117,7 @@ Triggered when the connection to the gateway closes.
 
 Triggered when a message with an event is received from the gateway.
 
-=item C<gw_error()>
+=item C<gw_ws_error()>
 
 Triggered when an error is received from the gateway.
 

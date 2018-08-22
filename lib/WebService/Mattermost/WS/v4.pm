@@ -1,11 +1,12 @@
 package WebService::Mattermost::WS::v4;
 
+use DDP;
 use Encode 'encode';
 use Mojo::IOLoop;
 use Mojo::JSON qw(decode_json encode_json);
 use Moo;
 use MooX::HandlesVia;
-use Types::Standard qw(ArrayRef HashRef Bool InstanceOf Int Maybe Str);
+use Types::Standard qw(ArrayRef Bool InstanceOf Int Maybe Str);
 
 extends 'Mojo::EventEmitter';
 
@@ -18,8 +19,8 @@ with qw(
 
 ################################################################################
 
+has _events       => (is => 'ro', isa => ArrayRef,                      lazy => 1, builder => 1);
 has _ua           => (is => 'rw', isa => InstanceOf['Mojo::UserAgent'], lazy => 1, builder => 1);
-has event_map     => (is => 'ro', isa => HashRef,                       lazy => 1, builder => 1);
 has ioloop        => (is => 'rw', isa => InstanceOf['Mojo::IOLoop'],    lazy => 1, builder => 1);
 has websocket_url => (is => 'ro', isa => Str,                           lazy => 1, builder => 1);
 
@@ -51,12 +52,10 @@ sub BUILD {
 
     # Set up expected subroutines for a child class to catch. The events can
     # also be caught raw in a script.
-    foreach my $kx (keys %{$self->event_map}) {
-        my $vx = $self->event_map->{$kx};
-
-        # Values from event_map must be set up in child class
-        if ($self->can($vx)) {
-            $self->on($kx, sub { shift; $self->$vx(@_) });
+    foreach my $emission (@{$self->_events}) {
+        # Values from events must be set up in child class
+        if ($self->can($emission)) {
+            $self->on($emission, sub { shift; $self->$emission(@_) });
         }
     }
 
@@ -76,8 +75,7 @@ sub message_has_content {
     my $self = shift;
     my $args = shift;
 
-    return $args->{post_data}
-        && $args->{post_data}->{message};
+    return $args->{post_data} && $args->{post_data}->{message};
 }
 
 ################################################################################
@@ -96,7 +94,7 @@ sub _connect {
             $self->logger->fatalf('WebSocket handshake failed: %s', $tx->res->error->{message});
         }
 
-        $self->emit(started => {});
+        $self->emit(gw_ws_started => {});
 
         $self->logger->debug('Adding ping loop');
         $self->add_loop($self->ioloop->recurring(15 => sub { $self->_ping($tx) }));
@@ -151,7 +149,7 @@ sub _on_finish {
     $self->logger->infof('Reconnecting in %d seconds...', $self->reconnection_wait_time);
 
     $self->ws->finish;
-    $self->emit(finished => { code => $code, reason => $reason });
+    $self->emit(gw_ws_finished => { code => $code, reason => $reason });
 
     # Delay the reconnection a little
     Mojo::IOLoop->timer($self->reconnection_wait_time => sub {
@@ -187,7 +185,7 @@ sub _on_message {
         $message_args->{post_data} = $post_data;
     }
 
-    $self->emit(message => $message_args);
+    $self->emit(gw_message => $message_args);
 
     if ($message->{event} eq 'hello') {
         if ($self->debug) {
@@ -212,7 +210,7 @@ sub _on_non_event {
         $self->logger->debugf('[Seq: %d] Received %s', $self->last_seq, $message->{data}->{text});
     }
 
-    return $self->emit(message_no_event => $message);
+    return $self->emit(gw_message_no_event => $message);
 }
 
 sub _on_error {
@@ -220,7 +218,7 @@ sub _on_error {
     my $ws      = shift;
     my $message = shift;
 
-    $self->emit(error => { message => $message });
+    $self->emit(gw_ws_error => { message => $message });
 
     return $ws->finish($message);
 }
@@ -251,17 +249,17 @@ sub _clean_up_loops {
 
 ################################################################################
 
-sub _build__ua { Mojo::UserAgent->new }
-
-sub _build_event_map {
-    return {
-        started          => 'gw_ws_started',
-        finished         => 'gw_ws_finished',
-        message          => 'gw_message',
-        error            => 'gw_error',
-        message_no_event => 'gw_message_no_event',
-    };
+sub _build__events {
+    return [ qw(
+        gw_ws_error
+        gw_ws_finished
+        gw_ws_started
+        gw_message
+        gw_message_no_event
+    ) ];
 }
+
+sub _build__ua { Mojo::UserAgent->new }
 
 sub _build_ioloop { Mojo::IOLoop->singleton }
 
@@ -330,25 +328,25 @@ which can be overridden in child classes.
 
 =over 4
 
-=item C<started>
+=item C<gw_ws_started>
 
 The bot connected to the Mattermost gateway. Can be overridden as
 C<gw_ws_started()>.
 
-=item C<finished>
+=item C<gw_ws_finished>
 
 The bot disconnected from the Mattermost gateway. Can be overridden as
 C<gw_ws_finished()>.
 
-=item C<message>
+=item C<gw_message>
 
 The bot received a message. Can be overridden as C<gw_message()>.
 
-=item C<error>
+=item C<gw_ws_error>
 
 The bot received an error. Can be overridden as C<gw_error()>.
 
-=item C<message_no_event>
+=item C<gw_message_no_event>
 
 The bot received a message without an event (which is usually a "ping" item).
 Can be overridden as C<gw_message_no_event()>.
