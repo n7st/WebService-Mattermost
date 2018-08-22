@@ -86,9 +86,9 @@ sub gw_message_no_event {}
 Or used in a script:
 
 ```perl
-use Net::Mattermost::WS::v4;
+use WebService::Mattermost::WS::v4;
 
-my $bot = Net::Mattermost::WS::v4->new({
+my $bot = WebService::Mattermost::WS::v4->new({
     username => 'usernamehere',
     password => 'password',
     base_url => 'https://mattermost.server.com/api/v4/',
