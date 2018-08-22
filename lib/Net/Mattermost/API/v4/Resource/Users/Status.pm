@@ -10,8 +10,7 @@ sub get_by_id {
     my $self = shift;
     my $id   = shift;
 
-    return $self->_call({
-        method   => $self->get,
+    return $self->_get({
         endpoint => '%s/status',
         ids      => [ $id ],
     });
@@ -22,8 +21,7 @@ sub set_by_id {
     my $id     = shift;
     my $status = shift;
 
-    return $self->_call({
-        method     => $self->put,
+    return $self->_put({
         endpoint   => '%s/status',
         ids        => [ $id ],
         parameters => {
@@ -36,8 +34,7 @@ sub get_by_ids {
     my $self = shift;
     my $ids  = shift;
 
-    return $self->_call({
-        method     => $self->post,
+    return $self->_post({
         endpoint   => 'status/ids',
         parameters => $ids,
     });

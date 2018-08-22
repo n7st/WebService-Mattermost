@@ -9,19 +9,15 @@ extends 'Net::Mattermost::API::v4::Resource';
 sub current {
     my $self = shift;
 
-    return $self->_call({
-        method   => $self->get,
-        endpoint => 'image',
-    });
+    return $self->_get({ endpoint => 'image' });
 }
 
 sub upload {
     my $self     = shift;
     my $filename = shift;
 
-    return $self->_call({
-        method => $self->post,
-        endpoint => 'image',
+    return $self->_post({
+        endpoint   => 'image',
         parameters => {
             image => { file => $filename },
         },

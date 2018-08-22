@@ -23,6 +23,42 @@ has put     => (is => 'ro', isa => Str,     default => 'PUT');
 
 ################################################################################
 
+sub _delete {
+    my $self = shift;
+    my $args = shift;
+
+    $args->{method} = $self->delete;
+
+    return $self->_call($args);
+}
+
+sub _get {
+    my $self = shift;
+    my $args = shift;
+
+    $args->{method} = $self->get;
+
+    return $self->_call($args);
+}
+
+sub _post {
+    my $self = shift;
+    my $args = shift;
+
+    $args->{method} = $self->post;
+
+    return $self->_call($args);
+}
+
+sub _put {
+    my $self = shift;
+    my $args = shift;
+
+    $args->{method} = $self->put;
+
+    return $self->_call($args);
+}
+
 sub _call {
     my $self = shift;
     my $args = shift;

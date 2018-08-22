@@ -9,19 +9,13 @@ extends 'Net::Mattermost::API::v4::Resource';
 sub test {
     my $self = shift;
 
-    return $self->_call({
-        method   => $self->post,
-        endpoint => 'test',
-    });
+    return $self->_post({ endpoint => 'test' });
 }
 
 sub purge_indexes {
     my $self = shift;
 
-    return $self->_call({
-        method   => $self->post,
-        endpoint => 'purge',
-    });
+    return $self->_post({ endpoint => 'purge' });
 }
 
 ################################################################################
