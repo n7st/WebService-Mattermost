@@ -455,19 +455,6 @@ sub update_authentication_method_by_id {
 
 ################################################################################
 
-sub _new_user_resource {
-    my $self     = shift;
-    my $resource = shift;
-
-    return v4($resource)->new({
-        auth_token => $self->auth_token,
-        resource   => 'users',
-        base_url   => $self->base_url,
-    });
-}
-
-################################################################################
-
 sub _build_available_user_roles {
     my $self = shift;
 
@@ -477,13 +464,13 @@ sub _build_available_user_roles {
 sub _build_preferences {
     my $self = shift;
 
-    return $self->_new_user_resource('Users::Preferences');
+    return $self->_new_related_resource('users', 'Users::Preferences');
 }
 
 sub _build_status {
     my $self = shift;
 
-    return $self->_new_user_resource('Users::Status');
+    return $self->_new_related_resource('users', 'Users::Status');
 }
 
 ################################################################################

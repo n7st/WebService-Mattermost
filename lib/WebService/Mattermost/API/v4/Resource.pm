@@ -1,11 +1,13 @@
 package WebService::Mattermost::API::v4::Resource;
 
+use DDP;
 use List::MoreUtils 'all';
 use Moo;
 use Types::Standard qw(HashRef Str);
 
 use WebService::Mattermost::API::Request;
 use WebService::Mattermost::API::Response;
+use WebService::Mattermost::Helper::Alias 'v4';
 
 with 'WebService::Mattermost::Role::UserAgent';
 
@@ -89,6 +91,8 @@ sub _call {
 
     $form_type = $args->{override_data_type} if $args->{override_data_type};
 
+    p $args;
+
     my $tx = $self->ua->$method(
         $request->url => \%headers,
         $form_type    => $request->parameters,
@@ -158,6 +162,18 @@ sub _error_return {
         error   => 1,
         message => $error,
     };
+}
+
+sub _new_related_resource {
+    my $self     = shift;
+    my $base     = shift;
+    my $resource = shift;
+
+    return v4($resource)->new({
+        auth_token => $self->auth_token,
+        base_url   => $self->base_url,
+        resource   => $base,
+    });
 }
 
 ################################################################################
