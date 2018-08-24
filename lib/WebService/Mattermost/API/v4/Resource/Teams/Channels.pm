@@ -1,6 +1,5 @@
 package WebService::Mattermost::API::v4::Resource::Teams::Channels;
 
-use DDP;
 use Moo;
 
 use WebService::Mattermost::API::View::Channel;
@@ -15,8 +14,6 @@ sub by_ids {
     my $team_id     = shift;
     my $channel_ids = shift;
 
-    # TODO: test
-
     unless ($team_id) {
         return $self->_error_return('The first argument should be a team_id');
     }
@@ -25,17 +22,12 @@ sub by_ids {
         return $self->_error_return('The second argument should be an arrayref of channel_ids');
     }
 
-    my $response = $self->_post({
+    return $self->_post({
         parameters => $channel_ids,
         endpoint   => '%s/channels/ids',
         ids        => [ $team_id ],
+        view       => 'Channel',
     });
-
-    unless ($response->is_success && ref $response->content eq 'ARRAY') {
-        return $response;
-    }
-
-    return [ map { view('Channel')->new({ raw_data => $_ }) } @{$response->content} ];
 }
 
 sub public {
@@ -43,17 +35,12 @@ sub public {
     my $team_id = shift;
     my $args    = shift;
 
-    my $response = $self->_get({
+    return $self->_get({
         endpoint   => '%s/channels',
         ids        => [ $team_id ],
         parameters => $args,
+        view       => 'Channel',
     });
-
-    unless ($response->is_success && ref $response->content eq 'ARRAY') {
-        return $response;
-    }
-
-    return [ map { view('Channel')->new({ raw_data => $_ }) } @{$response->content} ];
 }
 
 sub deleted {
@@ -65,6 +52,7 @@ sub deleted {
         endpoint   => '%s/channels/deleted',
         ids        => [ $team_id ],
         parameters => $args,
+        view       => 'Channel',
     });
 }
 
@@ -78,6 +66,7 @@ sub autocomplete {
         ids        => [ $team_id ],
         parameters => $args,
         required   => [ 'name' ],
+        view       => 'Channel',
     });
 }
 
@@ -91,6 +80,7 @@ sub search {
         ids        => [ $team_id ],
         parameters => $args,
         required   => [ 'term' ],
+        view       => 'Channel',
     });
 }
 
@@ -99,9 +89,10 @@ sub by_name {
     my $team_id = shift;
     my $name    = shift;
 
-    return $self->_get({
+    return $self->_single_view_get({
         endpoint => '%s/channels/name/%s',
         ids      => [ $team_id, $name ],
+        view     => 'Channel',
     });
 }
 
@@ -110,9 +101,10 @@ sub by_name_and_team_name {
     my $team_name    = shift;
     my $channel_name = shift;
 
-    return $self->_get({
+    return $self->_single_view_get({
         endpoint => 'name/%s/channels/name/%s',
         ids      => [ $team_name, $channel_name ],
+        view     => 'Channel',
     });
 }
 

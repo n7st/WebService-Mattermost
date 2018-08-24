@@ -1,13 +1,14 @@
 package WebService::Mattermost::API::v4::Resource;
 
-use DDP;
 use List::MoreUtils 'all';
 use Moo;
 use Types::Standard qw(HashRef Str);
 
 use WebService::Mattermost::API::Request;
 use WebService::Mattermost::API::Response;
-use WebService::Mattermost::Helper::Alias 'v4';
+use WebService::Mattermost::Helper::Alias qw(v4 view);
+use WebService::Mattermost::API::View::Channel;
+use WebService::Mattermost::API::View::User;
 
 with 'WebService::Mattermost::Role::UserAgent';
 
@@ -34,6 +35,15 @@ sub _delete {
     return $self->_call($args);
 }
 
+sub _single_view_delete {
+    my $self = shift;
+    my $args = shift;
+
+    $args->{single} = 1;
+
+    return $self->_delete($args);
+}
+
 sub _get {
     my $self = shift;
     my $args = shift;
@@ -41,6 +51,15 @@ sub _get {
     $args->{method} = $self->get;
 
     return $self->_call($args);
+}
+
+sub _single_view_get {
+    my $self = shift;
+    my $args = shift;
+
+    $args->{single} = 1;
+
+    return $self->_get($args);
 }
 
 sub _post {
@@ -52,6 +71,15 @@ sub _post {
     return $self->_call($args);
 }
 
+sub _single_view_post {
+    my $self = shift;
+    my $args = shift;
+
+    $args->{single} = 1;
+
+    return $self->_post($args);
+}
+
 sub _put {
     my $self = shift;
     my $args = shift;
@@ -59,6 +87,15 @@ sub _put {
     $args->{method} = $self->put;
 
     return $self->_call($args);
+}
+
+sub _single_view_put {
+    my $self = shift;
+    my $args = shift;
+
+    $args->{method} = $self->put;
+
+    return $self->_put($args);
 }
 
 sub _call {
@@ -91,14 +128,25 @@ sub _call {
 
     $form_type = $args->{override_data_type} if $args->{override_data_type};
 
-    p $args;
-
     my $tx = $self->ua->$method(
         $request->url => \%headers,
         $form_type    => $request->parameters,
     );
 
-    return $self->_as_response($tx->res);
+    my $response = $self->_as_response($tx->res);
+
+    if ($args->{view}) {
+        my @items = ref $response->content eq 'ARRAY' ? @{$response->content} : ($response->content);
+        my @ret   = map { view($args->{view})->new({ raw_data => $_ }) } @items;
+
+        if ($args->{single}) {
+            return $ret[0];
+        }
+
+        return \@ret;
+    }
+
+    return $response;
 }
 
 sub _as_request {
