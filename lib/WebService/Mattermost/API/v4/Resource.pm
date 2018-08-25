@@ -133,20 +133,7 @@ sub _call {
         $form_type    => $request->parameters,
     );
 
-    my $response = $self->_as_response($tx->res);
-
-    if ($args->{view}) {
-        my @items = ref $response->content eq 'ARRAY' ? @{$response->content} : ($response->content);
-        my @ret   = map { view($args->{view})->new({ raw_data => $_ }) } @items;
-
-        if ($args->{single}) {
-            return $ret[0];
-        }
-
-        return \@ret;
-    }
-
-    return $response;
+    return $self->_as_response($tx->res, $args);
 }
 
 sub _as_request {
@@ -165,8 +152,9 @@ sub _as_request {
 sub _as_response {
     my $self = shift;
     my $res  = shift;
+    my $args = shift;
 
-    return WebService::Mattermost::API::Response->new({
+    my $response = WebService::Mattermost::API::Response->new({
         code        => $res->code,
         headers     => $res->headers,
         is_error    => $res->is_error   ? 1 : 0,
@@ -175,6 +163,18 @@ sub _as_response {
         prev        => $res,
         raw_content => $res->body,
     });
+
+    if ($args->{view}) {
+        my @items   = ref $response->content eq 'ARRAY' ? @{$response->content} : ($response->content);
+        my @ret     = map {
+            view($args->{view})->new({ raw_data => $_ })
+        } @items;
+
+        $response->item($ret[0]) if $args->{single};
+        $response->items(\@ret);
+    }
+
+    return $response;
 }
 
 sub _validate {

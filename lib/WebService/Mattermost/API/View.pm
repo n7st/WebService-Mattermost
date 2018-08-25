@@ -2,6 +2,14 @@ package WebService::Mattermost::API::View;
 
 use DateTime;
 use Moo;
+use Types::Standard qw(HashRef Str);
+
+# TODO
+#extends 'WebService::Mattermost';
+
+################################################################################
+
+has raw_data => (is => 'ro', isa => HashRef, required => 1);
 
 ################################################################################
 

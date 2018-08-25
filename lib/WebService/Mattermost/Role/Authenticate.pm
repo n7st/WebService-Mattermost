@@ -1,5 +1,6 @@
 package WebService::Mattermost::Role::Authenticate;
 
+use DDP;
 use Moo::Role;
 use Types::Standard qw(Bool Str);
 
@@ -112,10 +113,6 @@ Attempts to connect to the server with the given credentials.
 =item C<username>
 
 =item C<password>
-
-=item C<api_version>
-
-Defaults to C<v4>.
 
 =item C<authenticate>
 

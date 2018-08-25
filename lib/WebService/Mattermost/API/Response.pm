@@ -2,7 +2,7 @@ package WebService::Mattermost::API::Response;
 
 use Mojo::JSON 'decode_json';
 use Moo;
-use Types::Standard qw(Any Bool HashRef InstanceOf Int Str);
+use Types::Standard qw(Any ArrayRef Bool HashRef InstanceOf Int Object Str);
 
 ################################################################################
 
@@ -11,6 +11,8 @@ has headers     => (is => 'ro', isa => InstanceOf['Mojo::Headers'],           re
 has message     => (is => 'ro', isa => Str,                                   required => 0);
 has prev        => (is => 'ro', isa => InstanceOf['Mojo::Message::Response'], required => 1);
 has raw_content => (is => 'ro', isa => Str,                                   required => 0);
+has item        => (is => 'rw', isa => Object,                                required => 0);
+has items       => (is => 'rw', isa => ArrayRef,                              required => 0);
 
 has is_error   => (is => 'ro', isa => Bool, default => 0);
 has is_success => (is => 'ro', isa => Bool, default => 1);

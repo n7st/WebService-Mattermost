@@ -95,12 +95,13 @@ sub login {
     my $username = shift;
     my $password = shift;
 
-    return $self->_post({
+    return $self->_single_view_post({
         endpoint   => 'login',
         parameters => {
             login_id => $username,
             password => $password,
         },
+        view       => 'User',
     });
 }
 

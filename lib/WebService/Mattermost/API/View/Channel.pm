@@ -1,13 +1,14 @@
 package WebService::Mattermost::API::View::Channel;
 
+use DDP;
 use Moo;
 use Types::Standard qw(HashRef InstanceOf Int Maybe Str);
+
+use WebService::Mattermost::Helper::Alias 'view';
 
 extends 'WebService::Mattermost::API::View';
 
 ################################################################################
-
-has raw_data => (is => 'ro', isa => HashRef, required => 1);
 
 has [ qw(
     created_at
@@ -115,6 +116,23 @@ sub _build_total_message_count {
 
     return $self->raw_data->{total_message_count};
 }
+
+=cut
+
+# TODO
+sub _build_created_by {
+    my $self = shift;
+
+    return unless $self->creator_id;
+    my $ret = $self->api->users->get_by_id($self->creator_id);
+
+    p $self->base_url;
+    p $self->auth_token;
+    p $ret;
+
+    return undef;
+}
+=cut
 
 ################################################################################
 

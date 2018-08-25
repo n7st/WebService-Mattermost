@@ -1,5 +1,6 @@
 package WebService::Mattermost::Role::API;
 
+use DDP;
 use Moo::Role;
 use Types::Standard qw(Object Str);
 
@@ -12,6 +13,8 @@ has base_url => (is => 'ro', isa => Str, required => 1);
 has api_version => (is => 'ro', isa => Str, default => 'v4');
 
 has api => (is => 'ro', isa => Object, lazy => 1, builder => 1);
+
+has api_store => (is => 'rw', isa => Object);
 
 ################################################################################
 
@@ -64,6 +67,10 @@ C<https://my.mattermost.server.com/api/v4/>.
 =item C<api>
 
 The accessor for the API library.
+
+=item C<api_version>
+
+Defaults to 'v4'.
 
 =back
 
