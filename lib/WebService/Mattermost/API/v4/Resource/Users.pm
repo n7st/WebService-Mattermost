@@ -179,9 +179,10 @@ sub get_by_id {
     my $self = shift;
     my $id   = shift;
 
-    return $self->_get({
+    return $self->_single_view_get({
         endpoint => '%s',
         ids      => [ $id ],
+        view     => 'User',
     });
 }
 

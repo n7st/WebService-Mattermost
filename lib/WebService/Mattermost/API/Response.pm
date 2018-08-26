@@ -1,8 +1,15 @@
 package WebService::Mattermost::API::Response;
 
+use DDP;
 use Mojo::JSON 'decode_json';
 use Moo;
-use Types::Standard qw(Any ArrayRef Bool HashRef InstanceOf Int Object Str);
+use Types::Standard qw(Any ArrayRef Bool HashRef InstanceOf Int Maybe Object Str);
+
+use WebService::Mattermost::Helper::Alias 'view';
+use WebService::Mattermost::API::View::Channel;
+use WebService::Mattermost::API::View::User;
+
+extends 'WebService::Mattermost';
 
 ################################################################################
 
@@ -11,13 +18,16 @@ has headers     => (is => 'ro', isa => InstanceOf['Mojo::Headers'],           re
 has message     => (is => 'ro', isa => Str,                                   required => 0);
 has prev        => (is => 'ro', isa => InstanceOf['Mojo::Message::Response'], required => 1);
 has raw_content => (is => 'ro', isa => Str,                                   required => 0);
-has item        => (is => 'rw', isa => Object,                                required => 0);
-has items       => (is => 'rw', isa => ArrayRef,                              required => 0);
+has item_view   => (is => 'ro', isa => Str,                                   required => 0);
+has single_item => (is => 'ro', isa => Bool,                                  required => 0);
 
 has is_error   => (is => 'ro', isa => Bool, default => 0);
 has is_success => (is => 'ro', isa => Bool, default => 1);
 
 has content => (is => 'rw', isa => Any, default => sub { {} });
+
+has item  => (is => 'ro', isa => Maybe[Object],   lazy => 1, builder => 1);
+has items => (is => 'ro', isa => Maybe[ArrayRef], lazy => 1, builder => 1);
 
 ################################################################################
 
@@ -29,6 +39,40 @@ sub BUILD {
     }
 
     return 1;
+}
+
+################################################################################
+
+sub _build_item {
+    my $self = shift;
+
+    my $item;
+
+    if (scalar @{$self->items}) {
+        $item = $self->items->[0];
+    }
+
+    return $item;
+}
+
+sub _build_items {
+    my $self = shift;
+
+    my @ret;
+
+    if ($self->item_view) {
+        my @items = ref $self->content eq 'ARRAY' ? @{$self->content} : ($self->content);
+
+        @ret = map {
+            view($self->item_view)->new({
+                raw_data    => $_,
+                base_url    => $self->base_url,
+                api_version => $self->api_version,
+            })
+        } @items;
+    }
+
+    return \@ret;
 }
 
 ################################################################################

@@ -154,7 +154,7 @@ sub _as_response {
     my $res  = shift;
     my $args = shift;
 
-    my $response = WebService::Mattermost::API::Response->new({
+    return WebService::Mattermost::API::Response->new({
         code        => $res->code,
         headers     => $res->headers,
         is_error    => $res->is_error   ? 1 : 0,
@@ -162,19 +162,9 @@ sub _as_response {
         message     => $res->message,
         prev        => $res,
         raw_content => $res->body,
+        item_view   => $args->{view},
+        single_item => $args->{single},
     });
-
-    if ($args->{view}) {
-        my @items   = ref $response->content eq 'ARRAY' ? @{$response->content} : ($response->content);
-        my @ret     = map {
-            view($args->{view})->new({ raw_data => $_ })
-        } @items;
-
-        $response->item($ret[0]) if $args->{single};
-        $response->items(\@ret);
-    }
-
-    return $response;
 }
 
 sub _validate {
