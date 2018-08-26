@@ -117,22 +117,19 @@ sub _build_total_message_count {
     return $self->raw_data->{total_message_count};
 }
 
-=cut
-
 # TODO
-sub _build_created_by {
-    my $self = shift;
-
-    return unless $self->creator_id;
-    my $ret = $self->api->users->get_by_id($self->creator_id);
-
-    p $self->base_url;
-    p $self->auth_token;
-    p $ret;
-
-    return undef;
-}
-=cut
+#sub _build_created_by {
+#    my $self = shift;
+#
+#    return unless $self->creator_id;
+#    my $ret = $self->api->users->get_by_id($self->creator_id);
+#
+#    p $self->base_url;
+#    p $self->auth_token;
+#    p $ret;
+#
+#    return undef;
+#}
 
 ################################################################################
 

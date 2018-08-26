@@ -51,4 +51,43 @@ sub _build_status_code {
 ################################################################################
 
 1;
+__END__
+
+=head1 NAME
+
+WebService::Mattermost::API::View::Error
+
+=head1 DESCRIPTION
+
+Details an error response from the API.
+
+=head2 ATTRIBUTES
+
+=over 4
+
+=item C<detailed_error>
+
+=item C<id>
+
+=item C<message>
+
+=item C<request_id>
+
+=item C<status_code>
+
+=back
+
+=head1 SEE ALSO
+
+=over 4
+
+=item L<Error documentation|https://api.mattermost.com/#tag/errors>
+
+Official documentation for API errors.
+
+=back
+
+=head1 AUTHOR
+
+Mike Jones L<email:mike@netsplit.org.uk>
 
