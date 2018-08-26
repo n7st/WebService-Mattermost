@@ -35,6 +35,7 @@ has items => (is => 'ro', isa => Maybe[ArrayRef], lazy => 1, builder => 1);
 sub BUILD {
     my $self = shift;
 
+    # Rudimentary "is it JSON?" hack
     if ($self->raw_content && $self->raw_content =~ /^[\{\[]/) {
         $self->content(decode_json($self->raw_content));
     }
