@@ -134,4 +134,88 @@ sub _build_total_message_count {
 ################################################################################
 
 1;
+__END__
+
+=head1 NAME
+
+WebService::Mattermost::API::View::Channel
+
+=head1 DESCRIPTION
+
+Details a Mattermost channel object.
+
+=head2 ATTRIBUTES
+
+=over 4
+
+=item C<created_at>
+
+A DateTime object for when the channel was created.
+
+=item C<delete_at>
+
+A DateTime object for when the channel should be deleted.
+
+=item C<extra_updated_at>
+
+A DateTime object for when the channel was updated (extra).
+
+=item C<last_post_at>
+
+A DateTime object for when the channel was last posted to.
+
+=item C<updated_at>
+
+A DateTime object for when the channel was last updated.
+
+=item C<creator_id>
+
+The ID of the user who created the channel.
+
+=item C<display_name>
+
+The channel's display name.
+
+=item C<header>
+
+The channel's topic
+
+=item C<id>
+
+The channel's ID.
+
+=item C<name>
+
+The channel's real name.
+
+=item C<purpose>
+
+A description of what the channel is for.
+
+=item C<team_id>
+
+The ID of the team the channel belongs to.
+
+=item C<type>
+
+The channel's access type (either "Public" or "Private", translated from "O" or
+"P" respectively).
+
+=item C<total_message_count>
+
+The number of messages made in the channel.
+
+=back
+
+=head1 SEE ALSO
+
+=over 4
+
+=item L<Channel documentation|https://api.mattermost.com/#tag/channels>
+
+=back
+
+=head1 AUTHOR
+
+Mike Jones L<email:mike@netsplit.org.uk>
 
