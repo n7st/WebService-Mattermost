@@ -65,6 +65,7 @@ sub _build_items {
         my @items = ref $self->content eq 'ARRAY' ? @{$self->content} : ($self->content);
 
         if ($items[0]->{status_code} && $items[0]->{status_code} != 200) {
+            # The response is actually an error - create an Error view
             push @ret, view('Error')->new({
                 raw_data    => $items[0],
                 api_version => $self->api_version,
@@ -127,6 +128,22 @@ JSON-encoded content or undef.
 =item C<content>
 
 Decoded content in ArrayRef or HashRef form.
+
+=item C<item_view>
+
+Whether or not the response should try to create a View object.
+
+=item C<single_item>
+
+Whether or not the expected View should be an ArrayRef.
+
+=item C<item>
+
+The first View object.
+
+=item C<items>
+
+All view objects.
 
 =back
 
