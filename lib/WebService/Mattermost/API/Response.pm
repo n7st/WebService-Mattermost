@@ -7,6 +7,7 @@ use Types::Standard qw(Any ArrayRef Bool HashRef InstanceOf Int Maybe Object Str
 
 use WebService::Mattermost::Helper::Alias 'view';
 use WebService::Mattermost::API::View::Channel;
+use WebService::Mattermost::API::View::Error;
 use WebService::Mattermost::API::View::User;
 
 extends 'WebService::Mattermost';
@@ -63,13 +64,19 @@ sub _build_items {
     if ($self->item_view) {
         my @items = ref $self->content eq 'ARRAY' ? @{$self->content} : ($self->content);
 
-        @ret = map {
-            view($self->item_view)->new({
-                raw_data    => $_,
-                base_url    => $self->base_url,
+        if ($items[0]->{status_code} && $items[0]->{status_code} != 200) {
+            push @ret, view('Error')->new({
+                raw_data    => $items[0],
                 api_version => $self->api_version,
-            })
-        } @items;
+            });
+        } else {
+            @ret = map {
+                view($self->item_view)->new({
+                    raw_data    => $_,
+                    api_version => $self->api_version,
+                })
+            } @items;
+        }
     }
 
     return \@ret;

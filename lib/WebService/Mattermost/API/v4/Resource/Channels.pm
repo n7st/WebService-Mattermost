@@ -53,8 +53,15 @@ sub create_group_channel {
     });
 }
 
-sub get {
-    # GET /{id}
+sub get_by_id {
+    my $self = shift;
+    my $id   = shift;
+
+    return $self->_single_view_get({
+        endpoint => '%s',
+        view     => 'Channel',
+        ids      => [ $id ],
+    });
 }
 
 sub update {
