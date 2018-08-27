@@ -75,4 +75,70 @@ sub private_remove {
 ################################################################################
 
 1;
+__END__
+
+=head1 NAME
+
+WebService::Mattermost::API::v4::Resource::SAML::Certificate
+
+=head1 DESCRIPTION
+
+=head2 USAGE
+
+    use WebService::Mattermost;
+
+    my $mm = WebService::Mattermost->new({
+        authenticate => 1,
+        username     => 'me@somewhere.com',
+        password     => 'hunter2',
+        base_url     => 'https://my.mattermost.server.com/api/v4/',
+    });
+
+    my $resource = $mm->api->saml->certificate;
+
+=head2 METHODS
+
+=over 4
+
+=item C<idp_upload()>
+
+Upload an IDP key.
+
+    $resource->idp_upload('/path/to/idp.key');
+
+=item C<idp_remove()>
+
+Remove your associated IDP key.
+
+    $resource->idp_remove();
+
+=item C<public_upload()>
+
+Upload a public key.
+
+    $resource->public_upload('/path/to/public.key');
+
+=item C<public_remove()>
+
+Remove your associated public key.
+
+    $resource->public_remove();
+
+=item C<private_upload()>
+
+Upload a private key.
+
+    $resource->private_upload('/path/to/private.key');
+
+=item C<private_remove()>
+
+Remove your associated private key.
+
+    $resource->private_remove();
+
+=back
+
+=head1 AUTHOR
+
+Mike Jones L<email:mike@netsplit.org.uk>
 

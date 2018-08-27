@@ -33,4 +33,46 @@ sub _build_certificate {
 ################################################################################
 
 1;
+__END__
+
+=head1 NAME
+
+WebService::Mattermost::API::v4::Resource::SAML
+
+=head1 DESCRIPTION
+
+=head2 USAGE
+
+    use WebService::Mattermost;
+
+    my $mm = WebService::Mattermost->new({
+        authenticate => 1,
+        username     => 'me@somewhere.com',
+        password     => 'hunter2',
+        base_url     => 'https://my.mattermost.server.com/api/v4/',
+    });
+
+    my $resource = $mm->api->saml;
+
+=head2 METHODS
+
+=over 4
+
+=item C<metadata()>
+
+Get SAML metadata from the server.
+
+=back
+
+=head1 SEE ALSO
+
+=over 4
+
+=item L<Official SAML documentation|https://api.mattermost.com/#tag/SAML>
+
+=back
+
+=head1 AUTHOR
+
+Mike Jones L<email:mike@netsplit.org.uk>
 
