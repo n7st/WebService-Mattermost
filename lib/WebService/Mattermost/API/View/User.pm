@@ -1,6 +1,5 @@
 package WebService::Mattermost::API::View::User;
 
-use DDP;
 use Moo;
 use Types::Standard qw(Bool HashRef InstanceOf Int Maybe Str);
 
