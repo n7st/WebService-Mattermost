@@ -6,8 +6,14 @@ use Types::Standard qw(HashRef Str);
 
 use WebService::Mattermost::API::Request;
 use WebService::Mattermost::API::Response;
+use WebService::Mattermost::Helper::Alias qw(v4 view);
+use WebService::Mattermost::API::View::Channel;
+use WebService::Mattermost::API::View::User;
 
-with 'WebService::Mattermost::Role::UserAgent';
+with qw(
+    WebService::Mattermost::API::Role::RequireID
+    WebService::Mattermost::Role::UserAgent
+);
 
 ################################################################################
 
@@ -32,6 +38,15 @@ sub _delete {
     return $self->_call($args);
 }
 
+sub _single_view_delete {
+    my $self = shift;
+    my $args = shift;
+
+    $args->{single} = 1;
+
+    return $self->_delete($args);
+}
+
 sub _get {
     my $self = shift;
     my $args = shift;
@@ -39,6 +54,15 @@ sub _get {
     $args->{method} = $self->get;
 
     return $self->_call($args);
+}
+
+sub _single_view_get {
+    my $self = shift;
+    my $args = shift;
+
+    $args->{single} = 1;
+
+    return $self->_get($args);
 }
 
 sub _post {
@@ -50,6 +74,15 @@ sub _post {
     return $self->_call($args);
 }
 
+sub _single_view_post {
+    my $self = shift;
+    my $args = shift;
+
+    $args->{single} = 1;
+
+    return $self->_post($args);
+}
+
 sub _put {
     my $self = shift;
     my $args = shift;
@@ -57,6 +90,15 @@ sub _put {
     $args->{method} = $self->put;
 
     return $self->_call($args);
+}
+
+sub _single_view_put {
+    my $self = shift;
+    my $args = shift;
+
+    $args->{method} = $self->put;
+
+    return $self->_put($args);
 }
 
 sub _call {
@@ -94,7 +136,7 @@ sub _call {
         $form_type    => $request->parameters,
     );
 
-    return $self->_as_response($tx->res);
+    return $self->_as_response($tx->res, $args);
 }
 
 sub _as_request {
@@ -113,6 +155,7 @@ sub _as_request {
 sub _as_response {
     my $self = shift;
     my $res  = shift;
+    my $args = shift;
 
     return WebService::Mattermost::API::Response->new({
         code        => $res->code,
@@ -122,6 +165,8 @@ sub _as_response {
         message     => $res->message,
         prev        => $res,
         raw_content => $res->body,
+        item_view   => $args->{view},
+        single_item => $args->{single},
     });
 }
 
@@ -158,6 +203,18 @@ sub _error_return {
         error   => 1,
         message => $error,
     };
+}
+
+sub _new_related_resource {
+    my $self     = shift;
+    my $base     = shift;
+    my $resource = shift;
+
+    return v4($resource)->new({
+        auth_token => $self->auth_token,
+        base_url   => $self->base_url,
+        resource   => $base,
+    });
 }
 
 ################################################################################

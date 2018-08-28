@@ -10,12 +10,19 @@ require Exporter;
 use vars qw(@ISA @EXPORT_OK);
 
 @ISA       = 'Exporter';
-@EXPORT_OK = qw(v4 util);
+@EXPORT_OK = qw(util v4 view);
 
-Readonly::Scalar my $v4_base   => 'WebService::Mattermost::API::v4::Resource::';
 Readonly::Scalar my $util_base => 'WebService::Mattermost::Util::';
+Readonly::Scalar my $v4_base   => 'WebService::Mattermost::API::v4::Resource::';
+Readonly::Scalar my $view_base => 'WebService::Mattermost::API::View::';
 
 ################################################################################
+
+sub util {
+    my $name = shift;
+
+    return sprintf('%s%s', $util_base, $name);
+}
 
 sub v4 {
     my $name = shift;
@@ -23,10 +30,10 @@ sub v4 {
     return sprintf('%s%s', $v4_base, $name);
 }
 
-sub util {
+sub view {
     my $name = shift;
 
-    return sprintf('%s%s', $util_base, $name);
+    return sprintf('%s%s', $view_base, $name);
 }
 
 ################################################################################

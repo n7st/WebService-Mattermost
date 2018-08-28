@@ -54,11 +54,15 @@ WebService::Mattermost::API::v4::Resource::Brand
 
 =item C<current()>
 
+L<Get brand image|https://api.mattermost.com/#tag/brand%2Fpaths%2F~1brand~1image%2Fget>
+
 Get the current brand image for your Mattermost server.
 
     my $response = $brand->current;
 
 =item C<upload()>
+
+L<Upload brand image|https://api.mattermost.com/#tag/brand%2Fpaths%2F~1brand~1image%2Fpost>
 
 Set a new brand image for your Mattermost server.
 
@@ -70,9 +74,7 @@ Set a new brand image for your Mattermost server.
 
 =over 4
 
-=item L<https://api.mattermost.com/#tag/brand>
-
-Official "brand" API documentation.
+=item L<Official "brand" API documentation|https://api.mattermost.com/#tag/brand>
 
 =back
 
