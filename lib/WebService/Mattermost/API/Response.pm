@@ -7,6 +7,7 @@ use Types::Standard qw(Any ArrayRef Bool HashRef InstanceOf Int Maybe Object Str
 
 use WebService::Mattermost::Helper::Alias 'view';
 use WebService::Mattermost::API::View::Channel;
+use WebService::Mattermost::API::View::Emoji;
 use WebService::Mattermost::API::View::Error;
 use WebService::Mattermost::API::View::User;
 

@@ -17,7 +17,7 @@ around [ qw(get_by_id delete_by_id get_image_by_id) ] => sub {
 sub custom {
     my $self = shift;
 
-    return $self->_get({});
+    return $self->_get({ view => 'Emoji' });
 }
 
 sub create {
@@ -98,6 +98,7 @@ sub search {
         view       => 'Emoji',
         endpoint   => 'search',
         parameters => $args,
+        required   => [ 'term' ],
     });
 }
 
@@ -115,4 +116,88 @@ sub autocomplete {
 ################################################################################
 
 1;
+__END__
+
+=head1 NAME
+
+WebService::Mattermost::API::v4::Resource::Emoji
+
+=head1 DESCRIPTION
+
+    use WebService::Mattermost;
+
+    my $mm = WebService::Mattermost->new({
+        authenticate => 1,
+        username     => 'me@somewhere.com',
+        password     => 'hunter2',
+        base_url     => 'https://my.mattermost.server.com/api/v4/',
+    });
+
+    my $resource = $mm->api->emoji;
+
+=head2 METHODS
+
+=over 4
+
+=item C<custom()>
+
+Get all custom emojis.
+
+    my $response = $resource->custom();
+
+=item C<get_by_id()>
+
+Get an emoji by its ID.
+
+    my $response = $resource->get_by_id('EMOJI-ID-HERE');
+
+=item C<delete_by_id()>
+
+Delete an emoji by its ID.
+
+    my $response = $resource->delete_by_id('EMOJI-ID-HERE');
+
+=item C<get_by_name()>
+
+Get an emoji by its name.
+
+    my $response = $resource->get_by_name('EMOJI-NAME-HERE');
+
+=item C<get_image_by_id()>
+
+Get an emoji's image by its ID.
+
+    my $response = $resource->get_image_by_id('EMOJI-ID-HERE');
+
+=item C<search()>
+
+Search custom emojis.
+
+    my $response = $resource->search({
+        # Required arguments
+        term => 'Term here',
+
+        # Optional arguments
+        prefix_only => 'Prefix here',
+    });
+
+=item C<autocomplete()>
+
+Autocomplete an emoji name.
+
+    my $response = $resource->autocomplete('START-OF-EMOJI-NAME');
+
+=back
+
+=head1 SEE ALSO
+
+=over 4
+
+=item L<Official Emoji documentation|https://api.mattermost.com/#tag/emoji>
+
+=back
+
+=head1 AUTHOR
+
+Mike Jones L<email:mike@netsplit.org.uk>
 
