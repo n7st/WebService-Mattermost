@@ -19,7 +19,7 @@ has headers     => (is => 'ro', isa => InstanceOf['Mojo::Headers'],           re
 has message     => (is => 'ro', isa => Str,                                   required => 0);
 has prev        => (is => 'ro', isa => InstanceOf['Mojo::Message::Response'], required => 1);
 has raw_content => (is => 'ro', isa => Str,                                   required => 0);
-has item_view   => (is => 'ro', isa => Str,                                   required => 0);
+has item_view   => (is => 'ro', isa => Maybe[Str],                            required => 0);
 has single_item => (is => 'ro', isa => Bool,                                  required => 0);
 
 has is_error   => (is => 'ro', isa => Bool, default => 0);

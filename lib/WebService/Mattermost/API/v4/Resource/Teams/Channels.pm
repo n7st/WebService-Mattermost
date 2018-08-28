@@ -9,14 +9,18 @@ extends 'WebService::Mattermost::API::v4::Resource';
 
 ################################################################################
 
+around [ qw(by_ids public deleted autocomplete search by_name) ] => sub {
+    my $orig = shift;
+    my $self = shift;
+    my $id   = shift;
+
+    return $self->validate_id($orig, $id, @_);
+};
+
 sub by_ids {
     my $self        = shift;
     my $team_id     = shift;
     my $channel_ids = shift;
-
-    unless ($team_id) {
-        return $self->_error_return('The first argument should be a team_id');
-    }
 
     unless (scalar @{$channel_ids}) {
         return $self->_error_return('The second argument should be an arrayref of channel_ids');
@@ -89,6 +93,10 @@ sub by_name {
     my $team_id = shift;
     my $name    = shift;
 
+    unless ($name) {
+        return $self->_error_return('The second argument should be a channel name');
+    }
+
     return $self->_single_view_get({
         endpoint => '%s/channels/name/%s',
         ids      => [ $team_id, $name ],
@@ -100,6 +108,14 @@ sub by_name_and_team_name {
     my $self         = shift;
     my $team_name    = shift;
     my $channel_name = shift;
+
+    unless ($team_name) {
+        return $self->_error_return('The first argument should be a team name');
+    }
+
+    unless ($channel_name) {
+        return $self->_error_return('The second argument should be a channel name');
+    }
 
     return $self->_single_view_get({
         endpoint => 'name/%s/channels/name/%s',

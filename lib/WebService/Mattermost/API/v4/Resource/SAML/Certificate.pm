@@ -138,6 +138,14 @@ Remove your associated private key.
 
 =back
 
+=head1 SEE ALSO
+
+=over 4
+
+=item L<Official SAML documentation|https://api.mattermost.com/#tag/SAML>
+
+=back
+
 =head1 AUTHOR
 
 Mike Jones L<email:mike@netsplit.org.uk>

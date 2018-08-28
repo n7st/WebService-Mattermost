@@ -8,6 +8,7 @@ use WebService::Mattermost::API::v4::Resource::Users::Preferences;
 use WebService::Mattermost::Helper::Alias 'v4';
 
 extends 'WebService::Mattermost::API::v4::Resource';
+with    'WebService::Mattermost::API::Role::RequireID';
 
 ################################################################################
 
@@ -41,11 +42,7 @@ around [ qw(
     my $self = shift;
     my $id   = shift;
 
-    unless ($id && $id =~ /^[a-z0-9]+$/) {
-        return $self->_error_return('Invalid or missing ID parameter');
-    }
-
-    return $self->$orig($id, @_);
+    return $self->validate_id($orig, $id, @_);
 };
 
 around [ qw(get_by_username check_mfa_by_username) ] => sub {
@@ -288,8 +285,9 @@ sub get_by_username {
     my $self     = shift;
     my $username = shift;
 
-    return $self->_get({
+    return $self->_single_view_get({
         endpoint => 'username/%s',
+        view     => 'User',
         ids      => [ $username ],
     });
 }
