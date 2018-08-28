@@ -10,7 +10,10 @@ use WebService::Mattermost::Helper::Alias qw(v4 view);
 use WebService::Mattermost::API::View::Channel;
 use WebService::Mattermost::API::View::User;
 
-with 'WebService::Mattermost::Role::UserAgent';
+with qw(
+    WebService::Mattermost::API::Role::RequireID
+    WebService::Mattermost::Role::UserAgent
+);
 
 ################################################################################
 

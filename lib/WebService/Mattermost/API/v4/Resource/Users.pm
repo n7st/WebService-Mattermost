@@ -8,7 +8,6 @@ use WebService::Mattermost::API::v4::Resource::Users::Preferences;
 use WebService::Mattermost::Helper::Alias 'v4';
 
 extends 'WebService::Mattermost::API::v4::Resource';
-with    'WebService::Mattermost::API::Role::RequireID';
 
 ################################################################################
 

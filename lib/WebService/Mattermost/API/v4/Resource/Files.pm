@@ -3,7 +3,6 @@ package WebService::Mattermost::API::v4::Resource::Files;
 use Moo;
 
 extends 'WebService::Mattermost::API::v4::Resource';
-with    'WebService::Mattermost::API::Role::RequireID';
 
 ################################################################################
 
