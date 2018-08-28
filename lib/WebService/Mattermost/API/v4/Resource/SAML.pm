@@ -17,9 +17,7 @@ has certificate => (is => 'ro', isa => InstanceOf[v4 'SAML::Certificate'], lazy 
 sub metadata {
     my $self = shift;
 
-    return $self->_get({
-        endpoint => 'metadata',
-    });
+    return $self->_get({ endpoint => 'metadata' });
 }
 
 ################################################################################
@@ -61,6 +59,17 @@ WebService::Mattermost::API::v4::Resource::SAML
 =item C<metadata()>
 
 Get SAML metadata from the server.
+
+=back
+
+=head2 ATTRIBUTES
+
+=over 4
+
+=item C<certificate>
+
+An instance of C<WebService::Mattermost::API::v4::Resource::SAML::Certificate>,
+which handles getting and setting of certificates (IDP, public and private).
 
 =back
 
