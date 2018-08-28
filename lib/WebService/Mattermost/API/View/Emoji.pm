@@ -4,25 +4,12 @@ use Moo;
 use Types::Standard qw(Str Int);
 
 extends 'WebService::Mattermost::API::View';
-with    'WebService::Mattermost::API::View::Role::Timestamps';
-
-################################################################################
-
-has [ qw(id creator_id name) ] => (is => 'ro', isa => Str, lazy => 1, builder => 1);
-
-################################################################################
-
-sub _build_id {
-    my $self = shift;
-
-    return $self->raw_data->{id};
-}
-
-sub _build_creator_id {
-    my $self = shift;
-
-    return $self->raw_data->{id};
-}
+with    qw(
+    WebService::Mattermost::API::View::Role::Timestamps
+    WebService::Mattermost::API::View::Role::BelongingToUser
+    WebService::Mattermost::API::View::Role::ID
+    WebService::Mattermost::API::View::Role::Name
+);
 
 ################################################################################
 

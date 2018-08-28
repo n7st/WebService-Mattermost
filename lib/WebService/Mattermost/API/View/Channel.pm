@@ -8,6 +8,8 @@ with    qw(
     WebService::Mattermost::API::View::Role::Timestamps
     WebService::Mattermost::API::View::Role::BelongingToUser
     WebService::Mattermost::API::View::Role::BelongingToTeam
+    WebService::Mattermost::API::View::Role::ID
+    WebService::Mattermost::API::View::Role::Name
 );
 
 ################################################################################
@@ -20,8 +22,6 @@ has [ qw(
 has [ qw(
     display_name
     header
-    id
-    name
     purpose
     type
 ) ] => (is => 'ro', isa => Maybe[Str], lazy => 1, builder => 1);
@@ -38,12 +38,6 @@ sub _build_extra_updated_at {
     return $self->_from_epoch($self->raw_data->{extra_updated_at});
 }
 
-sub _build_creator_id {
-    my $self = shift;
-
-    return $self->raw_data->{creator_id};
-}
-
 sub _build_display_name {
     my $self = shift;
 
@@ -54,18 +48,6 @@ sub _build_header {
     my $self = shift;
 
     return $self->raw_data->{header};
-}
-
-sub _build_id {
-    my $self = shift;
-
-    return $self->raw_data->{id};
-}
-
-sub _build_name {
-    my $self = shift;
-
-    return $self->raw_data->{name};
 }
 
 sub _build_purpose {

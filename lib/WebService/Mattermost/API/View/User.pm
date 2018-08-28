@@ -5,6 +5,10 @@ use Moo;
 use Types::Standard qw(Bool HashRef InstanceOf Int Maybe Str);
 
 extends 'WebService::Mattermost::API::View';
+with    qw(
+    WebService::Mattermost::API::View::Role::ID
+    WebService::Mattermost::API::View::Role::Timestamps
+);
 
 ################################################################################
 
@@ -19,7 +23,6 @@ has [ qw(
     auth_service
     email
     first_name
-    id
     last_name
     locale
     nickname
@@ -29,11 +32,8 @@ has [ qw(
 ) ] => (is => 'ro', isa => Maybe[Str], lazy => 1, builder => 1);
 
 has [ qw(
-    created_at
-    deleted_at
     password_updated_at
     picture_updated_at
-    updated_at
 ) ] => (is => 'ro', isa => Maybe[InstanceOf['DateTime']], lazy => 1, builder => 1);
 
 ################################################################################
@@ -56,18 +56,6 @@ sub _build_is_system_user {
     return $self->roles =~ /system_user/ ? 1 : 0;
 }
 
-sub _build_created_at {
-    my $self = shift;
-
-    return $self->_from_epoch($self->raw_data->{create_at});
-}
-
-sub _build_deleted_at {
-    my $self = shift;
-
-    return $self->_from_epoch($self->raw_data->{delete_at});
-}
-
 sub _build_password_updated_at {
     my $self = shift;
 
@@ -78,12 +66,6 @@ sub _build_picture_updated_at {
     my $self = shift;
 
     return $self->_from_epoch($self->raw_data->{last_picture_update});
-}
-
-sub _build_updated_at {
-    my $self = shift;
-
-    return $self->_from_epoch($self->raw_data->{update_at});
 }
 
 ################################################################################
