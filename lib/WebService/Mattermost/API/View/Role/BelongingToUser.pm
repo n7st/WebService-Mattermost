@@ -17,7 +17,7 @@ has creator_id => (is => 'ro', isa => Maybe[Str],                     lazy => 1,
 sub _build_creator_id {
     my $self = shift;
 
-    return $self->raw_data->{creator_id};
+    return $self->raw_data->{creator_id} || $self->raw_data->{user_id};
 }
 
 sub _build_created_by {

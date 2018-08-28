@@ -1,22 +1,25 @@
 package WebService::Mattermost::API::View::Role::Timestamps;
 
 use Moo::Role;
-use Types::Standard qw(InstanceOf Int);
+use Types::Standard qw(InstanceOf Int Maybe);
 
 requires qw(_from_epoch raw_data);
 
-################################################################################
-
-has [ qw(create_at delete_at update_at) ]    => (is => 'ro', isa => Int,                    lazy => 1, builder => 1);
-has [ qw(created_at deleted_at updated_at) ] => (is => 'ro', isa => InstanceOf['DateTime'], lazy => 1, builder => 1);
+with 'WebService::Mattermost::API::View::Role::CreatedAt';
 
 ################################################################################
 
-sub _build_create_at {
-    my $self = shift;
+has [ qw(
+    delete_at
+    update_at
+) ]  => (is => 'ro', isa => Maybe[Int], lazy => 1, builder => 1);
 
-    return $self->raw_data->{create_at};
-}
+has [ qw(
+    deleted_at
+    updated_at
+) ] => (is => 'ro', isa => Maybe[InstanceOf['DateTime']], lazy => 1, builder => 1);
+
+################################################################################
 
 sub _build_delete_at {
     my $self = shift;
@@ -28,12 +31,6 @@ sub _build_update_at {
     my $self = shift;
 
     return $self->raw_data->{update_at};
-}
-
-sub _build_created_at {
-    my $self = shift;
-
-    return $self->_from_epoch($self->raw_data->{create_at});
 }
 
 sub _build_deleted_at {

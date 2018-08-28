@@ -1,4 +1,4 @@
-package WebService::Mattermost::API::View::Role::ID;
+package WebService::Mattermost::API::View::Role::Status;
 
 use Moo::Role;
 use Types::Standard qw(Maybe Str);
@@ -7,14 +7,14 @@ requires 'raw_data';
 
 ################################################################################
 
-has id => (is => 'ro', isa => Maybe[Str], lazy => 1, builder => 1);
+has status => (is => 'ro', isa => Maybe[Str], lazy => 1, builder => 1);
 
 ################################################################################
 
-sub _build_id {
+sub _build_status {
     my $self = shift;
 
-    return $self->raw_data->{id};
+    return $self->raw_data->{status};
 }
 
 ################################################################################
@@ -28,15 +28,15 @@ WebService::Mattermost::API::View::Role::Timestamps
 
 =head1 DESCRIPTION
 
-Attach an ID to a View object.
+Attach an Status to a View object.
 
 =head2 ATTRIBUTES
 
 =over 4
 
-=item C<id>
+=item C<status>
 
-UUID.
+An item's status.
 
 =back
 
