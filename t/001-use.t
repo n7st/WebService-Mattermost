@@ -7,4 +7,17 @@ use Test::Most tests => 2;
 
 use_ok 'WebService::Mattermost';
 use_ok 'WebService::Mattermost::WS::v4';
+__END__
+
+=head1 NAME
+
+t/001-use.t
+
+=head1 DESCRIPTION
+
+Check some important files import properly.
+
+=head1 AUTHOR
+
+Mike Jones L<email:mike@netsplit.org.uk>
 

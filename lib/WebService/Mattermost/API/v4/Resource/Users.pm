@@ -41,11 +41,7 @@ around [ qw(
     my $self = shift;
     my $id   = shift;
 
-    unless ($id && $id =~ /^[a-z0-9]+$/) {
-        return $self->_error_return('Invalid or missing ID parameter');
-    }
-
-    return $self->$orig($id, @_);
+    return $self->validate_id($orig, $id, @_);
 };
 
 around [ qw(get_by_username check_mfa_by_username) ] => sub {
@@ -95,12 +91,13 @@ sub login {
     my $username = shift;
     my $password = shift;
 
-    return $self->_post({
+    return $self->_single_view_post({
         endpoint   => 'login',
         parameters => {
             login_id => $username,
             password => $password,
         },
+        view       => 'User',
     });
 }
 
@@ -178,9 +175,10 @@ sub get_by_id {
     my $self = shift;
     my $id   = shift;
 
-    return $self->_get({
+    return $self->_single_view_get({
         endpoint => '%s',
         ids      => [ $id ],
+        view     => 'User',
     });
 }
 
@@ -286,8 +284,9 @@ sub get_by_username {
     my $self     = shift;
     my $username = shift;
 
-    return $self->_get({
+    return $self->_single_view_get({
         endpoint => 'username/%s',
+        view     => 'User',
         ids      => [ $username ],
     });
 }
@@ -455,19 +454,6 @@ sub update_authentication_method_by_id {
 
 ################################################################################
 
-sub _new_user_resource {
-    my $self     = shift;
-    my $resource = shift;
-
-    return v4($resource)->new({
-        auth_token => $self->auth_token,
-        resource   => 'users',
-        base_url   => $self->base_url,
-    });
-}
-
-################################################################################
-
 sub _build_available_user_roles {
     my $self = shift;
 
@@ -477,13 +463,13 @@ sub _build_available_user_roles {
 sub _build_preferences {
     my $self = shift;
 
-    return $self->_new_user_resource('Users::Preferences');
+    return $self->_new_related_resource('users', 'Users::Preferences');
 }
 
 sub _build_status {
     my $self = shift;
 
-    return $self->_new_user_resource('Users::Status');
+    return $self->_new_related_resource('users', 'Users::Status');
 }
 
 ################################################################################
