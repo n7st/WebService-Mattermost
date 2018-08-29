@@ -1,9 +1,9 @@
-package WebService::Mattermost::API::View::Error;
+package WebService::Mattermost::API::v4::Object::Error;
 
 use Moo;
 use Types::Standard qw(Str Int Maybe);
 
-extends 'WebService::Mattermost::API::View';
+extends 'WebService::Mattermost::API::v4::Object';
 
 ################################################################################
 
@@ -55,7 +55,7 @@ __END__
 
 =head1 NAME
 
-WebService::Mattermost::API::View::Error
+WebService::Mattermost::API::v4::Object::Error
 
 =head1 DESCRIPTION
 

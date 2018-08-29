@@ -1,10 +1,10 @@
-package WebService::Mattermost::API::Request;
+package WebService::Mattermost::API::v4::Request;
 
 use DDP;
 use Mojo::URL;
 use Mojo::Util 'url_escape';
 use Moo;
-use Types::Standard qw(Any ArrayRef Enum HashRef InstanceOf Str);
+use Types::Standard qw(Any ArrayRef Enum InstanceOf Str);
 
 ################################################################################
 

@@ -1,4 +1,4 @@
-package WebService::Mattermost::API::View::Role::Status;
+package WebService::Mattermost::API::v4::Object::Role::Name;
 
 use Moo::Role;
 use Types::Standard qw(Maybe Str);
@@ -7,14 +7,14 @@ requires 'raw_data';
 
 ################################################################################
 
-has status => (is => 'ro', isa => Maybe[Str], lazy => 1, builder => 1);
+has name => (is => 'ro', isa => Maybe[Str], lazy => 1, builder => 1);
 
 ################################################################################
 
-sub _build_status {
+sub _build_name {
     my $self = shift;
 
-    return $self->raw_data->{status};
+    return $self->raw_data->{name};
 }
 
 ################################################################################
@@ -24,19 +24,17 @@ __END__
 
 =head1 NAME
 
-WebService::Mattermost::API::View::Role::Timestamps
+WebService::Mattermost::API::v4::Object::Role::Timestamps
 
 =head1 DESCRIPTION
 
-Attach an Status to a View object.
+Attach a name to a v4::Object object.
 
 =head2 ATTRIBUTES
 
 =over 4
 
-=item C<status>
-
-An item's status.
+=item C<name>
 
 =back
 

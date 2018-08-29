@@ -1,15 +1,15 @@
-package WebService::Mattermost::API::View::Channel;
+package WebService::Mattermost::API::v4::Object::Channel;
 
 use Moo;
 use Types::Standard qw(HashRef InstanceOf Int Maybe Str);
 
-extends 'WebService::Mattermost::API::View';
+extends 'WebService::Mattermost::API::v4::Object';
 with    qw(
-    WebService::Mattermost::API::View::Role::Timestamps
-    WebService::Mattermost::API::View::Role::BelongingToUser
-    WebService::Mattermost::API::View::Role::BelongingToTeam
-    WebService::Mattermost::API::View::Role::ID
-    WebService::Mattermost::API::View::Role::Name
+    WebService::Mattermost::API::v4::Object::Role::Timestamps
+    WebService::Mattermost::API::v4::Object::Role::BelongingToUser
+    WebService::Mattermost::API::v4::Object::Role::BelongingToTeam
+    WebService::Mattermost::API::v4::Object::Role::ID
+    WebService::Mattermost::API::v4::Object::Role::Name
 );
 
 ################################################################################
@@ -75,7 +75,7 @@ __END__
 
 =head1 NAME
 
-WebService::Mattermost::API::View::Channel
+WebService::Mattermost::API::v4::Object::Channel
 
 =head1 DESCRIPTION
 

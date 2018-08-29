@@ -1,4 +1,4 @@
-package WebService::Mattermost::API::View::Role::CreatedAt;
+package WebService::Mattermost::API::v4::Object::Role::CreatedAt;
 
 use Moo::Role;
 use Types::Standard qw(InstanceOf Int Maybe);
@@ -31,11 +31,11 @@ __END__
 
 =head1 NAME
 
-WebService::Mattermost::API::View::Role::CreatedAt
+WebService::Mattermost::API::v4::Object::Role::CreatedAt
 
 =head1 DESCRIPTION
 
-Attach common timestamps to a View object.
+Attach common timestamps to a v4::Object object.
 
 =head2 ATTRIBUTES
 

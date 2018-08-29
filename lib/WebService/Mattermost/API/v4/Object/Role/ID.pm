@@ -1,4 +1,4 @@
-package WebService::Mattermost::API::View::Role::ID;
+package WebService::Mattermost::API::v4::Object::Role::ID;
 
 use Moo::Role;
 use Types::Standard qw(Maybe Str);
@@ -24,11 +24,11 @@ __END__
 
 =head1 NAME
 
-WebService::Mattermost::API::View::Role::Timestamps
+WebService::Mattermost::API::v4::Object::Role::Timestamps
 
 =head1 DESCRIPTION
 
-Attach an ID to a View object.
+Attach an ID to a v4::Object object.
 
 =head2 ATTRIBUTES
 

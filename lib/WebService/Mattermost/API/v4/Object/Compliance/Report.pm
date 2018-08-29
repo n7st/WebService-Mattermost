@@ -1,14 +1,14 @@
-package WebService::Mattermost::API::View::Compliance::Report;
+package WebService::Mattermost::API::v4::Object::Compliance::Report;
 
 use Moo;
 use Types::Standard qw(Str InstanceOf Int Maybe);
 
-extends 'WebService::Mattermost::API::View';
+extends 'WebService::Mattermost::API::v4::Object';
 with    qw(
-    WebService::Mattermost::API::View::Role::ID
-    WebService::Mattermost::API::View::Role::Status
-    WebService::Mattermost::API::View::Role::CreatedAt
-    WebService::Mattermost::API::View::Role::BelongingToUser
+    WebService::Mattermost::API::v4::Object::Role::ID
+    WebService::Mattermost::API::v4::Object::Role::Status
+    WebService::Mattermost::API::v4::Object::Role::CreatedAt
+    WebService::Mattermost::API::v4::Object::Role::BelongingToUser
 );
 
 ################################################################################

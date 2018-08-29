@@ -1,4 +1,4 @@
-package WebService::Mattermost::API::View::Role::BelongingToTeam;
+package WebService::Mattermost::API::v4::Object::Role::BelongingToUser;
 
 use Moo::Role;
 use Types::Standard qw(InstanceOf Maybe Str);
@@ -9,18 +9,18 @@ requires 'raw_data';
 
 ################################################################################
 
-has team_id => (is => 'ro', isa => Maybe[Str],                  lazy => 1, builder => 1);
-#has team => (is => 'ro', isa => Maybe[InstanceOf[view 'Team']], lazy => 1, builder => 1);
+has creator_id => (is => 'ro', isa => Maybe[Str],                     lazy => 1, builder => 1);
+#has created_by => (is => 'ro', isa => Maybe[InstanceOf[view 'User']], lazy => 1, builder => 1);
 
 ################################################################################
 
-sub _build_team_id {
+sub _build_creator_id {
     my $self = shift;
 
-    return $self->raw_data->{team_id};
+    return $self->raw_data->{creator_id} || $self->raw_data->{user_id};
 }
 
-sub _build_team {
+sub _build_created_by {
     # TODO
 }
 
@@ -31,7 +31,7 @@ __END__
 
 =head1 NAME
 
-WebService::Mattermost::API::View::Role::BelongingToTeam
+WebService::Mattermost::API::v4::Object::Role::BelongingToUser
 
 =head1 DESCRIPTION
 
@@ -41,13 +41,13 @@ Link a view object to its creator.
 
 =over 4
 
-=item C<team_id>
+=item C<creator_id>
 
 The creator's string ID.
 
-=item C<team>
+=item C<created_by>
 
-In progress - linked C<WebService::Mattermost::API::View::Team> object.
+In progress - linked C<WebService::Mattermost::API::v4::Object::User> object.
 
 =back
 

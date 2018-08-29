@@ -1,4 +1,4 @@
-package WebService::Mattermost::API::View;
+package WebService::Mattermost::API::v4::Object;
 
 use DateTime;
 use Moo;

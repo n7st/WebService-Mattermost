@@ -1,14 +1,14 @@
-package WebService::Mattermost::API::View::Emoji;
+package WebService::Mattermost::API::v4::Object::Emoji;
 
 use Moo;
 use Types::Standard qw(Str Int);
 
-extends 'WebService::Mattermost::API::View';
+extends 'WebService::Mattermost::API::v4::Object';
 with    qw(
-    WebService::Mattermost::API::View::Role::Timestamps
-    WebService::Mattermost::API::View::Role::BelongingToUser
-    WebService::Mattermost::API::View::Role::ID
-    WebService::Mattermost::API::View::Role::Name
+    WebService::Mattermost::API::v4::Object::Role::Timestamps
+    WebService::Mattermost::API::v4::Object::Role::BelongingToUser
+    WebService::Mattermost::API::v4::Object::Role::ID
+    WebService::Mattermost::API::v4::Object::Role::Name
 );
 
 ################################################################################
@@ -18,7 +18,7 @@ __END__
 
 =head1 NAME
 
-WebService::Mattermost::API::View::Emoji
+WebService::Mattermost::API::v4::Object::Emoji
 
 =head1 DESCRIPTION
 

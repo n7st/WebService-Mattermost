@@ -4,11 +4,11 @@ use List::MoreUtils 'all';
 use Moo;
 use Types::Standard qw(HashRef Str);
 
-use WebService::Mattermost::API::Request;
-use WebService::Mattermost::API::Response;
+use WebService::Mattermost::API::v4::Request;
+use WebService::Mattermost::API::v4::Response;
 use WebService::Mattermost::Helper::Alias qw(v4 view);
-use WebService::Mattermost::API::View::Channel;
-use WebService::Mattermost::API::View::User;
+use WebService::Mattermost::API::v4::Object::Channel;
+use WebService::Mattermost::API::v4::Object::User;
 
 with qw(
     WebService::Mattermost::API::Role::RequireID
@@ -149,7 +149,7 @@ sub _as_request {
     $args->{endpoint}   ||= '';
     $args->{parameters} ||= {};
 
-    return WebService::Mattermost::API::Request->new($args);
+    return WebService::Mattermost::API::v4::Request->new($args);
 }
 
 sub _as_response {
@@ -157,7 +157,7 @@ sub _as_response {
     my $res  = shift;
     my $args = shift;
 
-    return WebService::Mattermost::API::Response->new({
+    return WebService::Mattermost::API::v4::Response->new({
         code        => $res->code,
         headers     => $res->headers,
         is_error    => $res->is_error   ? 1 : 0,

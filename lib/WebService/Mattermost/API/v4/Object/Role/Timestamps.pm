@@ -1,11 +1,11 @@
-package WebService::Mattermost::API::View::Role::Timestamps;
+package WebService::Mattermost::API::v4::Object::Role::Timestamps;
 
 use Moo::Role;
 use Types::Standard qw(InstanceOf Int Maybe);
 
 requires qw(_from_epoch raw_data);
 
-with 'WebService::Mattermost::API::View::Role::CreatedAt';
+with 'WebService::Mattermost::API::v4::Object::Role::CreatedAt';
 
 ################################################################################
 
@@ -52,11 +52,11 @@ __END__
 
 =head1 NAME
 
-WebService::Mattermost::API::View::Role::Timestamps
+WebService::Mattermost::API::v4::Object::Role::Timestamps
 
 =head1 DESCRIPTION
 
-Attach common timestamps to a View object.
+Attach common timestamps to a v4::Object object.
 
 =head2 ATTRIBUTES
 

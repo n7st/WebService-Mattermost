@@ -1,12 +1,12 @@
-package WebService::Mattermost::API::View::User;
+package WebService::Mattermost::API::v4::Object::User;
 
 use Moo;
 use Types::Standard qw(Bool HashRef InstanceOf Int Maybe Str);
 
-extends 'WebService::Mattermost::API::View';
+extends 'WebService::Mattermost::API::v4::Object';
 with    qw(
-    WebService::Mattermost::API::View::Role::ID
-    WebService::Mattermost::API::View::Role::Timestamps
+    WebService::Mattermost::API::v4::Object::Role::ID
+    WebService::Mattermost::API::v4::Object::Role::Timestamps
 );
 
 ################################################################################

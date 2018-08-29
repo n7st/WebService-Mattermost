@@ -1,15 +1,14 @@
-package WebService::Mattermost::API::Response;
+package WebService::Mattermost::API::v4::Response;
 
-use DDP;
 use Mojo::JSON 'decode_json';
 use Moo;
-use Types::Standard qw(Any ArrayRef Bool HashRef InstanceOf Int Maybe Object Str);
+use Types::Standard qw(Any ArrayRef Bool InstanceOf Int Maybe Object Str);
 
-use WebService::Mattermost::API::View::Channel;
-use WebService::Mattermost::API::View::Compliance::Report;
-use WebService::Mattermost::API::View::Emoji;
-use WebService::Mattermost::API::View::Error;
-use WebService::Mattermost::API::View::User;
+use WebService::Mattermost::API::v4::Object::Channel;
+use WebService::Mattermost::API::v4::Object::Compliance::Report;
+use WebService::Mattermost::API::v4::Object::Emoji;
+use WebService::Mattermost::API::v4::Object::Error;
+use WebService::Mattermost::API::v4::Object::User;
 use WebService::Mattermost::Helper::Alias 'view';
 
 extends 'WebService::Mattermost';
@@ -134,15 +133,15 @@ Decoded content in ArrayRef or HashRef form.
 
 =item C<item_view>
 
-Whether or not the response should try to create a View object.
+Whether or not the response should try to create a v4::Object object.
 
 =item C<single_item>
 
-Whether or not the expected View should be an ArrayRef.
+Whether or not the expected v4::Object should be an ArrayRef.
 
 =item C<item>
 
-The first View object.
+The first v4::Object object.
 
 =item C<items>
 
