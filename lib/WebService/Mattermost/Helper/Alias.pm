@@ -14,7 +14,7 @@ use vars qw(@ISA @EXPORT_OK);
 
 Readonly::Scalar my $util_base => 'WebService::Mattermost::Util::';
 Readonly::Scalar my $v4_base   => 'WebService::Mattermost::API::v4::Resource::';
-Readonly::Scalar my $view_base => 'WebService::Mattermost::API::View::';
+Readonly::Scalar my $view_base => 'WebService::Mattermost::API::v4::Object::';
 
 ################################################################################
 
