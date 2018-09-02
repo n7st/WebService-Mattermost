@@ -2,12 +2,6 @@ package WebService::Mattermost::API::v4::Resource::Teams::Channels;
 
 use Moo;
 
-<<<<<<< HEAD
-use WebService::Mattermost::API::View::Channel;
-use WebService::Mattermost::Helper::Alias 'view';
-
-=======
->>>>>>> api_int
 extends 'WebService::Mattermost::API::v4::Resource';
 
 ################################################################################
