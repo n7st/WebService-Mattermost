@@ -33,7 +33,7 @@ WebService::Mattermost provides websocket and REST API integrations for Mattermo
 
 =head2 SYNOPSIS
 
-See C<WebService::Mattermost::API::v4> for all available API integrations.
+See C<WebService::Mattermost::V4::API> for all available API integrations.
 
     use WebService::Mattermost;
 
@@ -95,7 +95,7 @@ A containing class for the available resources for API version 4.
 
 Plain Mattermost API documentation.
 
-=item C<WebService::Mattermost::API::v4>
+=item C<WebService::Mattermost::V4::API>
 
 Containing object for resources for version 4 of the Mattermost REST API.
 Accessible from this class via the C<api> attribute.
