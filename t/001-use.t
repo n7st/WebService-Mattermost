@@ -6,7 +6,7 @@ use warnings;
 use Test::Most tests => 2;
 
 use_ok 'WebService::Mattermost';
-use_ok 'WebService::Mattermost::WS::v4';
+use_ok 'WebService::Mattermost::V4::Client';
 __END__
 
 =head1 NAME
