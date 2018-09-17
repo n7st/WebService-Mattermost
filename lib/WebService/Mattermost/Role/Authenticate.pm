@@ -4,7 +4,7 @@ use DDP;
 use Moo::Role;
 use Types::Standard qw(Bool Str);
 
-requires qw(api logger);
+#requires qw(api logger);
 
 ################################################################################
 
