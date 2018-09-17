@@ -7,13 +7,13 @@ use Moo;
 use MooX::HandlesVia;
 use Types::Standard qw(ArrayRef Bool InstanceOf Int Maybe Str);
 
-extends 'Mojo::EventEmitter';
-
 with qw(
     WebService::Mattermost::Role::API
     WebService::Mattermost::Role::Authenticate
     WebService::Mattermost::Role::Logger
     WebService::Mattermost::Role::UserAgent
+
+    Role::EventEmitter
 );
 
 ################################################################################
