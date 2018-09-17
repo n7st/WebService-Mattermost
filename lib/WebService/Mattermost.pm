@@ -2,8 +2,6 @@ package WebService::Mattermost;
 
 use Moo;
 
-use WebService::Mattermost::API;
-
 with qw(
     WebService::Mattermost::Role::API
     WebService::Mattermost::Role::Authenticate
