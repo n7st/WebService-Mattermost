@@ -92,7 +92,7 @@ WebService::Mattermost::V4::API::Resource::Jobs
         username     => 'me@somewhere.com',
         password     => 'hunter2',
         base_url     => 'https://my.mattermost.server.com/api/v4/',
-        });
+    });
 
     my $resource = $mm->api->teams->jobs;
 
