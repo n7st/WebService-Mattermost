@@ -1,6 +1,5 @@
 package WebService::Mattermost::V4::API::Object::Role::BelongingToTeam;
 
-use DDP;
 use Moo::Role;
 use Types::Standard qw(InstanceOf Maybe Str);
 
@@ -51,7 +50,7 @@ The creator's string ID.
 
 =item C<team>
 
-In progress - linked C<WebService::Mattermost::V4::API::Object::Team> object.
+Linked C<WebService::Mattermost::V4::API::Object::Team> object.
 
 =back
 

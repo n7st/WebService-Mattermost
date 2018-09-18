@@ -88,6 +88,14 @@ C<DateTime> object.
 
 =back
 
+=head1 SEE ALSO
+
+=over 4
+
+=item C<WebService::Mattermost::V4::API::Object::Role::CreatedAt>
+
+=back
+
 =head1 AUTHOR
 
 Mike Jones L<email:mike@netsplit.org.uk>

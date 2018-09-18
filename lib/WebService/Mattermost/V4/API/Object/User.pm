@@ -37,6 +37,19 @@ has [ qw(
 
 ################################################################################
 
+sub update {
+    my $self = shift;
+    my $args = shift;
+
+    # TODO: this would be better off using the methods in the User API resource
+    # rather than duplicating them
+
+    return unless $self->id;
+    return $self->api->users->update_by_id($self->id, $args);
+}
+
+################################################################################
+
 sub _build_allow_marketing {
     my $self = shift;
 
@@ -70,4 +83,42 @@ sub _build_picture_updated_at {
 ################################################################################
 
 1;
+__END__
+
+=head1 NAME
+
+WebService::Mattermost::V4::API::Object::User
+
+=head1 DESCRIPTION
+
+Object version of a Mattermost user.
+
+=head2 METHODS
+
+=over 4
+
+=item C<update()>
+
+Update this user. Takes the same parameters as C<WebService::Mattermost::V4::API::Resource::Users>
+C<update_by_id()>.
+
+    $user->update({
+        # ...
+    });
+
+=back
+
+=head1 SEE ALSO
+
+=over 4
+
+=item C<WebService::Mattermost::V4::API::Object::Role::ID>
+
+=item C<WebService::Mattermost::V4::API::Object::Role::Timestamps>
+
+=back
+
+=head1 AUTHOR
+
+Mike Jones L<email:mike@netsplit.org.uk>
 
