@@ -3,7 +3,7 @@ package WebService::Mattermost::V4::API::Object::Role::CreatedAt;
 use Moo::Role;
 use Types::Standard qw(InstanceOf Int Maybe);
 
-requires qw(_from_epoch raw_data);
+#requires qw(_from_epoch raw_data);
 
 ################################################################################
 

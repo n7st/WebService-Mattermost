@@ -6,7 +6,7 @@ use Types::Standard qw(InstanceOf Maybe Str);
 
 use WebService::Mattermost::Helper::Alias 'view';
 
-requires 'raw_data';
+#requires 'raw_data';
 
 ################################################################################
 
