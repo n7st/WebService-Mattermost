@@ -24,6 +24,7 @@ sub _build_team_id {
 sub _build_team {
     my $self = shift;
 
+    return unless $self->team_id;
     return $self->api->teams->get_by_id($self->team_id)->item;
 }
 
