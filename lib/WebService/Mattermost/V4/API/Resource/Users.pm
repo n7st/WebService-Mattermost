@@ -3,6 +3,7 @@ package WebService::Mattermost::V4::API::Resource::Users;
 use Moo;
 use Types::Standard qw(ArrayRef InstanceOf Str);
 
+use WebService::Mattermost::V4::API::Resource::Users::Sessions;
 use WebService::Mattermost::V4::API::Resource::Users::Status;
 use WebService::Mattermost::V4::API::Resource::Users::Preferences;
 use WebService::Mattermost::Helper::Alias 'v4';
@@ -12,8 +13,9 @@ extends 'WebService::Mattermost::V4::API::Resource';
 ################################################################################
 
 has available_user_roles => (is => 'ro', isa => ArrayRef,                            lazy => 1, builder => 1);
-has status               => (is => 'ro', isa => InstanceOf[v4 'Users::Status'],      lazy => 1, builder => 1);
 has preferences          => (is => 'ro', isa => InstanceOf[v4 'Users::Preferences'], lazy => 1, builder => 1);
+has sessions             => (is => 'ro', isa => InstanceOf[v4 'Users::Sessions'],    lazy => 1, builder => 1);
+has status               => (is => 'ro', isa => InstanceOf[v4 'Users::Status'],      lazy => 1, builder => 1);
 
 has role_system_admin => (is => 'ro', isa => Str, default => 'system_admin');
 has role_system_user  => (is => 'ro', isa => Str, default => 'system_user');
@@ -25,9 +27,7 @@ around [ qw(
     generate_mfa_secret_by_id
     get_by_id
     get_profile_image_by_id
-    get_sessions_by_id
     patch_by_id
-    revoke_session_by_id
     set_profile_image_by_id
     update_active_status_by_id
     update_authentication_method_by_id
@@ -369,30 +369,6 @@ sub get_by_email {
     });
 }
 
-sub get_sessions_by_id {
-    my $self = shift;
-    my $id   = shift;
-
-    return $self->_get({
-        endpoint => '%s/sessions',
-        ids      => [ $id ],
-    });
-}
-
-sub revoke_session_by_id {
-    my $self       = shift;
-    my $user_id    = shift;
-    my $session_id = shift;
-
-    return $self->_post({
-        endpoint   => '%s/sessions/revoke',
-        ids        => [ $user_id ],
-        parameters => {
-            session_id => $session_id,
-        },
-    });
-}
-
 sub get_user_access_token {
     my $self = shift;
     my $id   = shift;
@@ -463,6 +439,12 @@ sub _build_preferences {
     my $self = shift;
 
     return $self->_new_related_resource('users', 'Users::Preferences');
+}
+
+sub _build_sessions {
+    my $self = shift;
+
+    return $self->_new_related_resource('users', 'Users::Sessions');
 }
 
 sub _build_status {
@@ -641,22 +623,6 @@ L<Get a user by email|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1e
 Get a user by email address.
 
     my $response = $resource->get_by_email('me@somewhere.com');
-
-=item C<get_sessions_by_id()>
-
-L<Get user's sessions|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1sessions%2Fget>
-
-Get a user's active sessions.
-
-    my $response = $resource->get_sessions_by_id('ID-HERE');
-
-=item C<revoke_session_by_id()>
-
-L<Revoke a user session|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1sessions~1revoke%2Fpost>
-
-Log user's session out.
-
-    my $response = $resource->revoke_session_by_id('USER-ID-HERE', 'SESSION-ID-HERE');
 
 =back
 
