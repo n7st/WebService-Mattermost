@@ -1,6 +1,5 @@
 package WebService::Mattermost::Role::Authenticate;
 
-use DDP;
 use Moo::Role;
 use Types::Standard qw(Bool Str);
 
