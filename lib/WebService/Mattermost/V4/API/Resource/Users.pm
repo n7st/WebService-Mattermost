@@ -34,7 +34,7 @@ around [ qw(
     update_by_id
     update_mfa_by_id
     update_password_by_id
-    update_role_by_id
+    update_roles_by_id
 ) ] => sub {
     my $orig = shift;
     my $self = shift;
@@ -97,16 +97,6 @@ sub login {
             password => $password,
         },
         view       => 'User',
-    });
-}
-
-sub search_by_email {
-    my $self  = shift;
-    my $email = shift;
-
-    return $self->_get({
-        endpoint => 'email/%s',
-        ids      => [ $email ],
     });
 }
 
@@ -229,23 +219,25 @@ sub patch_by_id {
     });
 }
 
-sub update_role_by_id {
-    my $self = shift;
-    my $id   = shift;
-    my $role = shift;
+sub update_roles_by_id {
+    my $self  = shift;
+    my $id    = shift;
+    my $roles = shift; # ArrayRef
 
-    unless (grep { $_ eq $role } @{$self->available_user_roles}) {
-        my $err = sprintf('"%s" is not a valid role. Valid roles: %s',
-            $role, join(', ', @{$self->available_user_roles}));
+    foreach my $role (@{$roles}) {
+        unless (grep { $_ eq $role } @{$self->available_user_roles}) {
+            my $err = sprintf('"%s" is not a valid role. Valid roles: %s',
+                $role, join(', ', @{$self->available_user_roles}));
 
-        return $self->_error_return($err);
+            return $self->_error_return($err);
+        }
     }
 
     return $self->_put({
         endpoint   => '%s/roles',
         ids        => [ $id ],
         parameters => {
-            roles => $role,
+            roles => $roles,
         },
     });
 }
@@ -481,6 +473,113 @@ WebService::Mattermost::V4::API::Resource::Users
 
 =over 4
 
+=item C<login()>
+
+L<Authentication|https://api.mattermost.com/#tag/authentication>
+
+Log into the Mattermost server using a username and password.
+
+    my $response = $resource->login({
+        username => 'USERNAME-HERE',
+        password => 'PASSWORD-HERE',
+    });
+
+=item C<create()>
+
+L<Create a user|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users%2Fpost>
+
+Create a new user on the server.
+
+    my $response = $resource->create({
+        # Required parameters:
+        email    => '...',
+        username => '...',
+        password => '...',
+
+        # Optional parameters:
+        first_name   => '...',
+        last_name    => '...',
+        nickname     => '...',
+        locale       => '...',
+        props        => {
+            # ...
+        },
+        notify_props => {
+            # ...
+        },
+    });
+
+=item C<list()>
+
+L<Get users|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users%2Fget>
+
+    my $response = $resource->list({
+        # Optional parameters:
+        page           => 0,
+        per_page       => 60,
+        in_team        => 'TEAM-ID-HERE',
+        not_in_team    => 'TEAM-ID-HERE',
+        in_channel     => 'CHANNEL-ID-HERE',
+        not_in_channel => 'CHANNEL-ID-HERE',
+        without_team   => \1,
+        sort           => 'STRING',
+    });
+
+=item C<list_by_ids()>
+
+L<Get users by IDs|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1ids%2Fpost>
+
+Takes an ArrayRef of IDs as its only argument.
+
+    my $users = $resource->list_by_ids([ qw(
+        USER-ID-1
+        USER-ID-2
+        USER-ID-3
+    ) ]);
+
+=item C<list_by_usernames()>
+
+L<Get by usernames|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1usernames%2Fpost>
+
+Takes an ArrayRef of usernames.
+
+    my $users = $resource->list_by_usernames([ qw(
+        USERNAME-1
+        USERNAME-2
+        USERNAME-3
+    ) ]);
+
+=item C<search()>
+
+L<Search users|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1search%2Fpost>
+
+    my $response = $resource->search({
+        # Required parameters:
+        term => 'SEARCH-TERM-HERE',
+
+        # Optional parameters:
+        team_id           => 'TEAM-ID-HERE',
+        not_in_team_id    => 'TEAM-ID-HERE',
+        in_channel_id     => 'CHANNEL-ID-HERE',
+        not_in_channel_id => 'CHANNEL-ID-HERE',
+        allow_inactive    => \1, # or \0 - true/false
+        without_team      => \1,
+        sort              => 'STRING',
+    });
+
+=item C<autocomplete()>
+
+L<Autocomplete users|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1autocomplete%2Fget>
+
+    my $response = $resource->autocomplete({
+        # Required parameters:
+        name => 'USERNAME-HERE',
+
+        # Optional parameters:
+        team_id    => 'TEAM-ID-HERE',
+        channel_id => 'CHANNEL-ID-HERE',
+    });
+
 =item C<update_active_status_by_id()>
 
 L<Update user active status|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1active%2Fput>
@@ -579,7 +678,9 @@ Update a user by their ID.
         nickname     => '...',
         locale       => '...',
         position     => '...',
-        props        => '...',
+        props        => {
+            # ...
+        },
         notify_props => {
             email         => \1,
             push          => \1,
@@ -623,6 +724,44 @@ L<Get a user by email|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1e
 Get a user by email address.
 
     my $response = $resource->get_by_email('me@somewhere.com');
+
+=item C<patch_by_id()>
+
+L<Patch a user|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1patch%2Fput>
+
+    my $response = $resource->patch_by_id('USER-ID-HERE', {
+        # Optional parameters:
+        email        => '...',
+        username     => '...',
+        first_name   => '...',
+        last_name    => '...',
+        nickname     => '...',
+        locale       => '...',
+        position     => '...',
+        props        => {
+            # ...
+        },
+        notify_props => {
+            email         => \1,
+            push          => \1,
+            desktop       => \1,
+            desktop_sound => \1,
+            mention_keys  => \1,
+            channel       => \1,
+            first_name    => \1,
+        },
+    });
+
+=item C<update_roles_by_id()>
+
+L<Update a user's roles|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1roles%2Fput>
+
+Valid roles are C<system_user> and C<system_admin>.
+
+    my $response = $resource->update_roles_by_id('ID-HERE', [
+        'ROLE-NAME-HERE',
+        'ANOTHER-ROLE-HERE',
+    ]);
 
 =back
 
