@@ -1,5 +1,6 @@
 package WebService::Mattermost::V4::API::Object::Role::BelongingToTeam;
 
+use DDP;
 use Moo::Role;
 use Types::Standard qw(InstanceOf Maybe Str);
 
@@ -9,8 +10,8 @@ requires 'raw_data';
 
 ################################################################################
 
-has team_id => (is => 'ro', isa => Maybe[Str],                  lazy => 1, builder => 1);
-#has team => (is => 'ro', isa => Maybe[InstanceOf[view 'Team']], lazy => 1, builder => 1);
+has team_id => (is => 'ro', isa => Maybe[Str],                     lazy => 1, builder => 1);
+has team    => (is => 'ro', isa => Maybe[InstanceOf[view 'Team']], lazy => 1, builder => 1);
 
 ################################################################################
 
@@ -21,7 +22,9 @@ sub _build_team_id {
 }
 
 sub _build_team {
-    # TODO
+    my $self = shift;
+
+    return $self->api->teams->get_by_id($self->team_id)->item;
 }
 
 ################################################################################
