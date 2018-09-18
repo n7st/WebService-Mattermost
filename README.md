@@ -76,7 +76,7 @@ sub gw_message {
     # The message's data is in $args
 }
 
-sub gw_error {}
+sub gw_ws_error {}
 
 sub gw_message_no_event {}
 
@@ -98,7 +98,7 @@ my $bot = WebService::Mattermost::V4::Client->new({
     ignore_self => 0, # May cause recursion!
 });
 
-$bot->on(message => sub {
+$bot->on(gw_message => sub {
     my ($bot, $args) = @_;
 
     # $args contains the decoded message content
@@ -106,6 +106,14 @@ $bot->on(message => sub {
 
 $bot->start(); # Add me last
 ```
+
+The available events are the same:
+
+* `gw_message_no_event`
+* `gw_message`
+* `gw_ws_error`
+* `gw_ws_finished`
+* `gw_ws_started`
 
 ## License
 
