@@ -60,7 +60,7 @@ package SomePackage;
 
 use Moo;
 
-extends 'WebService::Mattermost::WS::v4';
+extends 'WebService::Mattermost::V4::Client';
 
 # WebService::Mattermost::WS::v4 emits events which can be caught with these
 # methods. None of them are required and they all pass two arguments ($self,
@@ -86,9 +86,9 @@ sub gw_message_no_event {}
 Or used in a script:
 
 ```perl
-use WebService::Mattermost::WS::v4;
+use WebService::Mattermost::V4::Client;
 
-my $bot = WebService::Mattermost::WS::v4->new({
+my $bot = WebService::Mattermost::V4::Client->new({
     username => 'usernamehere',
     password => 'password',
     base_url => 'https://mattermost.server.com/api/v4/',
