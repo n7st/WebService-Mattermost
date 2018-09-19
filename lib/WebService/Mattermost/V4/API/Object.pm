@@ -2,14 +2,16 @@ package WebService::Mattermost::V4::API::Object;
 
 use DateTime;
 use Moo;
-use Types::Standard qw(HashRef Str);
+use Types::Standard qw(HashRef InstanceOf Str);
 
-# TODO
-#extends 'WebService::Mattermost';
+use WebService::Mattermost::V4::API;
 
 ################################################################################
 
-has raw_data => (is => 'ro', isa => HashRef, required => 1);
+has [ qw(auth_token base_url) ] => (is => 'ro', isa => Str,     required => 1);
+has raw_data                    => (is => 'ro', isa => HashRef, required => 1);
+
+has api => (is => 'ro', isa => InstanceOf['WebService::Mattermost::V4::API'], lazy => 1, builder => 1);
 
 ################################################################################
 
@@ -23,6 +25,17 @@ sub _from_epoch {
     $unix_timestamp =~ s/...$//s;
 
     return DateTime->from_epoch(epoch => $unix_timestamp);
+}
+
+################################################################################
+
+sub _build_api {
+    my $self = shift;
+
+    return WebService::Mattermost::V4::API->new({
+        auth_token => $self->auth_token,
+        base_url   => $self->base_url,
+    });
 }
 
 ################################################################################

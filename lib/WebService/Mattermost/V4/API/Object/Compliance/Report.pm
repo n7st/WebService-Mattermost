@@ -68,4 +68,53 @@ sub _build_emails {
 ################################################################################
 
 1;
+__END__
+
+=head1 NAME
+
+WebService::Mattermost::V4::API::Object::Compliance::Report
+
+=head1 DESCRIPTION
+
+=head2 ATTRIBUTES
+
+=over 4
+
+=item C<count>
+
+=item C<start_at>
+
+=item C<end_at>
+
+=item C<desc>
+
+=item C<type>
+
+=item C<keywords>
+
+=item C<emails>
+
+=item C<started_at>
+
+=item C<ended_at>
+
+=back
+
+=head1 SEE ALSO
+
+=over 4
+
+=item C<WebService::Mattermost::V4::API::Object::Role::ID>
+
+=item C<WebService::Mattermost::V4::API::Object::Role::Status>
+
+=item C<WebService::Mattermost::V4::API::Object::Role::CreatedAt>
+
+=item C<WebService::Mattermost::V4::API::Object::Role::BelongingToUser>
+
+=back
+
+=head1 AUTHOR
+
+Mike Jones L<email:mike@netsplit.org.uk>
 

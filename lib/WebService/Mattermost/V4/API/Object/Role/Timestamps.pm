@@ -3,7 +3,7 @@ package WebService::Mattermost::V4::API::Object::Role::Timestamps;
 use Moo::Role;
 use Types::Standard qw(InstanceOf Int Maybe);
 
-requires qw(_from_epoch raw_data);
+#requires qw(_from_epoch raw_data);
 
 with 'WebService::Mattermost::V4::API::Object::Role::CreatedAt';
 
@@ -85,6 +85,14 @@ C<DateTime> object.
 =item C<updated_at>
 
 C<DateTime> object.
+
+=back
+
+=head1 SEE ALSO
+
+=over 4
+
+=item C<WebService::Mattermost::V4::API::Object::Role::CreatedAt>
 
 =back
 

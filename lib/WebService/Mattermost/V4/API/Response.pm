@@ -8,13 +8,14 @@ use WebService::Mattermost::V4::API::Object::Channel;
 use WebService::Mattermost::V4::API::Object::Compliance::Report;
 use WebService::Mattermost::V4::API::Object::Emoji;
 use WebService::Mattermost::V4::API::Object::Error;
+use WebService::Mattermost::V4::API::Object::Team;
 use WebService::Mattermost::V4::API::Object::User;
 use WebService::Mattermost::Helper::Alias 'view';
 
-extends 'WebService::Mattermost';
-
 ################################################################################
 
+has base_url    => (is => 'ro', isa => Str,                                   required => 1);
+has auth_token  => (is => 'ro', isa => Str,                                   required => 1);
 has code        => (is => 'ro', isa => Int,                                   required => 1);
 has headers     => (is => 'ro', isa => InstanceOf['Mojo::Headers'],           required => 1);
 has message     => (is => 'ro', isa => Str,                                   required => 0);
@@ -70,13 +71,15 @@ sub _build_items {
             # The response is actually an error - create an Error view
             push @ret, view('Error')->new({
                 raw_data    => $items[0],
-                api_version => $self->api_version,
+                auth_token  => $self->auth_token,
+                base_url    => $self->base_url,
             });
         } else {
             @ret = map {
                 view($self->item_view)->new({
+                    auth_token  => $self->auth_token,
+                    base_url    => $self->base_url,
                     raw_data    => $_,
-                    api_version => $self->api_version,
                 })
             } @items;
         }

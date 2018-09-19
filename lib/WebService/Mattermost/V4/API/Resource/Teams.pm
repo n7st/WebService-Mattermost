@@ -14,6 +14,25 @@ has channels => (is => 'ro', isa => InstanceOf[v4 'Teams::Channels'], lazy => 1,
 
 ################################################################################
 
+around [ qw(get_by_id) ] => sub {
+    my $orig = shift;
+    my $self = shift;
+    my $id   = shift;
+
+    return $self->validate_id($orig, $id, @_);
+};
+
+sub get_by_id {
+    my $self = shift;
+    my $id   = shift;
+
+    return $self->_single_view_get({
+        endpoint => '%s',
+        ids      => [ $id ],
+        view     => 'Team',
+    });
+}
+
 sub channel_by_name_and_team_name {
     # GET /name/{name}/channels/name/{channel_name}
 }

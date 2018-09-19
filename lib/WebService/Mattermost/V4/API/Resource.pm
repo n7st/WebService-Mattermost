@@ -1,5 +1,6 @@
 package WebService::Mattermost::V4::API::Resource;
 
+use DDP;
 use List::MoreUtils 'all';
 use Moo;
 use Types::Standard qw(HashRef Str);
@@ -19,7 +20,7 @@ with qw(
 
 has base_url   => (is => 'ro', isa => Str, required => 1);
 has resource   => (is => 'ro', isa => Str, required => 1);
-has auth_token => (is => 'rw', isa => Str, required => 0);
+has auth_token => (is => 'rw', isa => Str, required => 1);
 
 has delete  => (is => 'ro', isa => Str,     default => 'DELETE');
 has get     => (is => 'ro', isa => Str,     default => 'GET');
@@ -143,8 +144,9 @@ sub _as_request {
     my $self = shift;
     my $args = shift;
 
-    $args->{base_url} = $self->base_url;
-    $args->{resource} = $self->resource;
+    $args->{auth_token} = $self->auth_token;
+    $args->{base_url}   = $self->base_url;
+    $args->{resource}   = $self->resource;
 
     $args->{endpoint}   ||= '';
     $args->{parameters} ||= {};
@@ -158,6 +160,8 @@ sub _as_response {
     my $args = shift;
 
     return WebService::Mattermost::V4::API::Response->new({
+        auth_token  => $self->auth_token,
+        base_url    => $self->base_url,
         code        => $res->code,
         headers     => $res->headers,
         is_error    => $res->is_error   ? 1 : 0,

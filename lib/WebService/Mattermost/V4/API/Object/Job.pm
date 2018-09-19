@@ -72,14 +72,6 @@ WebService::Mattermost::V4::API::Object::Job
 
 =over 4
 
-=item C<id>
-
-=item C<create_at>
-
-=item C<created_at>
-
-DateTime.
-
 =item C<type>
 
 =item C<start_at>
@@ -93,6 +85,18 @@ DateTime.
 =item C<progress>
 
 =item C<data>
+
+=back
+
+=head1 SEE ALSO
+
+=over 4
+
+=item C<WebService::Mattermost::V4::API::Object::Role::ID>
+
+=item C<WebService::Mattermost::V4::API::Object::Role::CreatedAt>
+
+=item C<WebService::Mattermost::V4::API::Object::Role::Status>
 
 =back
 

@@ -5,12 +5,12 @@ use Types::Standard qw(InstanceOf Maybe Str);
 
 use WebService::Mattermost::Helper::Alias 'view';
 
-requires 'raw_data';
+#requires 'raw_data';
 
 ################################################################################
 
 has creator_id => (is => 'ro', isa => Maybe[Str],                     lazy => 1, builder => 1);
-#has created_by => (is => 'ro', isa => Maybe[InstanceOf[view 'User']], lazy => 1, builder => 1);
+has created_by => (is => 'ro', isa => Maybe[InstanceOf[view 'User']], lazy => 1, builder => 1);
 
 ################################################################################
 
@@ -21,7 +21,10 @@ sub _build_creator_id {
 }
 
 sub _build_created_by {
-    # TODO
+    my $self = shift;
+
+    return unless $self->creator_id;
+    return $self->api->users->get_by_id($self->creator_id)->item;
 }
 
 ################################################################################
