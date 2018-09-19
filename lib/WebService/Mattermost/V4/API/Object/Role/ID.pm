@@ -3,7 +3,7 @@ package WebService::Mattermost::V4::API::Object::Role::ID;
 use Moo::Role;
 use Types::Standard qw(Maybe Str);
 
-requires 'raw_data';
+#requires 'raw_data';
 
 ################################################################################
 

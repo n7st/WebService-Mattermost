@@ -24,45 +24,17 @@ WebService::Mattermost::V4::API::Object::Emoji
 
 Details a Mattermost Emoji object.
 
-=head2 ATTRIBUTES
+=head1 SEE ALSO
 
 =over 4
 
-=item C<id>
+=item C<WebService::Mattermost::V4::API::Object::Role::Timestamps>
 
-The Emoji's ID.
+=item C<WebService::Mattermost::V4::API::Object::Role::BelongingToUser>
 
-=item C<name>
+=item C<WebService::Mattermost::V4::API::Object::Role::ID>
 
-The Emoji's name.
-
-=item C<creator_id>
-
-The ID of the user who created the Emoji.
-
-=item C<create_at>
-
-UNIX timestamp.
-
-=item C<delete_at>
-
-UNIX timestamp.
-
-=item C<update_at>
-
-UNIX timestamp.
-
-=item C<created_at>
-
-DateTime object.
-
-=item C<deleted_at>
-
-DateTime object.
-
-=item C<updated_at>
-
-DateTime object.
+=item C<WebService::Mattermost::V4::API::Object::Role::Name>
 
 =back
 

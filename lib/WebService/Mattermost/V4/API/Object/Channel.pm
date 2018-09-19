@@ -85,14 +85,6 @@ Details a Mattermost channel object.
 
 =over 4
 
-=item C<created_at>
-
-A DateTime object for when the channel was created.
-
-=item C<delete_at>
-
-A DateTime object for when the channel should be deleted.
-
 =item C<extra_updated_at>
 
 A DateTime object for when the channel was updated (extra).
@@ -100,10 +92,6 @@ A DateTime object for when the channel was updated (extra).
 =item C<last_post_at>
 
 A DateTime object for when the channel was last posted to.
-
-=item C<updated_at>
-
-A DateTime object for when the channel was last updated.
 
 =item C<creator_id>
 
@@ -147,6 +135,16 @@ The number of messages made in the channel.
 =head1 SEE ALSO
 
 =over 4
+
+=item C<WebService::Mattermost::V4::API::Object::Role::Timestamps>
+
+=item C<WebService::Mattermost::V4::API::Object::Role::BelongingToUser>
+
+=item C<WebService::Mattermost::V4::API::Object::Role::BelongingToTeam>
+
+=item C<WebService::Mattermost::V4::API::Object::Role::ID>
+
+=item C<WebService::Mattermost::V4::API::Object::Role::Name>
 
 =item L<Channel documentation|https://api.mattermost.com/#tag/channels>
 

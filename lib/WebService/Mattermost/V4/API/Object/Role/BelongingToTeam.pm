@@ -5,12 +5,12 @@ use Types::Standard qw(InstanceOf Maybe Str);
 
 use WebService::Mattermost::Helper::Alias 'view';
 
-requires 'raw_data';
+#requires 'raw_data';
 
 ################################################################################
 
-has team_id => (is => 'ro', isa => Maybe[Str],                  lazy => 1, builder => 1);
-#has team => (is => 'ro', isa => Maybe[InstanceOf[view 'Team']], lazy => 1, builder => 1);
+has team_id => (is => 'ro', isa => Maybe[Str],                     lazy => 1, builder => 1);
+has team    => (is => 'ro', isa => Maybe[InstanceOf[view 'Team']], lazy => 1, builder => 1);
 
 ################################################################################
 
@@ -21,7 +21,10 @@ sub _build_team_id {
 }
 
 sub _build_team {
-    # TODO
+    my $self = shift;
+
+    return unless $self->team_id;
+    return $self->api->teams->get_by_id($self->team_id)->item;
 }
 
 ################################################################################
@@ -47,7 +50,7 @@ The creator's string ID.
 
 =item C<team>
 
-In progress - linked C<WebService::Mattermost::V4::API::Object::Team> object.
+Linked C<WebService::Mattermost::V4::API::Object::Team> object.
 
 =back
 

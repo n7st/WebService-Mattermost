@@ -1,5 +1,6 @@
 package WebService::Mattermost::V4::API;
 
+use DDP;
 use Moo;
 use MooX::HandlesVia;
 use Types::Standard qw(ArrayRef Bool InstanceOf Str);
@@ -29,7 +30,8 @@ use WebService::Mattermost::Helper::Alias 'v4';
 
 ################################################################################
 
-has base_url => (is => 'ro', isa => Str, required => 1);
+has auth_token => (is => 'ro', isa => Str, required => 1);
+has base_url   => (is => 'ro', isa => Str, required => 1);
 
 has authenticate => (is => 'ro', isa => Bool,     default => 0);
 has resources    => (is => 'rw', isa => ArrayRef, default => sub { [] },
@@ -86,8 +88,9 @@ sub _new_resource {
     my $alt_name = shift || lc $name;
 
     my $resource = v4($name)->new({
-        resource => $alt_name,
-        base_url => $self->base_url,
+        auth_token => $self->auth_token,
+        base_url   => $self->base_url,
+        resource   => $alt_name,
     });
 
     $self->add_resource($resource);

@@ -4,12 +4,12 @@ use Moo;
 use Types::Standard qw(Str Int Maybe);
 
 extends 'WebService::Mattermost::V4::API::Object';
+with    'WebService::Mattermost::V4::API::Object::Role::ID';
 
 ################################################################################
 
 has [ qw(
     detailed_error
-    id
     message
     request_id
 ) ] => (is => 'ro', isa => Maybe[Str], lazy => 1, builder => 1);
@@ -80,6 +80,8 @@ Details an error response from the API.
 =head1 SEE ALSO
 
 =over 4
+
+=item C<WebService::Mattermost::V4::API::Object::Role::ID>
 
 =item L<Error documentation|https://api.mattermost.com/#tag/errors>
 

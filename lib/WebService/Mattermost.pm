@@ -1,21 +1,89 @@
 package WebService::Mattermost;
 
 use Moo;
+use Types::Standard qw(Bool Int Object Str);
+
+use WebService::Mattermost::V4::API;
 
 with qw(
-    WebService::Mattermost::Role::API
-    WebService::Mattermost::Role::Authenticate
     WebService::Mattermost::Role::Logger
 );
+
+################################################################################
+
+has [ qw(base_url username password) ] => (is => 'ro', isa => Str, required => 1);
+
+has api_version                => (is => 'ro', isa => Int,  default => 4);
+has authenticate               => (is => 'rw', isa => Bool, default => 0);
+has [ qw(auth_token user_id) ] => (is => 'rw', isa => Str,  default => '');
+
+has api => (is => 'ro', isa => Object, lazy => 1, builder => 1);
 
 ################################################################################
 
 sub BUILD {
     my $self = shift;
 
-    $self->try_authentication();
+    unless ($self->auth_token) {
+        $self->_try_authentication();
+    }
 
     return 1;
+}
+
+################################################################################
+
+sub _try_authentication {
+    my $self = shift;
+
+    if ($self->authenticate && $self->username && $self->password) {
+        # Log into Mattermost at runtime. The entire API requires an auth token
+        # which is sent back from the login method.
+        my $ret = $self->api->users->login($self->username, $self->password);
+
+        if ($ret->is_success) {
+            $self->auth_token($ret->headers->header('Token'));
+            $self->user_id($ret->content->{id});
+            $self->_set_resource_auth_token();
+        } else {
+            $self->logger->logdie($ret->message);
+        }
+    } elsif ($self->authenticate && !($self->username && $self->password)) {
+        $self->logger->logdie('"username" and "password" are required attributes for authentication');
+    } elsif ($self->auth_token) {
+        $self->_set_resource_auth_token();
+    }
+
+    return 1;
+}
+
+sub _set_resource_auth_token {
+    my $self  = shift;
+
+    # Set the auth token against every available resource class after a
+    # successful login to the Mattermost server
+    foreach my $resource (@{$self->api->resources}) {
+        $resource->auth_token($self->auth_token);
+    }
+
+    return 1;
+}
+
+################################################################################
+
+sub _build_api {
+    my $self = shift;
+
+    my $args = {
+        base_url   => $self->base_url,
+        auth_token => $self->auth_token,
+    };
+
+    my $ver = 'WebService::Mattermost::V4::API';
+
+    # Later, if $self->api_version == 5 ...
+
+    return $ver->new($args);
 }
 
 ################################################################################
