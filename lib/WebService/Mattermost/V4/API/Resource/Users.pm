@@ -9,6 +9,7 @@ use WebService::Mattermost::V4::API::Resource::Users::Preferences;
 use WebService::Mattermost::Helper::Alias 'v4';
 
 extends 'WebService::Mattermost::V4::API::Resource';
+with    'WebService::Mattermost::V4::API::Resource::Role::View::User';
 
 ################################################################################
 
@@ -23,18 +24,12 @@ has role_system_user  => (is => 'ro', isa => Str, default => 'system_user');
 ################################################################################
 
 around [ qw(
-    deactivate_by_id
-    generate_mfa_secret_by_id
-    get_by_id
     get_profile_image_by_id
-    patch_by_id
     set_profile_image_by_id
     update_active_status_by_id
     update_authentication_method_by_id
-    update_by_id
     update_mfa_by_id
     update_password_by_id
-    update_roles_by_id
 ) ] => sub {
     my $orig = shift;
     my $self = shift;
@@ -96,7 +91,6 @@ sub login {
             login_id => $username,
             password => $password,
         },
-        view       => 'User',
     });
 }
 
@@ -160,29 +154,6 @@ sub autocomplete {
     });
 }
 
-sub get_by_id {
-    my $self = shift;
-    my $id   = shift;
-
-    return $self->_single_view_get({
-        endpoint => '%s',
-        ids      => [ $id ],
-        view     => 'User',
-    });
-}
-
-sub update_by_id {
-    my $self = shift;
-    my $id   = shift;
-    my $args = shift;
-
-    return $self->_put({
-        endpoint   => '%s',
-        ids        => [ $id ],
-        parameters => $args,
-    });
-}
-
 sub update_active_status_by_id {
     my $self = shift;
     my $id   = shift;
@@ -194,51 +165,6 @@ sub update_active_status_by_id {
         ids        => [ $id ],
         parameters => $args,
         required   => [ 'active' ],
-    });
-}
-
-sub deactivate_by_id {
-    my $self = shift;
-    my $id   = shift;
-
-    return $self->_delete({
-        endpoint => '%s',
-        ids      => [ $id ],
-    });
-}
-
-sub patch_by_id {
-    my $self = shift;
-    my $id   = shift;
-    my $args = shift;
-
-    return $self->_put({
-        endpoint   => '%s/patch',
-        ids        => [ $id ],
-        parameters => $args,
-    });
-}
-
-sub update_roles_by_id {
-    my $self  = shift;
-    my $id    = shift;
-    my $roles = shift; # ArrayRef
-
-    foreach my $role (@{$roles}) {
-        unless (grep { $_ eq $role } @{$self->available_user_roles}) {
-            my $err = sprintf('"%s" is not a valid role. Valid roles: %s',
-                $role, join(', ', @{$self->available_user_roles}));
-
-            return $self->_error_return($err);
-        }
-    }
-
-    return $self->_put({
-        endpoint   => '%s/roles',
-        ids        => [ $id ],
-        parameters => {
-            roles => $roles,
-        },
     });
 }
 
@@ -277,7 +203,6 @@ sub get_by_username {
 
     return $self->_single_view_get({
         endpoint => 'username/%s',
-        view     => 'User',
         ids      => [ $username ],
     });
 }
@@ -302,16 +227,6 @@ sub update_mfa_by_id {
         endpoint   => '%s/mfa',
         ids        => [ $id ],
         parameters => $args,
-    });
-}
-
-sub generate_mfa_secret_by_id {
-    my $self = shift;
-    my $id   = shift;
-
-    return $self->_post({
-        endpoint => '%s/mfa/generate',
-        ids      => [ $id ],
     });
 }
 
@@ -590,14 +505,6 @@ Set a user as active or inactive.
         active => \1, # \1 for true, \0 for false
     });
 
-=item C<deactivate_by_id>
-
-L<Deactivate a user account|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D%2Fdelete>
-
-Set a user as inactive by ID.
-
-    $response->deactivate_by_id('ID-HERE');
-
 =item C<get_profile_image_by_id()>
 
 L<Get user's profile image|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1image%2Fget>
@@ -647,51 +554,6 @@ active, a code from the MFA client is required.
         code     => 1234, # required if MFA is already active
     });
 
-=item C<generate_mfa_secret_by_id()>
-
-L<Generate MFA secret|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1mfa~1generate%2Fpost>
-
-Returns a base64 encoded QR code image.
-
-    my $response = $resource->generate_mfa_secret_by_id('ID-HERE');
-
-=item C<get_by_id()>
-
-L<Get a user|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D%2Fget>
-
-Get a user by their ID.
-
-    my $response = $resource->get_by_id('ID-HERE');
-
-=item C<update_by_id()>
-
-L<Update a user|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D%2Fput>
-
-Update a user by their ID.
-
-    my $response = $resource->update_by_id('ID-HERE', {
-        # Optional arguments
-        email        => '...',
-        username     => '...',
-        first_name   => '...',
-        last_name    => '...',
-        nickname     => '...',
-        locale       => '...',
-        position     => '...',
-        props        => {
-            # ...
-        },
-        notify_props => {
-            email         => \1,
-            push          => \1,
-            desktop       => \1,
-            desktop_sound => \1,
-            mention_keys  => \1,
-            channel       => \1,
-            first_name    => \1,
-        },
-    });
-
 =item C<check_mfa_by_username()>
 
 L<Check MFA|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1mfa%2Fpost>
@@ -724,44 +586,6 @@ L<Get a user by email|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1e
 Get a user by email address.
 
     my $response = $resource->get_by_email('me@somewhere.com');
-
-=item C<patch_by_id()>
-
-L<Patch a user|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1patch%2Fput>
-
-    my $response = $resource->patch_by_id('USER-ID-HERE', {
-        # Optional parameters:
-        email        => '...',
-        username     => '...',
-        first_name   => '...',
-        last_name    => '...',
-        nickname     => '...',
-        locale       => '...',
-        position     => '...',
-        props        => {
-            # ...
-        },
-        notify_props => {
-            email         => \1,
-            push          => \1,
-            desktop       => \1,
-            desktop_sound => \1,
-            mention_keys  => \1,
-            channel       => \1,
-            first_name    => \1,
-        },
-    });
-
-=item C<update_roles_by_id()>
-
-L<Update a user's roles|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1roles%2Fput>
-
-Valid roles are C<system_user> and C<system_admin>.
-
-    my $response = $resource->update_roles_by_id('ID-HERE', [
-        'ROLE-NAME-HERE',
-        'ANOTHER-ROLE-HERE',
-    ]);
 
 =back
 

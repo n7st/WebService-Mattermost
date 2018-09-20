@@ -1,13 +1,14 @@
 package WebService::Mattermost::V4::API::Object::User;
 
 use Moo;
-use Types::Standard qw(Bool HashRef InstanceOf Int Maybe Str);
+use Types::Standard qw(ArrayRef Bool HashRef InstanceOf Int Maybe Str);
 
 extends 'WebService::Mattermost::V4::API::Object';
 with    qw(
     WebService::Mattermost::V4::API::Object::Role::ID
     WebService::Mattermost::V4::API::Object::Role::Roles
     WebService::Mattermost::V4::API::Object::Role::Timestamps
+    WebService::Mattermost::V4::API::Object::Role::APIMethods
 );
 
 ################################################################################
@@ -37,15 +38,15 @@ has [ qw(
 
 ################################################################################
 
-sub update {
+sub BUILD {
     my $self = shift;
-    my $args = shift;
 
-    # TODO: this would be better off using the methods in the User API resource
-    # rather than duplicating them
+    $self->api_resource_name('user');
+    $self->set_available_api_methods([ qw(
+        teams
+    ) ]);
 
-    return unless $self->id;
-    return $self->api->users->update_by_id($self->id, $args);
+    return 1;
 }
 
 ################################################################################

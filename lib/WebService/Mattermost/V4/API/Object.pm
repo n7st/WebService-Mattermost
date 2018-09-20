@@ -6,6 +6,8 @@ use Types::Standard qw(HashRef InstanceOf Str);
 
 use WebService::Mattermost::V4::API;
 
+with 'WebService::Mattermost::Role::Returns';
+
 ################################################################################
 
 has [ qw(auth_token base_url) ] => (is => 'ro', isa => Str,     required => 1);
