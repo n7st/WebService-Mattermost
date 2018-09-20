@@ -6,6 +6,7 @@ use Types::Standard qw(Bool HashRef InstanceOf Int Maybe Str);
 extends 'WebService::Mattermost::V4::API::Object';
 with    qw(
     WebService::Mattermost::V4::API::Object::Role::ID
+    WebService::Mattermost::V4::API::Object::Role::Roles
     WebService::Mattermost::V4::API::Object::Role::Timestamps
 );
 
@@ -25,7 +26,6 @@ has [ qw(
     last_name
     locale
     nickname
-    roles
     position
     username
 ) ] => (is => 'ro', isa => Maybe[Str], lazy => 1, builder => 1);
@@ -113,6 +113,8 @@ C<update_by_id()>.
 =over 4
 
 =item C<WebService::Mattermost::V4::API::Object::Role::ID>
+
+=item C<WebService::Mattermost::V4::API::Object::Role::Roles>
 
 =item C<WebService::Mattermost::V4::API::Object::Role::Timestamps>
 

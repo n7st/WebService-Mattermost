@@ -12,23 +12,23 @@ with    qw(
 
 ################################################################################
 
-has company_name => (is => 'ro', isa => Str,  lazy => 1, builder => 1);
-has description  => (is => 'ro', isa => Str,  lazy => 1, builder => 1);
-has display_name => (is => 'ro', isa => Str,  lazy => 1, builder => 1);
-has email        => (is => 'ro', isa => Str,  lazy => 1, builder => 1);
-has invite_id    => (is => 'ro', isa => Str,  lazy => 1, builder => 1);
-has is_private   => (is => 'ro', isa => Bool, lazy => 1, builder => 1);
-has open_invite  => (is => 'ro', isa => Bool, lazy => 1, builder => 1);
+has company_name   => (is => 'ro', isa => Str,  lazy => 1, builder => 1);
+has description    => (is => 'ro', isa => Str,  lazy => 1, builder => 1);
+has display_name   => (is => 'ro', isa => Str,  lazy => 1, builder => 1);
+has email          => (is => 'ro', isa => Str,  lazy => 1, builder => 1);
+has invite_id      => (is => 'ro', isa => Str,  lazy => 1, builder => 1);
+has is_invite_only => (is => 'ro', isa => Bool, lazy => 1, builder => 1);
+has open_invite    => (is => 'ro', isa => Bool, lazy => 1, builder => 1);
 
 ################################################################################
 
-sub _build_company_name { shift->raw_data->{company_name}        }
-sub _build_description  { shift->raw_data->{description}         }
-sub _build_display_name { shift->raw_data->{display_name}        }
-sub _build_email        { shift->raw_data->{email}               }
-sub _build_invite_id    { shift->raw_data->{invite_id}           }
-sub _build_is_private   { shift->raw_data->{type} eq 'P' ? 1 : 0 }
-sub _build_open_invite  { shift->raw_data->{open_invite} ? 1 : 0 }
+sub _build_company_name   { shift->raw_data->{company_name}        }
+sub _build_description    { shift->raw_data->{description}         }
+sub _build_display_name   { shift->raw_data->{display_name}        }
+sub _build_email          { shift->raw_data->{email}               }
+sub _build_invite_id      { shift->raw_data->{invite_id}           }
+sub _build_is_invite_only { shift->raw_data->{type} eq 'I' ? 1 : 0 }
+sub _build_open_invite    { shift->raw_data->{open_invite} ? 1 : 0 }
 
 ################################################################################
 
@@ -65,7 +65,7 @@ Contact address for the team.
 
 =item C<invite_id>
 
-=item C<is_private>
+=item C<is_invite_only>
 
 Boolean.
 

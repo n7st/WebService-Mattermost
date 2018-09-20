@@ -1,15 +1,20 @@
 package WebService::Mattermost::V4::API::Resource;
 
-use DDP;
 use List::MoreUtils 'all';
 use Moo;
 use Types::Standard qw(HashRef Str);
 
-use WebService::Mattermost::V4::API::Request;
-use WebService::Mattermost::V4::API::Response;
 use WebService::Mattermost::Helper::Alias qw(v4 view);
 use WebService::Mattermost::V4::API::Object::Channel;
+use WebService::Mattermost::V4::API::Object::Icon;
+use WebService::Mattermost::V4::API::Object::Status;
+use WebService::Mattermost::V4::API::Object::Team;
+use WebService::Mattermost::V4::API::Object::TeamMember;
+use WebService::Mattermost::V4::API::Object::TeamStats;
+use WebService::Mattermost::V4::API::Object::Results;
 use WebService::Mattermost::V4::API::Object::User;
+use WebService::Mattermost::V4::API::Request;
+use WebService::Mattermost::V4::API::Response;
 
 with qw(
     WebService::Mattermost::V4::API::Role::RequireID
@@ -159,6 +164,10 @@ sub _as_response {
     my $res  = shift;
     my $args = shift;
 
+    my $view_name = $self->can('view_name') && $self->view_name
+        ? $self->view_name
+        : $args->{view};
+
     return WebService::Mattermost::V4::API::Response->new({
         auth_token  => $self->auth_token,
         base_url    => $self->base_url,
@@ -169,7 +178,7 @@ sub _as_response {
         message     => $res->message,
         prev        => $res,
         raw_content => $res->body,
-        item_view   => $args->{view},
+        item_view   => $view_name,
         single_item => $args->{single},
     });
 }
