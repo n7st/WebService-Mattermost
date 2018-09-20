@@ -14,27 +14,24 @@ has channels => (is => 'ro', isa => InstanceOf[v4 'Teams::Channels'], lazy => 1,
 
 ################################################################################
 
-around [ qw(get_by_id) ] => sub {
-    my $orig = shift;
+sub create {
     my $self = shift;
-    my $id   = shift;
+    my $args = shift;
 
-    return $self->validate_id($orig, $id, @_);
-};
-
-sub get_by_id {
-    my $self = shift;
-    my $id   = shift;
-
-    return $self->_single_view_get({
-        endpoint => '%s',
-        ids      => [ $id ],
-        view     => 'Team',
+    return $self->_single_view_post({
+        parameters => $args,
+        required   => [ qw(name display_name type) ],
     });
 }
 
-sub channel_by_name_and_team_name {
-    # GET /name/{name}/channels/name/{channel_name}
+sub list {
+    my $self = shift;
+    my $args = shift;
+
+    return $self->_get({
+        view       => 'Team',
+        parameters => $args,
+    });
 }
 
 ################################################################################
@@ -72,6 +69,27 @@ WebService::Mattermost::V4::API::Resource::Teams
 =head2 METHODS
 
 =over 4
+
+=item C<create()>
+
+L<Create a team|https://api.mattermost.com/#tag/teams%2Fpaths%2F~1teams%2Fpost>
+
+    my $response = $resource->create({
+        # Required parameters:
+        name         => '...',
+        type         => 'O', # O for open, I for invite only
+        display_name => '...',
+    });
+
+=item C<list()>
+
+L<Get teams|https://api.mattermost.com/#tag/teams%2Fpaths%2F~1teams%2Fget>
+
+    my $response = $resource->list({
+        # Optional parameters:
+        page     => 0,
+        per_page => 60,
+    });
 
 =back
 
