@@ -24,8 +24,6 @@ has role_system_user  => (is => 'ro', isa => Str, default => 'system_user');
 ################################################################################
 
 around [ qw(
-    get_profile_image_by_id
-    set_profile_image_by_id
     update_active_status_by_id
     update_authentication_method_by_id
     update_mfa_by_id
@@ -165,35 +163,6 @@ sub update_active_status_by_id {
         ids        => [ $id ],
         parameters => $args,
         required   => [ 'active' ],
-    });
-}
-
-sub get_profile_image_by_id {
-    my $self = shift;
-    my $id   = shift;
-
-    return $self->_get({
-        endpoint => '%s/image',
-        ids      => [ $id ],
-    });
-}
-
-sub set_profile_image_by_id {
-    my $self     = shift;
-    my $id       = shift;
-    my $filename = shift;
-
-    unless ($filename && -f $filename) {
-        return $self->_error_return(sprintf('%s is not a valid file', $filename));
-    }
-
-    return $self->_post({
-        endpoint           => '%s/image',
-        ids                => [ $id ],
-        override_data_type => 'form',
-        parameters         => {
-            image => { file => $filename },
-        },
     });
 }
 
@@ -504,24 +473,6 @@ Set a user as active or inactive.
     $resource->update_active_status_by_id('ID-HERE', {
         active => \1, # \1 for true, \0 for false
     });
-
-=item C<get_profile_image_by_id()>
-
-L<Get user's profile image|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1image%2Fget>
-
-Get a user's profile image. Warning: returns binary content.
-
-    my $response = $resource->get_profile_image_by_id('ID-HERE');
-
-    # $response->raw_content contains the image as binary
-
-=item C<set_profile_image_by_id()>
-
-L<Set user's profile image|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1image%2Fpost>
-
-Set a user's profile image.
-
-    my $response = $resource->set_profile_image_by_id('ID-HERE', '/path/to/file.jpg');
 
 =item C<get_by_username()>
 

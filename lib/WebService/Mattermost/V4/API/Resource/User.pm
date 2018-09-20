@@ -1,6 +1,5 @@
 package WebService::Mattermost::V4::API::Resource::User;
 
-use DDP;
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -19,6 +18,9 @@ around [ qw(
     update_roles
 
     generate_mfa_secret
+
+    get_profile_image
+    set_profile_image
 ) ] => sub {
     my $orig = shift;
     my $self = shift;
@@ -52,9 +54,6 @@ sub update {
 sub teams {
     my $self = shift;
     my $id   = shift;
-
-    print "Teams for \n";
-    p $id;
 
     return $self->_get({
         endpoint => '%s/teams',
@@ -115,6 +114,35 @@ sub generate_mfa_secret {
     return $self->_post({
         endpoint => '%s/mfa/generate',
         ids      => [ $id ],
+    });
+}
+
+sub get_profile_image {
+    my $self = shift;
+    my $id   = shift;
+
+    return $self->_get({
+        endpoint => '%s/image',
+        ids      => [ $id ],
+    });
+}
+
+sub set_profile_image {
+    my $self     = shift;
+    my $id       = shift;
+    my $filename = shift;
+
+    unless ($filename && -f $filename) {
+        return $self->_error_return(sprintf('%s is not a valid file', $filename));
+    }
+
+    return $self->_post({
+        endpoint           => '%s/image',
+        ids                => [ $id ],
+        override_data_type => 'form',
+        parameters         => {
+            image => { file => $filename },
+        },
     });
 }
 
@@ -247,6 +275,24 @@ L<Generate MFA secret|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%
 Returns a base64 encoded QR code image.
 
     my $response = $resource->generate_mfa_secret('USER-ID-HERE');
+
+=item C<get_profile_image()>
+
+L<Get user's profile image|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1image%2Fget>
+
+Get a user's profile image. Warning: returns binary content.
+
+    my $response = $resource->get_profile_image('ID-HERE');
+
+    # $response->raw_content contains the image as binary
+
+=item C<set_profile_image()>
+
+L<Set user's profile image|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1image%2Fpost>
+
+Set a user's profile image.
+
+    my $response = $resource->set_profile_image('ID-HERE', '/path/to/file.jpg');
 
 =back
 
