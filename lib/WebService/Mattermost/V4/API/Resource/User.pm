@@ -1,6 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::User;
 
 use Moo;
+use Types::Standard qw(ArrayRef Str);
 
 extends 'WebService::Mattermost::V4::API::Resource';
 with    qw(
@@ -10,14 +11,26 @@ with    qw(
 
 ################################################################################
 
+has available_user_roles => (is => 'ro', isa => ArrayRef, lazy => 1, builder => 1);
+
+has role_system_admin => (is => 'ro', isa => Str, default => 'system_admin');
+has role_system_user  => (is => 'ro', isa => Str, default => 'system_user');
+
+################################################################################
+
 around [ qw(
     get
     update
     teams
     patch
+
     update_roles
+    update_active_status
+    update_password
+    update_authentication_method
 
     generate_mfa_secret
+    update_mfa
 
     get_profile_image
     set_profile_image
@@ -117,6 +130,18 @@ sub generate_mfa_secret {
     });
 }
 
+sub update_mfa {
+    my $self = shift;
+    my $id   = shift;
+    my $args = shift;
+
+    return $self->_put({
+        endpoint   => '%s/mfa',
+        ids        => [ $id ],
+        parameters => $args,
+    });
+}
+
 sub get_profile_image {
     my $self = shift;
     my $id   = shift;
@@ -144,6 +169,52 @@ sub set_profile_image {
             image => { file => $filename },
         },
     });
+}
+
+sub update_active_status {
+    my $self = shift;
+    my $id   = shift;
+    my $args = shift;
+
+    return $self->_call({
+        method     => $self->put,
+        endpoint   => '%s/active',
+        ids        => [ $id ],
+        parameters => $args,
+        required   => [ 'active' ],
+    });
+}
+
+sub update_password {
+    my $self = shift;
+    my $id   = shift;
+    my $args = shift;
+
+    return $self->_put({
+        endpoint   => '%s/password',
+        ids        => [ $id ],
+        parameters => $args,
+    });
+}
+
+sub update_authentication_method {
+    my $self = shift;
+    my $id   = shift;
+    my $args = shift;
+
+    return $self->_put({
+        endpoint  => '%s/auth',
+        ids       => [ $id ],
+        paramters => $args,
+    });
+}
+
+################################################################################
+
+sub _build_available_user_roles {
+    my $self = shift;
+
+    return [ $self->role_system_admin, $self->role_system_user ];
 }
 
 ################################################################################
@@ -276,6 +347,18 @@ Returns a base64 encoded QR code image.
 
     my $response = $resource->generate_mfa_secret('USER-ID-HERE');
 
+=item C<update_mfa()>
+
+L<Update a user's MFA|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1mfa%2Fput>
+
+Set whether a user requires multi-factor auth. If the user currently has MFA
+active, a code from the MFA client is required.
+
+    my $response = $resource->update_mfa('ID-HERE', {
+        activate => \1,   # or \0 for false
+        code     => 1234, # required if MFA is already active
+    });
+
 =item C<get_profile_image()>
 
 L<Get user's profile image|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1image%2Fget>
@@ -293,6 +376,36 @@ L<Set user's profile image|https://api.mattermost.com/#tag/users%2Fpaths%2F~1use
 Set a user's profile image.
 
     my $response = $resource->set_profile_image('ID-HERE', '/path/to/file.jpg');
+
+=item C<update_active_status()>
+
+L<Update user active status|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1active%2Fput>
+
+Set a user as active or inactive.
+
+    $resource->update_active_status('ID-HERE', {
+        active => \1, # \1 for true, \0 for false
+    });
+
+=item C<update_password()>
+
+L<Update a user's password|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1password%2Fput>
+
+    my $response = $resource->update_password('ID-HERE', {
+        old_password => '...',
+        new_password => '...',
+    });
+
+=item C<update_authentication_method()>
+
+L<Update a user's authentication method|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1auth%2Fput>
+
+    my $response = $resource->update_authentication_method('USER-ID-HERE', {
+        # Optional parameters:
+        auth_data    => '...',
+        auth_service => '...',
+        password     => '...',
+    });
 
 =back
 

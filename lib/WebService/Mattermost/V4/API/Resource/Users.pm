@@ -1,7 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Users;
 
 use Moo;
-use Types::Standard qw(ArrayRef InstanceOf Str);
+use Types::Standard 'InstanceOf';
 
 use WebService::Mattermost::V4::API::Resource::Users::Sessions;
 use WebService::Mattermost::V4::API::Resource::Users::Status;
@@ -13,28 +13,11 @@ with    'WebService::Mattermost::V4::API::Resource::Role::View::User';
 
 ################################################################################
 
-has available_user_roles => (is => 'ro', isa => ArrayRef,                            lazy => 1, builder => 1);
 has preferences          => (is => 'ro', isa => InstanceOf[v4 'Users::Preferences'], lazy => 1, builder => 1);
 has sessions             => (is => 'ro', isa => InstanceOf[v4 'Users::Sessions'],    lazy => 1, builder => 1);
 has status               => (is => 'ro', isa => InstanceOf[v4 'Users::Status'],      lazy => 1, builder => 1);
 
-has role_system_admin => (is => 'ro', isa => Str, default => 'system_admin');
-has role_system_user  => (is => 'ro', isa => Str, default => 'system_user');
-
 ################################################################################
-
-around [ qw(
-    update_active_status_by_id
-    update_authentication_method_by_id
-    update_mfa_by_id
-    update_password_by_id
-) ] => sub {
-    my $orig = shift;
-    my $self = shift;
-    my $id   = shift;
-
-    return $self->validate_id($orig, $id, @_);
-};
 
 around [ qw(get_by_username check_mfa_by_username) ] => sub {
     my $orig     = shift;
@@ -152,20 +135,6 @@ sub autocomplete {
     });
 }
 
-sub update_active_status_by_id {
-    my $self = shift;
-    my $id   = shift;
-    my $args = shift;
-
-    return $self->_call({
-        method     => $self->put,
-        endpoint   => '%s/active',
-        ids        => [ $id ],
-        parameters => $args,
-        required   => [ 'active' ],
-    });
-}
-
 sub get_by_username {
     my $self     = shift;
     my $username = shift;
@@ -187,18 +156,6 @@ sub reset_password {
     });
 }
 
-sub update_mfa_by_id {
-    my $self = shift;
-    my $id   = shift;
-    my $args = shift;
-
-    return $self->_put({
-        endpoint   => '%s/mfa',
-        ids        => [ $id ],
-        parameters => $args,
-    });
-}
-
 sub check_mfa_by_username {
     my $self     = shift;
     my $username = shift;
@@ -208,18 +165,6 @@ sub check_mfa_by_username {
         parameters => {
             login_id => $username,
         },
-    });
-}
-
-sub update_password_by_id {
-    my $self = shift;
-    my $id   = shift;
-    my $args = shift;
-
-    return $self->_put({
-        endpoint   => '%s/password',
-        ids        => [ $id ],
-        parameters => $args,
     });
 }
 
@@ -291,25 +236,7 @@ sub search_tokens {
     });
 }
 
-sub update_authentication_method_by_id {
-    my $self = shift;
-    my $id   = shift;
-    my $args = shift;
-
-    return $self->_put({
-        endpoint  => '%s/auth',
-        ids       => [ $id ],
-        paramters => $args,
-    });
-}
-
 ################################################################################
-
-sub _build_available_user_roles {
-    my $self = shift;
-
-    return [ $self->role_system_admin, $self->role_system_user ];
-}
 
 sub _build_preferences {
     my $self = shift;
@@ -464,16 +391,6 @@ L<Autocomplete users|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1au
         channel_id => 'CHANNEL-ID-HERE',
     });
 
-=item C<update_active_status_by_id()>
-
-L<Update user active status|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1active%2Fput>
-
-Set a user as active or inactive.
-
-    $resource->update_active_status_by_id('ID-HERE', {
-        active => \1, # \1 for true, \0 for false
-    });
-
 =item C<get_by_username()>
 
 L<Get a user by username|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1username~1%7Busername%7D%2Fget>
@@ -493,18 +410,6 @@ Reset a user's password. Requires a recovery code.
         code         => 1234
     });
 
-=item C<update_mfa_by_id()>
-
-L<Update a user's MFA|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1mfa%2Fput>
-
-Set whether a user requires multi-factor auth. If the user currently has MFA
-active, a code from the MFA client is required.
-
-    my $response = $resource->update_mfa_by_id('ID-HERE', {
-        activate => \1,   # or \0 for false
-        code     => 1234, # required if MFA is already active
-    });
-
 =item C<check_mfa_by_username()>
 
 L<Check MFA|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1mfa%2Fpost>
@@ -512,15 +417,6 @@ L<Check MFA|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1mfa%2Fpost>
 Check whether a user requires multi-factor auth by username or email.
 
     my $response = $resource->check_mfa_by_username('USERNAME-HERE');
-
-=item C<update_password_by_id()>
-
-L<Update a user's password|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1password%2Fput>
-
-    my $response = $resource->update_password_by_id('ID-HERE', {
-        old_password => '...',
-        new_password => '...',
-    });
 
 =item C<send_password_reset_email()>
 
