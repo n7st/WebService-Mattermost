@@ -1,6 +1,5 @@
 package WebService::Mattermost::V4::API::Object::Role::APIMethods;
 
-use DDP;
 use Moo::Role;
 use Types::Standard qw(HashRef Str);
 
@@ -17,7 +16,6 @@ sub call {
     my $args   = shift;
 
     if (my $where = $self->method_is_valid($method)) {
-        p $where;
         return $where->$method($self->id, $args);
     }
 
@@ -68,6 +66,9 @@ Mark methods as available for use from a result object.
     sub BUILD {
         my $self = shift;
 
+        # e.g. user
+        $self->api_resource_name('lower case name of the API resource');
+
         $self->set_available_api_methods([ qw(
             method_name
             another_method_name
@@ -75,20 +76,19 @@ Mark methods as available for use from a result object.
         ) ]);
     }
 
-    sub do_something {
-        my $self   = shift;
-        my $method = shift;
-
-        if ($self->method_is_valid($method)) {
-            # Continue
-        }
-    }
-
     1;
 
 =head1 METHODS
 
 =over 4
+
+=item C<call()>
+
+Call an API method which is available to this class.
+
+    $object->call('method_name', {
+        some => 'arguments',
+    });
 
 =item C<set_available_api_methods()>
 
