@@ -128,7 +128,7 @@ sub _build_schemes        { shift->_new_resource('Schemes')                     
 sub _build_system         { shift->_new_resource('System')                          }
 sub _build_team           { shift->_new_resource('Team', 'teams')                   }
 sub _build_teams          { shift->_new_resource('Teams')                           }
-sub _build_user           { shift->_new_resource('User')                            }
+sub _build_user           { shift->_new_resource('User', 'users')                   }
 sub _build_users          { shift->_new_resource('Users')                           }
 sub _build_webhooks       { shift->_new_resource('Webhooks', 'hooks')               }
 
