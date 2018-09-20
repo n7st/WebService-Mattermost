@@ -23,7 +23,9 @@ use WebService::Mattermost::V4::API::Resource::Roles;
 use WebService::Mattermost::V4::API::Resource::SAML;
 use WebService::Mattermost::V4::API::Resource::Schemes;
 use WebService::Mattermost::V4::API::Resource::System;
+use WebService::Mattermost::V4::API::Resource::Team;
 use WebService::Mattermost::V4::API::Resource::Teams;
+use WebService::Mattermost::V4::API::Resource::User;
 use WebService::Mattermost::V4::API::Resource::Users;
 use WebService::Mattermost::V4::API::Resource::Webhooks;
 use WebService::Mattermost::Helper::Alias 'v4';
@@ -58,7 +60,9 @@ has roles          => (is => 'ro', isa => InstanceOf[v4 'Roles'],         lazy =
 has saml           => (is => 'ro', isa => InstanceOf[v4 'SAML'],          lazy => 1, builder => 1);
 has schemes        => (is => 'ro', isa => InstanceOf[v4 'Schemes'],       lazy => 1, builder => 1);
 has system         => (is => 'ro', isa => InstanceOf[v4 'System'],        lazy => 1, builder => 1);
+has team           => (is => 'ro', isa => InstanceOf[v4 'Team'],          lazy => 1, builder => 1);
 has teams          => (is => 'ro', isa => InstanceOf[v4 'Teams'],         lazy => 1, builder => 1);
+has user           => (is => 'ro', isa => InstanceOf[v4 'User'],          lazy => 1, builder => 1);
 has users          => (is => 'ro', isa => InstanceOf[v4 'Users'],         lazy => 1, builder => 1);
 has webhooks       => (is => 'ro', isa => InstanceOf[v4 'Webhooks'],      lazy => 1, builder => 1);
 
@@ -100,6 +104,10 @@ sub _new_resource {
 
 ################################################################################
 
+# The optional second parameter in some of these builders sets the "resource
+# name", i.e. DataRetention's base resource is "data_retention", not
+# "dataretention".
+
 sub _build_brand          { shift->_new_resource('Brand')                           }
 sub _build_channels       { shift->_new_resource('Channels')                        }
 sub _build_cluster        { shift->_new_resource('Cluster')                         }
@@ -118,7 +126,9 @@ sub _build_roles          { shift->_new_resource('Roles')                       
 sub _build_saml           { shift->_new_resource('SAML')                            }
 sub _build_schemes        { shift->_new_resource('Schemes')                         }
 sub _build_system         { shift->_new_resource('System')                          }
+sub _build_team           { shift->_new_resource('Team', 'teams')                   }
 sub _build_teams          { shift->_new_resource('Teams')                           }
+sub _build_user           { shift->_new_resource('User', 'users')                   }
 sub _build_users          { shift->_new_resource('Users')                           }
 sub _build_webhooks       { shift->_new_resource('Webhooks', 'hooks')               }
 

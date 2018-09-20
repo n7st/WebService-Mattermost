@@ -5,15 +5,22 @@ use List::MoreUtils 'all';
 use Moo;
 use Types::Standard qw(HashRef Str);
 
-use WebService::Mattermost::V4::API::Request;
-use WebService::Mattermost::V4::API::Response;
 use WebService::Mattermost::Helper::Alias qw(v4 view);
 use WebService::Mattermost::V4::API::Object::Channel;
+use WebService::Mattermost::V4::API::Object::Icon;
+use WebService::Mattermost::V4::API::Object::Status;
+use WebService::Mattermost::V4::API::Object::Team;
+use WebService::Mattermost::V4::API::Object::TeamMember;
+use WebService::Mattermost::V4::API::Object::TeamStats;
+use WebService::Mattermost::V4::API::Object::Results;
 use WebService::Mattermost::V4::API::Object::User;
+use WebService::Mattermost::V4::API::Request;
+use WebService::Mattermost::V4::API::Response;
 
 with qw(
-    WebService::Mattermost::V4::API::Role::RequireID
+    WebService::Mattermost::Role::Returns
     WebService::Mattermost::Role::UserAgent
+    WebService::Mattermost::V4::API::Role::RequireID
 );
 
 ################################################################################
@@ -22,11 +29,11 @@ has base_url   => (is => 'ro', isa => Str, required => 1);
 has resource   => (is => 'ro', isa => Str, required => 1);
 has auth_token => (is => 'rw', isa => Str, required => 1);
 
-has delete  => (is => 'ro', isa => Str,     default => 'DELETE');
-has get     => (is => 'ro', isa => Str,     default => 'GET');
+has DELETE  => (is => 'ro', isa => Str,     default => 'DELETE');
+has GET     => (is => 'ro', isa => Str,     default => 'GET');
 has headers => (is => 'ro', isa => HashRef, default => sub { {} });
-has post    => (is => 'ro', isa => Str,     default => 'POST');
-has put     => (is => 'ro', isa => Str,     default => 'PUT');
+has POST    => (is => 'ro', isa => Str,     default => 'POST');
+has PUT     => (is => 'ro', isa => Str,     default => 'PUT');
 
 ################################################################################
 
@@ -34,7 +41,7 @@ sub _delete {
     my $self = shift;
     my $args = shift;
 
-    $args->{method} = $self->delete;
+    $args->{method} = $self->DELETE;
 
     return $self->_call($args);
 }
@@ -52,7 +59,7 @@ sub _get {
     my $self = shift;
     my $args = shift;
 
-    $args->{method} = $self->get;
+    $args->{method} = $self->GET;
 
     return $self->_call($args);
 }
@@ -70,7 +77,7 @@ sub _post {
     my $self = shift;
     my $args = shift;
 
-    $args->{method} = $self->post;
+    $args->{method} = $self->POST;
 
     return $self->_call($args);
 }
@@ -88,7 +95,7 @@ sub _put {
     my $self = shift;
     my $args = shift;
 
-    $args->{method} = $self->put;
+    $args->{method} = $self->PUT;
 
     return $self->_call($args);
 }
@@ -97,7 +104,7 @@ sub _single_view_put {
     my $self = shift;
     my $args = shift;
 
-    $args->{method} = $self->put;
+    $args->{method} = $self->PUT;
 
     return $self->_put($args);
 }
@@ -124,7 +131,7 @@ sub _call {
 
     my $form_type;
 
-    if (grep { $_ eq $request->method } ($self->put, $self->post)) {
+    if (grep { $_ eq $request->method } ($self->PUT, $self->POST)) {
         $form_type = 'json';
     } else {
         $form_type = 'form';
@@ -159,6 +166,12 @@ sub _as_response {
     my $res  = shift;
     my $args = shift;
 
+    my $view_name = $self->can('view_name') && $self->view_name;
+
+    if ($args->{view}) {
+        $view_name = $args->{view};
+    }
+
     return WebService::Mattermost::V4::API::Response->new({
         auth_token  => $self->auth_token,
         base_url    => $self->base_url,
@@ -169,7 +182,7 @@ sub _as_response {
         message     => $res->message,
         prev        => $res,
         raw_content => $res->body,
-        item_view   => $args->{view},
+        item_view   => $view_name,
         single_item => $args->{single},
     });
 }
@@ -201,12 +214,9 @@ sub _error_return {
     my $self  = shift;
     my $error = shift;
 
-    $error = sprintf('%s. No API query was made.', $error);
+    # Temporary: moved to WebService::Mattermost::Role::Returns
 
-    return {
-        error   => 1,
-        message => $error,
-    };
+    return $self->error_return($error);
 }
 
 sub _new_related_resource {
