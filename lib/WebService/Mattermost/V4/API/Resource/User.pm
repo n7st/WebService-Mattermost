@@ -250,6 +250,19 @@ to every method:
 
 =head2 METHODS
 
+All of the below methods can either be called as documented under each item, or
+from a user result object:
+
+    my $user = $resource->get('USER-ID-HERE')->item;
+
+    # Calls method "teams"
+    my $response = $user->call('teams');
+
+    # Calls method "update"
+    $response = $user->call('update', {
+        # parameters
+    });
+
 =over 4
 
 =item C<get()>

@@ -43,7 +43,18 @@ sub BUILD {
 
     $self->api_resource_name('user');
     $self->set_available_api_methods([ qw(
+        generate_mfa_secret
+        get
+        get_profile_image
+        patch
+        set_profile_image
         teams
+        update
+        update_active_status
+        update_authentication_method
+        update_mfa
+        update_password
+        update_roles
     ) ]);
 
     return 1;
