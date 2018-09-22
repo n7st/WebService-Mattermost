@@ -13,10 +13,10 @@ with    qw(
 around [ qw(
     delete
     get
-    members
     patch
     pinned
     restore
+    set_scheme
     stats
     toggle_private_status
     update
@@ -130,14 +130,17 @@ sub pinned {
     });
 }
 
-sub members {
+sub set_scheme {
     my $self = shift;
     my $id   = shift;
+    my $args = shift;
 
-    return $self->_get({
-        endpoint => '%s/members',
-        ids      => [ $id ],
-        view     => 'ChannelMember',
+    return $self->_single_view_put({
+        endpoint   => '%s/scheme',
+        ids        => [ $id ],
+        parameters => $args,
+        required   => [ 'scheme_id' ],
+        view       => 'Status',
     });
 }
 
@@ -145,6 +148,32 @@ sub members {
 
 1;
 __END__
+
+=head1 NAME
+
+WebService::Mattermost::V4::API::Resource::Channel
+
+=head1 DESCRIPTION
+
+=head2 USAGE
+
+    my $mm = WebService::Mattermost->new({
+        authenticate => 1,
+        username     => 'me@somewhere.com',
+        password     => 'hunter2',
+        base_url     => 'https://my.mattermost.server.com/api/v4/',
+    });
+
+    my $resource = $mm->api->channel;
+
+Optionally, you can set a global channel ID and not pass that argument to
+every method:
+
+    $resource->id('CHANNEL-ID-HERE');
+
+This would make the C<get()> call look like:
+
+    my $response = $resource->get();
 
 =head2 METHODS
 
@@ -211,9 +240,14 @@ L<Get a channel's pinned posts|https://api.mattermost.com/#tag/channels%2Fpaths%
 
     my $response = $resource->pinned('CHANNEL-ID-HERE');
 
-=item C<members()>
+=item C<set_scheme()>
 
-    my $response = $resource->members('CHANNEL-ID-HERE');
+L<Set a channel's scheme|https://api.mattermost.com/#tag/channels%2Fpaths%2F~1channels~1%7Bchannel_id%7D~1scheme%2Fput>
+
+    my $response = $resource->set_scheme('CHANNEL-ID-HERE', {
+        # Required parameters:
+        scheme_id => '...',
+    });
 
 =back
 
