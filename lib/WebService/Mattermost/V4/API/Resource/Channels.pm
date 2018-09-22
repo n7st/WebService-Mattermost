@@ -1,7 +1,5 @@
 package WebService::Mattermost::V4::API::Resource::Channels;
 
-use DDP;
-use List::Util 'first';
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -15,7 +13,7 @@ sub create {
     $args->{type} = uc $args->{type} if $args->{type};
 
     # O for public, P for private
-    if (!$args->{type} || !first { $_ eq $args->{type} } qw(O P)) {
+    if (!$args->{type} || !grep { $_ eq $args->{type} } qw(O P)) {
         return $self->_error_return('"type" must be O or P');
     }
 
