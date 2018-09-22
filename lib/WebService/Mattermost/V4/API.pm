@@ -1,11 +1,11 @@
 package WebService::Mattermost::V4::API;
 
-use DDP;
 use Moo;
 use MooX::HandlesVia;
 use Types::Standard qw(ArrayRef Bool InstanceOf Str);
 
 use WebService::Mattermost::V4::API::Resource::Brand;
+use WebService::Mattermost::V4::API::Resource::Channel;
 use WebService::Mattermost::V4::API::Resource::Channels;
 use WebService::Mattermost::V4::API::Resource::Cluster;
 use WebService::Mattermost::V4::API::Resource::Compliance;
@@ -44,6 +44,7 @@ has resources    => (is => 'rw', isa => ArrayRef, default => sub { [] },
 
 has brand          => (is => 'ro', isa => InstanceOf[v4 'Brand'],         lazy => 1, builder => 1);
 has channels       => (is => 'ro', isa => InstanceOf[v4 'Channels'],      lazy => 1, builder => 1);
+has channel        => (is => 'ro', isa => InstanceOf[v4 'Channel'],       lazy => 1, builder => 1);
 has cluster        => (is => 'ro', isa => InstanceOf[v4 'Cluster'],       lazy => 1, builder => 1);
 has compliance     => (is => 'ro', isa => InstanceOf[v4 'Compliance'],    lazy => 1, builder => 1);
 has data_retention => (is => 'ro', isa => InstanceOf[v4 'DataRetention'], lazy => 1, builder => 1);
@@ -109,6 +110,7 @@ sub _new_resource {
 # "dataretention".
 
 sub _build_brand          { shift->_new_resource('Brand')                           }
+sub _build_channel        { shift->_new_resource('Channel', 'channels')             }
 sub _build_channels       { shift->_new_resource('Channels')                        }
 sub _build_cluster        { shift->_new_resource('Cluster')                         }
 sub _build_compliance     { shift->_new_resource('Compliance')                      }
