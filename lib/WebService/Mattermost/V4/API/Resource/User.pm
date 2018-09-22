@@ -105,7 +105,7 @@ sub update_roles {
     foreach my $role (@{$roles}) {
         unless ($self->available_user_roles->{$role}) {
             my $err = sprintf('"%s" is not a valid role. Valid roles: %s',
-                $role, join(', ', @{$self->available_user_roles}));
+                $role, join(', ', keys %{$self->available_user_roles}));
 
             return $self->_error_return($err);
         }
