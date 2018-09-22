@@ -17,6 +17,7 @@ use WebService::Mattermost::V4::API::Resource::Files;
 use WebService::Mattermost::V4::API::Resource::Jobs;
 use WebService::Mattermost::V4::API::Resource::LDAP;
 use WebService::Mattermost::V4::API::Resource::OAuth;
+use WebService::Mattermost::V4::API::Resource::Plugin;
 use WebService::Mattermost::V4::API::Resource::Plugins;
 use WebService::Mattermost::V4::API::Resource::Posts;
 use WebService::Mattermost::V4::API::Resource::Reactions;
@@ -56,6 +57,7 @@ has files          => (is => 'ro', isa => InstanceOf[v4 'Files'],           lazy
 has jobs           => (is => 'ro', isa => InstanceOf[v4 'Jobs'],            lazy => 1, builder => 1);
 has ldap           => (is => 'ro', isa => InstanceOf[v4 'LDAP'],            lazy => 1, builder => 1);
 has oauth          => (is => 'ro', isa => InstanceOf[v4 'OAuth'],           lazy => 1, builder => 1);
+has plugin         => (is => 'ro', isa => InstanceOf[v4 'Plugin'],          lazy => 1, builder => 1);
 has plugins        => (is => 'ro', isa => InstanceOf[v4 'Plugins'],         lazy => 1, builder => 1);
 has posts          => (is => 'ro', isa => InstanceOf[v4 'Posts'],           lazy => 1, builder => 1);
 has reactions      => (is => 'ro', isa => InstanceOf[v4 'Reactions'],       lazy => 1, builder => 1);
@@ -124,6 +126,7 @@ sub _build_files          { shift->_new_resource('Files')                       
 sub _build_jobs           { shift->_new_resource('Jobs')                            }
 sub _build_ldap           { shift->_new_resource('LDAP')                            }
 sub _build_oauth          { shift->_new_resource('OAuth')                           }
+sub _build_plugin         { shift->_new_resource('Plugin', 'plugins')               }
 sub _build_plugins        { shift->_new_resource('Plugins')                         }
 sub _build_posts          { shift->_new_resource('Posts')                           }
 sub _build_reactions      { shift->_new_resource('Reactions')                       }
