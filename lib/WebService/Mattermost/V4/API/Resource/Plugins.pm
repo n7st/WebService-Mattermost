@@ -26,10 +26,35 @@ sub all {
     return $self->_get();
 }
 
+sub all_webapp {
+    my $self = shift;
+
+    return $self->_get({ endpoint => 'webapp' });
+}
+
 ################################################################################
 
 1;
 __END__
+
+=head1 NAME
+
+WebService::Mattermost::V4::API::Resource::Plugins
+
+=head1 DESCRIPTION
+
+=head2 USAGE
+
+    use WebService::Mattermost;
+
+    my $mm = WebService::Mattermost->new({
+        authenticate => 1,
+        username     => 'me@somewhere.com',
+        password     => 'hunter2',
+        base_url     => 'https://my.mattermost.server.com/api/v4/',
+    });
+
+    my $resource = $mm->api->plugins;
 
 =head2 METHODS
 
@@ -41,5 +66,21 @@ L<Upload plugin|https://api.mattermost.com/#tag/plugins%2Fpaths%2F~1plugins%2Fpo
 
     my $response = $resource->upload('/path/to/plugin.tar.gz');
 
+=item C<all()>
+
+L<Get plugins|https://api.mattermost.com/#tag/plugins%2Fpaths%2F~1plugins%2Fget>
+
+    my $response = $resource->all();
+
+=item C<webapp()>
+
+L<Get webapp plugins|https://api.mattermost.com/#tag/plugins%2Fpaths%2F~1plugins~1webapp%2Fget>
+
+    my $response = $resource->all_webapp();
+
 =back
+
+=head1 AUTHOR
+
+Mike Jones L<email:mike@netsplit.org.uk>
 
