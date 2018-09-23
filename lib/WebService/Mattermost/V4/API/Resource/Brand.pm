@@ -21,6 +21,7 @@ sub upload {
         parameters => {
             image => { file => $filename },
         },
+        view       => 'Status',
     });
 }
 

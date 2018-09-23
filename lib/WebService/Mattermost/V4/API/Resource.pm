@@ -12,6 +12,7 @@ use WebService::Mattermost::V4::API::Object::Status;
 use WebService::Mattermost::V4::API::Object::Team;
 use WebService::Mattermost::V4::API::Object::TeamMember;
 use WebService::Mattermost::V4::API::Object::TeamStats;
+use WebService::Mattermost::V4::API::Object::Plugins;
 use WebService::Mattermost::V4::API::Object::Results;
 use WebService::Mattermost::V4::API::Object::User;
 use WebService::Mattermost::V4::API::Request;

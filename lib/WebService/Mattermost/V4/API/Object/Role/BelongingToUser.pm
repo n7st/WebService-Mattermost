@@ -9,8 +9,8 @@ use WebService::Mattermost::Helper::Alias 'view';
 
 ################################################################################
 
-has creator_id => (is => 'ro', isa => Maybe[Str],                     lazy => 1, builder => 1);
-has created_by => (is => 'ro', isa => Maybe[InstanceOf[view 'User']], lazy => 1, builder => 1);
+has creator_id              => (is => 'ro', isa => Maybe[Str],                     lazy => 1, builder => 1);
+has [ qw(user created_by) ] => (is => 'ro', isa => Maybe[InstanceOf[view 'User']], lazy => 1, builder => 1);
 
 ################################################################################
 
@@ -24,8 +24,10 @@ sub _build_created_by {
     my $self = shift;
 
     return unless $self->creator_id;
-    return $self->api->users->get_by_id($self->creator_id)->item;
+    return $self->api->user->get($self->creator_id)->item;
 }
+
+sub _build_user { shift->created_by }
 
 ################################################################################
 
@@ -48,9 +50,9 @@ Link a view object to its creator.
 
 The creator's string ID.
 
-=item C<created_by>
+=item C<created_by|user>
 
-In progress - linked C<WebService::Mattermost::V4::API::Object::User> object.
+Linked C<WebService::Mattermost::V4::API::Object::User> object.
 
 =back
 

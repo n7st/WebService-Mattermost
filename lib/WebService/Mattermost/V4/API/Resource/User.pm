@@ -1,7 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::User;
 
 use Moo;
-use Types::Standard qw(ArrayRef Str);
+use Types::Standard qw(HashRef Str);
 
 extends 'WebService::Mattermost::V4::API::Resource';
 with    qw(
@@ -11,7 +11,7 @@ with    qw(
 
 ################################################################################
 
-has available_user_roles => (is => 'ro', isa => ArrayRef, lazy => 1, builder => 1);
+has available_user_roles => (is => 'ro', isa => HashRef, lazy => 1, builder => 1);
 
 has role_system_admin => (is => 'ro', isa => Str, default => 'system_admin');
 has role_system_user  => (is => 'ro', isa => Str, default => 'system_user');
@@ -103,9 +103,9 @@ sub update_roles {
     my $roles = shift; # ArrayRef
 
     foreach my $role (@{$roles}) {
-        unless (grep { $_ eq $role } @{$self->available_user_roles}) {
+        unless ($self->available_user_roles->{$role}) {
             my $err = sprintf('"%s" is not a valid role. Valid roles: %s',
-                $role, join(', ', @{$self->available_user_roles}));
+                $role, join(', ', keys %{$self->available_user_roles}));
 
             return $self->_error_return($err);
         }
@@ -214,7 +214,10 @@ sub update_authentication_method {
 sub _build_available_user_roles {
     my $self = shift;
 
-    return [ $self->role_system_admin, $self->role_system_user ];
+    return {
+        $self->role_system_admin => 1,
+        $self->role_system_user  => 1,
+    };
 }
 
 ################################################################################
