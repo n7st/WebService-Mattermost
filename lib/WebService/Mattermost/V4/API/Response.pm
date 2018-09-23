@@ -5,7 +5,7 @@ use Moo;
 use Types::Standard qw(Any ArrayRef Bool InstanceOf Int Maybe Object Str);
 
 use WebService::Mattermost::V4::API::Object::Channel;
-use WebService::Mattermost::V4::API::Object::ChannelMember;
+use WebService::Mattermost::V4::API::Object::Channel::Member;
 use WebService::Mattermost::V4::API::Object::Compliance::Report;
 use WebService::Mattermost::V4::API::Object::Emoji;
 use WebService::Mattermost::V4::API::Object::Error;

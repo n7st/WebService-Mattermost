@@ -1,4 +1,4 @@
-package WebService::Mattermost::V4::API::Object::ChannelMember;
+package WebService::Mattermost::V4::API::Object::Channel::Member;
 
 use Moo;
 use Types::Standard qw(HashRef InstanceOf Int Maybe Str);
@@ -47,7 +47,7 @@ __END__
 
 =head1 NAME
 
-WebService::Mattermost::V4::API::Object::ChannelMember
+WebService::Mattermost::V4::API::Object::Channel::Member
 
 =head1 DESCRIPTION
 

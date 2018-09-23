@@ -1,11 +1,11 @@
-package WebService::Mattermost::V4::API::Resource::Role::View::ChannelMember;
+package WebService::Mattermost::V4::API::Resource::Role::View::Channel::Member;
 
 use Moo::Role;
 use Types::Standard 'Str';
 
 ################################################################################
 
-has view_name => (is => 'ro', isa => Str, default => 'ChannelMember');
+has view_name => (is => 'ro', isa => Str, default => 'Channel::Member');
 
 ################################################################################
 
@@ -14,11 +14,11 @@ __END__
 
 =head1 NAME
 
-WebService::Mattermost::V4::API::Resource::Role::View::ChannelMember
+WebService::Mattermost::V4::API::Resource::Role::View::Channel::Member
 
 =head1 DESCRIPTION
 
-Set a resource as using the C<WebService::Mattermost::V4::API::Object::ChannelMember>
+Set a resource as using the C<WebService::Mattermost::V4::API::Object::Channel::Member>
 view.
 
 =head1 ATTRIBUTES

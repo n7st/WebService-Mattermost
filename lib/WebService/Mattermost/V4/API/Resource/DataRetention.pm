@@ -1,8 +1,13 @@
 package WebService::Mattermost::V4::API::Resource::DataRetention;
 
 use Moo;
+use Types::Standard 'Str';
 
 extends 'WebService::Mattermost::V4::API::Resource';
+
+################################################################################
+
+has view_name => (is => 'ro', isa => Str, default => 'DataRetentionPolicy');
 
 ################################################################################
 
