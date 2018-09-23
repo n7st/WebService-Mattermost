@@ -251,3 +251,7 @@ L<Set a channel's scheme|https://api.mattermost.com/#tag/channels%2Fpaths%2F~1ch
 
 =back
 
+=head1 AUTHOR
+
+Mike Jones L<email:mike@netsplit.org.uk>
+
