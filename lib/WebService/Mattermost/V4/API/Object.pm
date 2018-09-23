@@ -43,4 +43,50 @@ sub _build_api {
 ################################################################################
 
 1;
+__END__
+
+=head1 NAME
+
+WebService::Mattermost::V4::API::Object
+
+=head1 DESCRIPTION
+
+Base class for wrappers for results returned from the Mattermost API.
+
+=head2 METHODS
+
+=over 4
+
+=item C<_from_epoch()>
+
+Converts a UNIX timestamp from Mattermost to a DateTime object. The last three
+characters of the timestamp are trimmed to make it the expected length.
+
+=back
+
+=head2 ATTRIBUTES
+
+=over 4
+
+=item C<raw_data>
+
+The raw response from Mattermost.
+
+=item C<auth_token>
+
+The current session's auth token, for rebuilding the API.
+
+=item C<base_url>
+
+The server's base URL.
+
+=item C<api>
+
+API access for the Object classes.
+
+=back
+
+=head1 AUTHOR
+
+Mike Jones L<email:mike@netsplit.org.uk>
 

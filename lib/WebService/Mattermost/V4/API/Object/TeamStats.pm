@@ -51,8 +51,6 @@ Details a Mattermost TeamStats object.
 
 =item C<WebService::Mattermost::V4::API::Object::Role::BelongingToTeam>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::Roles>
-
 =back
 
 =head1 AUTHOR

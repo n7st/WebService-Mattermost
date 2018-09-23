@@ -1,7 +1,5 @@
 package WebService::Mattermost::V4::API::Resource::Channels;
 
-use DDP;
-use List::Util 'first';
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -15,7 +13,7 @@ sub create {
     $args->{type} = uc $args->{type} if $args->{type};
 
     # O for public, P for private
-    if (!$args->{type} || !first { $_ eq $args->{type} } qw(O P)) {
+    if (!$args->{type} || !grep { $_ eq $args->{type} } qw(O P)) {
         return $self->_error_return('"type" must be O or P');
     }
 
@@ -51,69 +49,6 @@ sub create_group_channel {
         endpoint   => 'group',
         parameters => $user_ids,
     });
-}
-
-sub get_by_id {
-    my $self = shift;
-    my $id   = shift;
-
-    return $self->_single_view_get({
-        endpoint => '%s',
-        view     => 'Channel',
-        ids      => [ $id ],
-    });
-}
-
-sub update {
-    # PUT /{id}
-}
-
-sub delete {
-    # DELETE /{id}
-}
-
-sub patch {
-    # PUT /{id}/patch
-}
-
-sub convert {
-    # POST /{id}/convert
-}
-
-sub restore {
-    # POST /{id}/restore
-}
-
-sub stats {
-    # GET /{id}/stats
-}
-
-sub pinned {
-    # GET /{id}/pinned
-}
-
-sub members {
-    # GET /{id}/members
-}
-
-sub add_member {
-    # POST /{id}/members
-}
-
-sub members_by_ids {
-    # POST /{id}/members/ids
-}
-
-sub member_by_id {
-    # GET /{id}/members/{user_id}
-}
-
-sub remove_member {
-    # DELETE /{id}/members/{user_id}
-}
-
-sub update_roles {
-    # PUT /{id}/members/{user_ids}/roles
 }
 
 ################################################################################

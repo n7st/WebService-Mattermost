@@ -6,6 +6,7 @@ use Types::Standard qw(Bool Str);
 extends 'WebService::Mattermost::V4::API::Object';
 with    qw(
     WebService::Mattermost::V4::API::Object::Role::Name
+    WebService::Mattermost::V4::API::Object::Role::Description
     WebService::Mattermost::V4::API::Object::Role::ID
     WebService::Mattermost::V4::API::Object::Role::Timestamps
 );
@@ -13,7 +14,6 @@ with    qw(
 ################################################################################
 
 has company_name   => (is => 'ro', isa => Str,  lazy => 1, builder => 1);
-has description    => (is => 'ro', isa => Str,  lazy => 1, builder => 1);
 has display_name   => (is => 'ro', isa => Str,  lazy => 1, builder => 1);
 has email          => (is => 'ro', isa => Str,  lazy => 1, builder => 1);
 has invite_id      => (is => 'ro', isa => Str,  lazy => 1, builder => 1);
@@ -23,7 +23,6 @@ has open_invite    => (is => 'ro', isa => Bool, lazy => 1, builder => 1);
 ################################################################################
 
 sub _build_company_name   { shift->raw_data->{company_name}        }
-sub _build_description    { shift->raw_data->{description}         }
 sub _build_display_name   { shift->raw_data->{display_name}        }
 sub _build_email          { shift->raw_data->{email}               }
 sub _build_invite_id      { shift->raw_data->{invite_id}           }
@@ -55,8 +54,6 @@ The team's ID.
 
 The team's name.
 
-=item C<description>
-
 =item C<display_name>
 
 =item C<email>
@@ -80,6 +77,8 @@ Boolean.
 =over 4
 
 =item C<WebService::Mattermost::V4::API::Object::Role::Name>
+
+=item C<WebService::Mattermost::V4::API::Object::Role::Description>
 
 =item C<WebService::Mattermost::V4::API::Object::Role::ID>
 
