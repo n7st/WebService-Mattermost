@@ -27,7 +27,7 @@ sub _build_created_by {
     return $self->api->user->get($self->creator_id)->item;
 }
 
-sub _build_user { shift->_build_created_by }
+sub _build_user { shift->created_by }
 
 ################################################################################
 
