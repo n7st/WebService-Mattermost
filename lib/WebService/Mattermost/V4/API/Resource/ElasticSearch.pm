@@ -9,13 +9,19 @@ extends 'WebService::Mattermost::V4::API::Resource';
 sub test {
     my $self = shift;
 
-    return $self->_post({ endpoint => 'test' });
+    return $self->_post({
+        endpoint => 'test',
+        view     => 'Status',
+    });
 }
 
 sub purge_indexes {
     my $self = shift;
 
-    return $self->_post({ endpoint => 'purge' });
+    return $self->_post({
+        endpoint => 'purge',
+        view     => 'Status',
+    });
 }
 
 ################################################################################
