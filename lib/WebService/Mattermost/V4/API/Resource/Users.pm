@@ -1,9 +1,6 @@
 package WebService::Mattermost::V4::API::Resource::Users;
 
 use Moo;
-use Types::Standard 'InstanceOf';
-
-use WebService::Mattermost::Helper::Alias 'v4';
 
 extends 'WebService::Mattermost::V4::API::Resource';
 with    'WebService::Mattermost::V4::API::Resource::Role::View::User';
