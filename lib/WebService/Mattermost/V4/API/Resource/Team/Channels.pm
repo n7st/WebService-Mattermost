@@ -1,4 +1,4 @@
-package WebService::Mattermost::V4::API::Resource::Teams::Channels;
+package WebService::Mattermost::V4::API::Resource::Team::Channels;
 
 use Moo;
 
@@ -128,7 +128,7 @@ __END__
 
 =head1 NAME
 
-WebService::Mattermost::V4::API::Resource::Teams::Channels
+WebService::Mattermost::V4::API::Resource::Team::Channels
 
 =head1 DESCRIPTION
 
@@ -143,7 +143,7 @@ WebService::Mattermost::V4::API::Resource::Teams::Channels
         base_url     => 'https://my.mattermost.server.com/api/v4/',
     });
 
-    my $resource = $mm->api->teams->channels;
+    my $resource = $mm->api->team->channels;
 
 =head2 METHODS
 

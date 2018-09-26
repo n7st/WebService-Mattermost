@@ -1,12 +1,20 @@
 package WebService::Mattermost::V4::API::Resource::Team;
 
 use Moo;
+use Types::Standard 'InstanceOf';
+
+use WebService::Mattermost::V4::API::Resource::Team::Channels;
+use WebService::Mattermost::Helper::Alias 'v4';
 
 extends 'WebService::Mattermost::V4::API::Resource';
 with    qw(
     WebService::Mattermost::V4::API::Resource::Role::Single
     WebService::Mattermost::V4::API::Resource::Role::View::Team
 );
+
+################################################################################
+
+has channels => (is => 'ro', isa => InstanceOf[v4 'Team::Channels'], lazy => 1, builder => 1);
 
 ################################################################################
 
@@ -320,6 +328,14 @@ sub set_scheme {
         required   => [ 'scheme_id' ],
         view       => 'Status',
     });
+}
+
+################################################################################
+
+sub _build_channels {
+    my $self = shift;
+
+    return $self->_new_related_resource('teams', 'Team::Channels');
 }
 
 ################################################################################
