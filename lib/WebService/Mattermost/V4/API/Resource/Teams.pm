@@ -1,16 +1,8 @@
 package WebService::Mattermost::V4::API::Resource::Teams;
 
 use Moo;
-use Types::Standard 'InstanceOf';
-
-use WebService::Mattermost::V4::API::Resource::Teams::Channels;
-use WebService::Mattermost::Helper::Alias 'v4';
 
 extends 'WebService::Mattermost::V4::API::Resource';
-
-################################################################################
-
-has channels => (is => 'ro', isa => InstanceOf[v4 'Teams::Channels'], lazy => 1, builder => 1);
 
 ################################################################################
 
@@ -32,14 +24,6 @@ sub list {
         view       => 'Team',
         parameters => $args,
     });
-}
-
-################################################################################
-
-sub _build_channels {
-    my $self = shift;
-
-    return $self->_new_related_resource('teams', 'Teams::Channels');
 }
 
 ################################################################################
