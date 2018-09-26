@@ -1,4 +1,4 @@
-package WebService::Mattermost::V4::API::Resource::Users::Preferences;
+package WebService::Mattermost::V4::API::Resource::User::Preferences;
 
 use Moo;
 

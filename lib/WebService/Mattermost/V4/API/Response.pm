@@ -11,6 +11,8 @@ use WebService::Mattermost::V4::API::Object::Emoji;
 use WebService::Mattermost::V4::API::Object::Error;
 use WebService::Mattermost::V4::API::Object::Team;
 use WebService::Mattermost::V4::API::Object::User;
+use WebService::Mattermost::V4::API::Object::User::Status;
+use WebService::Mattermost::V4::API::Object::User::Session;
 use WebService::Mattermost::Helper::Alias 'view';
 
 ################################################################################

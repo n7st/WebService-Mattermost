@@ -46,8 +46,10 @@ sub BUILD {
         generate_mfa_secret
         get
         get_profile_image
+        get_status
         patch
         set_profile_image
+        set_status
         teams
         update
         update_active_status

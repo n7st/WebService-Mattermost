@@ -1,4 +1,4 @@
-package WebService::Mattermost::V4::API::Resource::Users::Sessions;
+package WebService::Mattermost::V4::API::Resource::User::Sessions;
 
 use Moo;
 
@@ -59,7 +59,7 @@ __END__
 
 =head1 NAME
 
-WebService::Mattermost::V4::API::Resource::Users::Sessions
+WebService::Mattermost::V4::API::Resource::User::Sessions
 
 =head1 DESCRIPTION
 

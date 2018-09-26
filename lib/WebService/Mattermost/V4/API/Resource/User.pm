@@ -34,6 +34,13 @@ around [ qw(
 
     get_profile_image
     set_profile_image
+
+    get_status
+    set_status
+
+    get_sessions
+    revoke_session
+    revoke_all_sessions
 ) ] => sub {
     my $orig = shift;
     my $self = shift;
@@ -206,6 +213,72 @@ sub update_authentication_method {
         endpoint  => '%s/auth',
         ids       => [ $id ],
         paramters => $args,
+    });
+}
+
+sub get_status {
+    my $self = shift;
+    my $id   = shift;
+
+    return $self->_single_view_get({
+        endpoint => '%s/status',
+        ids      => [ $id ],
+        view     => 'User::Status',
+    });
+}
+
+sub set_status {
+    my $self   = shift;
+    my $id     = shift;
+    my $status = shift;
+
+    # online, away, offline, dnd
+
+    return $self->_single_view_put({
+        endpoint   => '%s/status',
+        ids        => [ $id ],
+        parameters => {
+            status => $status,
+        },
+        required   => [ 'status' ],
+        view       => 'User::Status',
+    });
+}
+
+sub get_sessions {
+    my $self = shift;
+    my $id   = shift;
+
+    return $self->_get({
+        endpoint => '%s/sessions',
+        ids      => [ $id ],
+        view     => 'User::Session',
+    });
+}
+
+sub revoke_session {
+    my $self       = shift;
+    my $id         = shift;
+    my $session_id = shift;
+
+    return $self->_single_view_post({
+        endpoint   => '%s/sessions/revoke',
+        ids        => [ $id ],
+        parameters => {
+            session_id => $session_id,
+        },
+        required   => [ 'session_id' ],
+        view       => 'Status',
+    });
+}
+
+sub revoke_all_sessions {
+    my $self = shift;
+    my $id   = shift;
+
+    return $self->_single_view_post({
+        endpoint => '%s/sessions/revoke/all',
+        view     => 'Status',
     });
 }
 
@@ -422,6 +495,38 @@ L<Update a user's authentication method|https://api.mattermost.com/#tag/users%2F
         auth_service => '...',
         password     => '...',
     });
+
+=item C<get_status()>
+
+L<Get a user's status|https://api.mattermost.com/#tag/status%2Fpaths%2F~1users~1%7Buser_id%7D~1status%2Fget>
+
+    my $response = $resource->get_status('USER-ID-HERE');
+
+=item C<set_status()>
+
+L<Update a user's status|https://api.mattermost.com/#tag/status%2Fpaths%2F~1users~1%7Buser_id%7D~1status%2Fput>
+
+    my $response = $resource->set_status('USER-ID-HERE', 'STATUS-HERE');
+
+Available statuses are "online", "away", "offline" and "dnd".
+
+=item C<get_sessions()>
+
+L<Get a user's sessions|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1sessions%2Fget>
+
+    my $response = $resource->get_sessions('USER-ID-HERE');
+
+=item C<revoke_session()>
+
+L<Revoke a user sesssion|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1sessions~1revoke%2Fpost>
+
+    my $response = $resource->revoke_session('USER-ID-HERE', 'SESSION-ID-HERE');
+
+=item C<revoke_all_sessions()>
+
+L<Revoke all active sessions for a user|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1sessions~1revoke~1all%2Fpost>
+
+    my $response = $resource->revoke_all_sessions('USER-ID-HERE');
 
 =back
 

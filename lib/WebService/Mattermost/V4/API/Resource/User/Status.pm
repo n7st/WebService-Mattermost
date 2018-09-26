@@ -1,4 +1,4 @@
-package WebService::Mattermost::V4::API::Resource::Users::Status;
+package WebService::Mattermost::V4::API::Resource::User::Status;
 
 use Moo;
 
@@ -59,7 +59,7 @@ __END__
 
 =head1 NAME
 
-WebService::Mattermost::V4::API::Resource::Users::Status
+WebService::Mattermost::V4::API::Resource::User::Status
 
 =head1 DESCRIPTION
 
