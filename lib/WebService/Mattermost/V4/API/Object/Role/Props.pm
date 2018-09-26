@@ -1,20 +1,20 @@
-package WebService::Mattermost::V4::API::Object::Role::ID;
+package WebService::Mattermost::V4::API::Object::Role::Props;
 
 use Moo::Role;
-use Types::Standard qw(Maybe Str);
+use Types::Standard qw(HashRef Maybe);
 
 #requires 'raw_data';
 
 ################################################################################
 
-has id => (is => 'ro', isa => Maybe[Str], lazy => 1, builder => 1);
+has props => (is => 'ro', isa => Maybe[HashRef], lazy => 1, builder => 1);
 
 ################################################################################
 
-sub _build_id {
+sub _build_props {
     my $self = shift;
 
-    return $self->raw_data->{id};
+    return $self->raw_data->{props};
 }
 
 ################################################################################
@@ -24,19 +24,17 @@ __END__
 
 =head1 NAME
 
-WebService::Mattermost::V4::API::Object::Role::ID
+WebService::Mattermost::V4::API::Object::Role::Props
 
 =head1 DESCRIPTION
 
-Attach an ID to a v4::Object object.
+Attach a props HashRef to a v4::Object object.
 
 =head2 ATTRIBUTES
 
 =over 4
 
-=item C<id>
-
-UUID.
+=item C<props>
 
 =back
 

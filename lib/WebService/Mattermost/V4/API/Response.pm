@@ -5,12 +5,15 @@ use Moo;
 use Types::Standard qw(Any ArrayRef Bool InstanceOf Int Maybe Object Str);
 
 use WebService::Mattermost::V4::API::Object::Channel;
-use WebService::Mattermost::V4::API::Object::ChannelMember;
+use WebService::Mattermost::V4::API::Object::Channel::Member;
 use WebService::Mattermost::V4::API::Object::Compliance::Report;
 use WebService::Mattermost::V4::API::Object::Emoji;
 use WebService::Mattermost::V4::API::Object::Error;
 use WebService::Mattermost::V4::API::Object::Team;
 use WebService::Mattermost::V4::API::Object::User;
+use WebService::Mattermost::V4::API::Object::User::Preference;
+use WebService::Mattermost::V4::API::Object::User::Status;
+use WebService::Mattermost::V4::API::Object::User::Session;
 use WebService::Mattermost::Helper::Alias 'view';
 
 ################################################################################
