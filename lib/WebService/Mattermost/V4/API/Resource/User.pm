@@ -34,6 +34,19 @@ around [ qw(
 
     get_profile_image
     set_profile_image
+
+    get_status
+    set_status
+
+    get_sessions
+    revoke_session
+    revoke_all_sessions
+
+    get_preferences
+    set_preferences
+    delete_preferences
+    list_preferences_by_category
+    get_preference_by_category_and_name
 ) ] => sub {
     my $orig = shift;
     my $self = shift;
@@ -206,6 +219,150 @@ sub update_authentication_method {
         endpoint  => '%s/auth',
         ids       => [ $id ],
         paramters => $args,
+    });
+}
+
+sub get_status {
+    my $self = shift;
+    my $id   = shift;
+
+    return $self->_single_view_get({
+        endpoint => '%s/status',
+        ids      => [ $id ],
+        view     => 'User::Status',
+    });
+}
+
+sub set_status {
+    my $self   = shift;
+    my $id     = shift;
+    my $status = shift;
+
+    # online, away, offline, dnd
+
+    return $self->_single_view_put({
+        endpoint   => '%s/status',
+        ids        => [ $id ],
+        parameters => {
+            status => $status,
+        },
+        required   => [ 'status' ],
+        view       => 'User::Status',
+    });
+}
+
+sub get_sessions {
+    my $self = shift;
+    my $id   = shift;
+
+    return $self->_get({
+        endpoint => '%s/sessions',
+        ids      => [ $id ],
+        view     => 'User::Session',
+    });
+}
+
+sub revoke_session {
+    my $self       = shift;
+    my $id         = shift;
+    my $session_id = shift;
+
+    return $self->_single_view_post({
+        endpoint   => '%s/sessions/revoke',
+        ids        => [ $id ],
+        parameters => {
+            session_id => $session_id,
+        },
+        required   => [ 'session_id' ],
+        view       => 'Status',
+    });
+}
+
+sub revoke_all_sessions {
+    my $self = shift;
+    my $id   = shift;
+
+    return $self->_single_view_post({
+        endpoint => '%s/sessions/revoke/all',
+        view     => 'Status',
+    });
+}
+
+sub get_preferences {
+    my $self = shift;
+    my $id   = shift;
+
+    return $self->_get({
+        endpoint => '%s/preferences',
+        ids      => [ $id ],
+        view     => 'User::Preference',
+    });
+}
+
+sub set_preferences {
+    my $self = shift;
+    my $id   = shift;
+    my $args = shift;
+
+    unless (ref $args eq 'ARRAY') {
+        return $self->error_return('An ArrayRef of preferences must be passed');
+    }
+
+    return $self->_single_view_put({
+        endpoint   => '%s/preferences',
+        ids        => [ $id ],
+        parameters => $args,
+        view       => 'Status',
+    });
+}
+
+sub delete_preferences {
+    my $self = shift;
+    my $id   = shift;
+    my $args = shift;
+
+    unless (ref $args eq 'ARRAY') {
+        return $self->error_return('An ArrayRef of preferences must be passed');
+    }
+
+    return $self->_single_view_post({
+        endpoint   => '%s/preferences/delete',
+        ids        => [ $id ],
+        parameters => $args,
+        view       => 'Status',
+    });
+}
+
+sub list_preferences_by_category {
+    my $self     = shift;
+    my $id       = shift;
+    my $category = shift;
+
+    unless ($category) {
+        return $self->error_return('A category is required');
+    }
+
+    return $self->_get({
+        endpoint => '%s/preferences/%s',
+        ids      => [ $id, $category ],
+        view     => 'User::Category',
+    });
+}
+
+sub get_preference_by_category_and_name {
+    my $self     = shift;
+    my $id       = shift;
+    my $category = shift;
+    my $name     = shift;
+
+    unless ($category && $name) {
+        return $self->error_return('A category and a name must be passed');
+    }
+
+    return $self->_single_view_get({
+        endpoint => '%s/preferences/%s/name/%s',
+        ids      => [ $id, $category, $name ],
+        view     => 'User::Category',
     });
 }
 
@@ -422,6 +579,80 @@ L<Update a user's authentication method|https://api.mattermost.com/#tag/users%2F
         auth_service => '...',
         password     => '...',
     });
+
+=item C<get_status()>
+
+L<Get a user's status|https://api.mattermost.com/#tag/status%2Fpaths%2F~1users~1%7Buser_id%7D~1status%2Fget>
+
+    my $response = $resource->get_status('USER-ID-HERE');
+
+=item C<set_status()>
+
+L<Update a user's status|https://api.mattermost.com/#tag/status%2Fpaths%2F~1users~1%7Buser_id%7D~1status%2Fput>
+
+    my $response = $resource->set_status('USER-ID-HERE', 'STATUS-HERE');
+
+Available statuses are "online", "away", "offline" and "dnd".
+
+=item C<get_sessions()>
+
+L<Get a user's sessions|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1sessions%2Fget>
+
+    my $response = $resource->get_sessions('USER-ID-HERE');
+
+=item C<revoke_session()>
+
+L<Revoke a user sesssion|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1sessions~1revoke%2Fpost>
+
+    my $response = $resource->revoke_session('USER-ID-HERE', 'SESSION-ID-HERE');
+
+=item C<revoke_all_sessions()>
+
+L<Revoke all active sessions for a user|https://api.mattermost.com/#tag/users%2Fpaths%2F~1users~1%7Buser_id%7D~1sessions~1revoke~1all%2Fpost>
+
+    my $response = $resource->revoke_all_sessions('USER-ID-HERE');
+
+=item C<get_preferences()>
+
+L<Get the user's preferences|https://api.mattermost.com/#tag/preferences%2Fpaths%2F~1users~1%7Buser_id%7D~1preferences%2Fget>
+
+    my $response = $resource->get_preferences('USER-ID-HERE');
+
+=item C<set_preferences()>
+
+L<Save the user's preferences|https://api.mattermost.com/#tag/preferences%2Fpaths%2F~1users~1%7Buser_id%7D~1preferences%2Fput>
+
+    my $response = $resource->set_preferences('USER-ID-HERE', [
+        { user_id => 'USER-ID-HERE', category => '...', name => '...', value => '...' },
+        { user_id => 'USER-ID-HERE', category => '...', name => '...', value => '...' },
+        { user_id => 'USER-ID-HERE', category => '...', name => '...', value => '...' },
+    ]);
+
+=item C<delete_preferences()>
+
+L<Delete user's preferences|https://api.mattermost.com/#tag/preferences%2Fpaths%2F~1users~1%7Buser_id%7D~1preferences~1delete%2Fpost>
+
+    my $response = $resource->delete_preferences('USER-ID-HERE', [
+        { user_id => 'USER-ID-HERE', category => '...', name => '...', value => '...' },
+        { user_id => 'USER-ID-HERE', category => '...', name => '...', value => '...' },
+        { user_id => 'USER-ID-HERE', category => '...', name => '...', value => '...' },
+    ]);
+
+=item C<list_preferences_by_category()>
+
+L<List a user's preferences by category|https://api.mattermost.com/#tag/preferences%2Fpaths%2F~1users~1%7Buser_id%7D~1preferences~1%7Bcategory%7D%2Fget>
+
+    my $response = $resource->list_preferences_by_category('USER-ID-HERE', 'CATEGORY-HERE');
+
+=item C<get_preference_by_category_and_name()>
+
+L<Get a specific user preference|https://api.mattermost.com/#tag/preferences%2Fpaths%2F~1users~1%7Buser_id%7D~1preferences~1%7Bcategory%7D~1name~1%7Bpreference_name%7D%2Fget>
+
+    my $response = $resource->get_preference_by_category_and_name(
+        'USER-ID-HERE',
+        'CATEGORY-HERE',
+        'NAME-HERE',
+    );
 
 =back
 

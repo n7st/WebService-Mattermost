@@ -486,3 +486,7 @@ L<Import a Team from other application|https://api.mattermost.com/#tag/teams%2Fp
 
 =back
 
+=head1 AUTHOR
+
+Mike Jones L<email:mike@netsplit.org.uk>
+

@@ -1,21 +1,9 @@
 package WebService::Mattermost::V4::API::Resource::Users;
 
 use Moo;
-use Types::Standard 'InstanceOf';
-
-use WebService::Mattermost::V4::API::Resource::Users::Sessions;
-use WebService::Mattermost::V4::API::Resource::Users::Status;
-use WebService::Mattermost::V4::API::Resource::Users::Preferences;
-use WebService::Mattermost::Helper::Alias 'v4';
 
 extends 'WebService::Mattermost::V4::API::Resource';
 with    'WebService::Mattermost::V4::API::Resource::Role::View::User';
-
-################################################################################
-
-has preferences          => (is => 'ro', isa => InstanceOf[v4 'Users::Preferences'], lazy => 1, builder => 1);
-has sessions             => (is => 'ro', isa => InstanceOf[v4 'Users::Sessions'],    lazy => 1, builder => 1);
-has status               => (is => 'ro', isa => InstanceOf[v4 'Users::Status'],      lazy => 1, builder => 1);
 
 ################################################################################
 
@@ -234,26 +222,6 @@ sub search_tokens {
             term => $term,
         },
     });
-}
-
-################################################################################
-
-sub _build_preferences {
-    my $self = shift;
-
-    return $self->_new_related_resource('users', 'Users::Preferences');
-}
-
-sub _build_sessions {
-    my $self = shift;
-
-    return $self->_new_related_resource('users', 'Users::Sessions');
-}
-
-sub _build_status {
-    my $self = shift;
-
-    return $self->_new_related_resource('users', 'Users::Status');
 }
 
 ################################################################################

@@ -5,7 +5,7 @@ use Types::Standard 'Str';
 
 extends 'WebService::Mattermost::V4::API::Resource::Channel';
 with    qw(
-    WebService::Mattermost::V4::API::Resource::Role::View::ChannelMember
+    WebService::Mattermost::V4::API::Resource::Role::View::Channel::Member
 );
 
 ################################################################################

@@ -9,13 +9,19 @@ extends 'WebService::Mattermost::V4::API::Resource';
 sub sync {
     my $self = shift;
 
-    return $self->_post({ endpoint => 'sync' });
+    return $self->_post({
+        endpoint => 'sync',
+        view     => 'Status',
+    });
 }
 
 sub test {
     my $self = shift;
 
-    return $self->_post({ endpoint => 'test' });
+    return $self->_post({
+        endpoint => 'test',
+        view     => 'Status',
+    });
 }
 
 ################################################################################
