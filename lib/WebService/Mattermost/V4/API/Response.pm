@@ -9,6 +9,7 @@ use WebService::Mattermost::V4::API::Object::Channel;
 use WebService::Mattermost::V4::API::Object::Compliance::Report;
 use WebService::Mattermost::V4::API::Object::Emoji;
 use WebService::Mattermost::V4::API::Object::Error;
+use WebService::Mattermost::V4::API::Object::File;
 use WebService::Mattermost::V4::API::Object::Post;
 use WebService::Mattermost::V4::API::Object::Team;
 use WebService::Mattermost::V4::API::Object::Thread;
