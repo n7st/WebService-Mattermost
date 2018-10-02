@@ -37,6 +37,8 @@ around [ qw(
     remove_icon
 
     set_scheme
+
+    search_posts
 ) ] => sub {
     my $orig = shift;
     my $self = shift;
@@ -330,6 +332,22 @@ sub set_scheme {
     });
 }
 
+sub search_posts {
+    my $self = shift;
+    my $id   = shift;
+    my $args = shift;
+
+    $args->{is_or_search} ||= \0;
+
+    return $self->_single_view_post({
+        endpoint   => '%s/posts/search',
+        ids        => [ $id ],
+        parameters => $args,
+        required   => [ qw(terms is_or_search) ],
+        view       => 'Thread',
+    });
+}
+
 ################################################################################
 
 sub _build_channels {
@@ -498,6 +516,22 @@ L<Import a Team from other application|https://api.mattermost.com/#tag/teams%2Fp
         filename   => 'IMPORT-FILENAME',
         filesize   => 'filesize',
         importFrom => '...',
+    });
+
+=item C<search_posts()>
+
+L<Search for team posts|https://api.mattermost.com/#tag/posts%2Fpaths%2F~1teams~1%7Bteam_id%7D~1posts~1search%2Fpost>
+
+    my $response = $resource->search_posts('TEAM-ID-HERE', {
+        # Required parameters:
+        terms => '...',
+
+        # Optional parameters
+        is_or_search             => \1, # or \0 for false
+        time_zone_offset         => 0,
+        include_deleted_channels => \1, # or \0 for false
+        page                     => 0,
+        per_page                 => 60,
     });
 
 =back

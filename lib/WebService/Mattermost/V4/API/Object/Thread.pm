@@ -9,11 +9,16 @@ extends 'WebService::Mattermost::V4::API::Object';
 
 ################################################################################
 
-has [ qw(order posts) ] => (is => 'ro', isa => Maybe[ArrayRef], lazy => 1, builder => 1);
+has [ qw(
+    order
+    matches
+    posts
+) ] => (is => 'ro', isa => Maybe[ArrayRef], lazy => 1, builder => 1);
 
 ################################################################################
 
-sub _build_order { shift->raw_data->{order} }
+sub _build_order   { shift->raw_data->{order}   }
+sub _build_matches { shift->raw_data->{matches} }
 
 sub _build_posts {
     my $self = shift;
@@ -48,6 +53,10 @@ Describes a list of Mattermost posts.
 =head2 ATTRIBUTES
 
 =over 4
+
+=item C<matches>
+
+If the posts are a search result, a list of strings that match.
 
 =item C<order>
 
