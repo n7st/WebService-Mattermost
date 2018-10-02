@@ -29,6 +29,17 @@ sub _from_epoch {
     return DateTime->from_epoch(epoch => $unix_timestamp);
 }
 
+sub _related_args {
+    my $self = shift;
+    my $args = shift;
+
+    return {
+        auth_token => $self->auth_token,
+        base_url   => $self->base_url,
+        raw_data   => $args,
+    };
+}
+
 ################################################################################
 
 sub _build_api {

@@ -19,6 +19,7 @@ use WebService::Mattermost::V4::API::Resource::LDAP;
 use WebService::Mattermost::V4::API::Resource::OAuth;
 use WebService::Mattermost::V4::API::Resource::Plugin;
 use WebService::Mattermost::V4::API::Resource::Plugins;
+use WebService::Mattermost::V4::API::Resource::Post;
 use WebService::Mattermost::V4::API::Resource::Posts;
 use WebService::Mattermost::V4::API::Resource::Reactions;
 use WebService::Mattermost::V4::API::Resource::Roles;
@@ -59,6 +60,7 @@ has ldap           => (is => 'ro', isa => InstanceOf[v4 'LDAP'],            lazy
 has oauth          => (is => 'ro', isa => InstanceOf[v4 'OAuth'],           lazy => 1, builder => 1);
 has plugin         => (is => 'ro', isa => InstanceOf[v4 'Plugin'],          lazy => 1, builder => 1);
 has plugins        => (is => 'ro', isa => InstanceOf[v4 'Plugins'],         lazy => 1, builder => 1);
+has post           => (is => 'ro', isa => InstanceOf[v4 'Post'],            lazy => 1, builder => 1);
 has posts          => (is => 'ro', isa => InstanceOf[v4 'Posts'],           lazy => 1, builder => 1);
 has reactions      => (is => 'ro', isa => InstanceOf[v4 'Reactions'],       lazy => 1, builder => 1);
 has roles          => (is => 'ro', isa => InstanceOf[v4 'Roles'],           lazy => 1, builder => 1);
@@ -128,6 +130,7 @@ sub _build_ldap           { shift->_new_resource('LDAP')                        
 sub _build_oauth          { shift->_new_resource('OAuth')                           }
 sub _build_plugin         { shift->_new_resource('Plugin', 'plugins')               }
 sub _build_plugins        { shift->_new_resource('Plugins')                         }
+sub _build_post           { shift->_new_resource('Post', 'posts')                   }
 sub _build_posts          { shift->_new_resource('Posts')                           }
 sub _build_reactions      { shift->_new_resource('Reactions')                       }
 sub _build_roles          { shift->_new_resource('Roles')                           }

@@ -11,6 +11,8 @@ around [ qw(
     get
     delete
 
+    get_thread
+
     reactions
 ) ] => sub {
     my $orig = shift;
@@ -38,6 +40,17 @@ sub delete {
         endpoint => '%s',
         ids      => [ $id ],
         view     => 'Status',
+    });
+}
+
+sub get_thread {
+    my $self = shift;
+    my $id   = shift;
+
+    return $self->_single_view_get({
+        endpoint => '%s/thread',
+        ids      => [ $id ],
+        view     => 'Thread',
     });
 }
 
@@ -91,6 +104,12 @@ L<Get a post|https://api.mattermost.com/#tag/posts%2Fpaths%2F~1posts~1%7Bpost_id
 L<Delete a post|https://api.mattermost.com/#tag/posts%2Fpaths%2F~1posts~1%7Bpost_id%7D%2Fdelete>
 
     my $response = $resource->delete('ID-HERE');
+
+=item C<get_thread()>
+
+L<Get a thread|https://api.mattermost.com/#tag/posts%2Fpaths%2F~1posts~1%7Bpost_id%7D~1thread%2Fget>
+
+    my $response = $resource->get_thread('ID-HERE');
 
 =item C<reactions()>
 
