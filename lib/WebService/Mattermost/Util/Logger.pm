@@ -36,3 +36,45 @@ sub _build_logger {
 1;
 __END__
 
+=head1 NAME
+
+WebService::Mattermost::Util::Logger
+
+=head1 DESCRIPTION
+
+Patched instance of C<Mojo::Log> with some wrapping methods.
+
+=head2 ATTRIBUTES
+
+=over 4
+
+=item C<logger>
+
+A C<Mojo::Log> object with additional methods:
+
+=over 8
+
+=item C<debugf()>
+
+    $self->logger->debugf('sprintf for %s', 'debug'); # sprintf for debug
+
+=item C<infof()>
+
+    $self->logger->infof('sprintf for %s', 'info'); # sprintf for info
+
+=item C<fatalf()>
+
+    $self->logger->fatalf('sprintf for %s', 'fatal'); # sprintf for fatal
+
+=item C<warnf()>
+
+    $self->logger->warnf('sprintf for %s', 'warn'); # sprintf for warn
+
+=back
+
+=back
+
+=head1 AUTHOR
+
+Mike Jones L<email:mike@netsplit.org.uk>
+
