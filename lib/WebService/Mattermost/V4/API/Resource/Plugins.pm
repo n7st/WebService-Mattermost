@@ -12,11 +12,12 @@ sub upload {
     my $filename = shift;
 
     return $self->_single_view_post({
-        required   => [ qw(plugin) ],
-        parameters => {
+        required           => [ qw(plugin) ],
+        override_data_type => 'form',
+        parameters         => {
             plugin => { file => $filename },
         },
-        view       => 'Status',
+        view               => 'Status',
     });
 }
 

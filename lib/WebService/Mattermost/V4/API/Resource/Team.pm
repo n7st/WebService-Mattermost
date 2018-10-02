@@ -264,9 +264,10 @@ sub set_icon {
     my $filename = shift;
 
     return $self->_single_view_post({
-        endpoint => '%s/image',
-        ids      => [ $id ],
-        parameters => {
+        endpoint           => '%s/image',
+        ids                => [ $id ],
+        override_data_type => 'form',
+        parameters         => {
             image => { file => $filename },
         },
     });
@@ -310,11 +311,12 @@ sub import_from_existing {
     $args->{file} = { file => { file => $args->{filename} } };
 
     return $self->_single_view_post({
-        endpoint   => '%s/import',
-        ids        => [ $id ],
-        parameters => $args,
-        required   => [ qw(file filesize importFrom) ],
-        view       => 'Results',
+        endpoint           => '%s/import',
+        ids                => [ $id ],
+        override_data_type => 'form',
+        parameters         => $args,
+        required           => [ qw(file filesize importFrom) ],
+        view               => 'Results',
     });
 }
 

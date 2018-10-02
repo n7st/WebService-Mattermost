@@ -20,7 +20,8 @@ sub upload {
     my $filename   = shift;
 
     return $self->_post({
-        parameters => {
+        override_data_type => 'form',
+        parameters         => {
             channel_id => $channel_id,
             files      => { file => $filename },
         },
