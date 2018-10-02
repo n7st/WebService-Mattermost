@@ -35,4 +35,29 @@ sub _build_posts {
 ################################################################################
 
 1;
+__END__
+
+=head1 NAME
+
+WebService::Mattermost::V4::API::Object::Thread
+
+=head1 DESCRIPTION
+
+Describes a list of Mattermost posts.
+
+=head2 ATTRIBUTES
+
+=over 4
+
+=item C<order>
+
+=item C<posts>
+
+An arrayref of posts in the list, ordered by date created.
+
+=back
+
+=head1 AUTHOR
+
+Mike Jones L<email:mike@netsplit.org.uk>
 
