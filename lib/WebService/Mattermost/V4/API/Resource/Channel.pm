@@ -15,6 +15,7 @@ around [ qw(
     get
     patch
     pinned
+    posts
     restore
     set_scheme
     stats
@@ -144,6 +145,19 @@ sub set_scheme {
     });
 }
 
+sub posts {
+    my $self = shift;
+    my $id   = shift;
+    my $args = shift;
+
+    return $self->_single_view_get({
+        endpoint   => '%s/posts',
+        ids        => [ $id ],
+        parameters => $args,
+        view       => 'Thread',
+    });
+}
+
 ################################################################################
 
 1;
@@ -247,6 +261,19 @@ L<Set a channel's scheme|https://api.mattermost.com/#tag/channels%2Fpaths%2F~1ch
     my $response = $resource->set_scheme('CHANNEL-ID-HERE', {
         # Required parameters:
         scheme_id => '...',
+    });
+
+=item C<posts()>
+
+L<Get posts for a channel|https://api.mattermost.com/#tag/posts%2Fpaths%2F~1channels~1%7Bchannel_id%7D~1posts%2Fget>
+
+    my $response = $resource->posts('CHANNEL-ID-HERE', {
+        # Optional parameters:
+        page     => 0,
+        per_page => 60,
+        since    => 'UNIX-TIMESTAMP', # milliseconds
+        before   => 'POST-ID-HERE',
+        after    => 'POST-ID-HERE',
     });
 
 =back
