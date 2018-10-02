@@ -4,13 +4,15 @@ use Moo;
 use Types::Standard qw(Str Int Maybe);
 
 extends 'WebService::Mattermost::V4::API::Object';
-with    'WebService::Mattermost::V4::API::Object::Role::ID';
+with    qw(
+    WebService::Mattermost::V4::API::Object::Role::ID
+    WebService::Mattermost::V4::API::Object::Role::Message
+);
 
 ################################################################################
 
 has [ qw(
     detailed_error
-    message
     request_id
 ) ] => (is => 'ro', isa => Maybe[Str], lazy => 1, builder => 1);
 
@@ -28,12 +30,6 @@ sub _build_id {
     my $self = shift;
 
     return $self->raw_data->{id};
-}
-
-sub _build_message {
-    my $self = shift;
-
-    return $self->raw_data->{message};
 }
 
 sub _build_request_id {
@@ -69,8 +65,6 @@ Details an error response from the API.
 
 =item C<id>
 
-=item C<message>
-
 =item C<request_id>
 
 =item C<status_code>
@@ -82,6 +76,8 @@ Details an error response from the API.
 =over 4
 
 =item C<WebService::Mattermost::V4::API::Object::Role::ID>
+
+=item C<WebService::Mattermost::V4::API::Object::Role::Message>
 
 =item L<Error documentation|https://api.mattermost.com/#tag/errors>
 
