@@ -84,4 +84,77 @@ sub _build_root_post {
 ################################################################################
 
 1;
+__END__
+
+=head1 NAME
+
+WebService::Mattermost::V4::API::Object::Post
+
+=head1 DESCRIPTION
+
+Describes a Mattermost post.
+
+=head2 ATTRIBUTES
+
+=over 4
+
+=item C<hashtag>
+
+A string containing any hashtags in the message.
+
+=item C<original_id>
+
+=item C<parent_id>
+
+=item C<pending_post_id>
+
+=item C<root_id>
+
+=item C<filenames>
+
+A list of filenames attached to the post.
+
+=item C<file_ids>
+
+A list of file IDs attached to the post.
+
+=item C<original_post>
+
+Related original post object.
+
+=item C<parent_post>
+
+Related parent post object.
+
+=item C<pending_post>
+
+Related pending post object.
+
+=item C<root_post>
+
+Related root post object.
+
+=back
+
+=head1 SEE ALSO
+
+=over 4
+
+=item C<WebService::Mattermost::V4::API::Object::Role::BelongingToChannel>
+
+=item C<WebService::Mattermost::V4::API::Object::Role::BelongingToUser>
+
+=item C<WebService::Mattermost::V4::API::Object::Role::ID>
+
+=item C<WebService::Mattermost::V4::API::Object::Role::Message>
+
+=item C<WebService::Mattermost::V4::API::Object::Role::Props>
+
+=item C<WebService::Mattermost::V4::API::Object::Role::Timestamps>
+
+=back
+
+=head1 AUTHOR
+
+Mike Jones L<email:mike@netsplit.org.uk>
 
