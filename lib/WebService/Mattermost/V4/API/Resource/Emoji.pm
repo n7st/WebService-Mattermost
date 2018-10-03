@@ -6,7 +6,7 @@ extends 'WebService::Mattermost::V4::API::Resource';
 
 ################################################################################
 
-around [ qw(get_by_id delete_by_id get_image_by_id) ] => sub {
+around [ qw(get delete get_image) ] => sub {
     my $orig = shift;
     my $self = shift;
     my $id   = shift;
@@ -43,7 +43,7 @@ sub create {
     });
 }
 
-sub get_by_id {
+sub get {
     my $self = shift;
     my $id   = shift;
 
@@ -54,7 +54,7 @@ sub get_by_id {
     });
 }
 
-sub delete_by_id {
+sub delete {
     my $self = shift;
     my $id   = shift;
 
@@ -80,7 +80,7 @@ sub get_by_name {
     });
 }
 
-sub get_image_by_id {
+sub get_image {
     my $self = shift;
     my $id   = shift;
 
@@ -146,17 +146,17 @@ Get all custom emojis.
 
     my $response = $resource->custom();
 
-=item C<get_by_id()>
+=item C<get()>
 
 Get an emoji by its ID.
 
-    my $response = $resource->get_by_id('EMOJI-ID-HERE');
+    my $response = $resource->get('EMOJI-ID-HERE');
 
-=item C<delete_by_id()>
+=item C<delete()>
 
 Delete an emoji by its ID.
 
-    my $response = $resource->delete_by_id('EMOJI-ID-HERE');
+    my $response = $resource->delete('EMOJI-ID-HERE');
 
 =item C<get_by_name()>
 
@@ -164,11 +164,11 @@ Get an emoji by its name.
 
     my $response = $resource->get_by_name('EMOJI-NAME-HERE');
 
-=item C<get_image_by_id()>
+=item C<get_image()>
 
 Get an emoji's image by its ID.
 
-    my $response = $resource->get_image_by_id('EMOJI-ID-HERE');
+    my $response = $resource->get_image('EMOJI-ID-HERE');
 
 =item C<search()>
 
