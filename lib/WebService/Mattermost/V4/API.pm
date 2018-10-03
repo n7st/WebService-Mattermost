@@ -129,6 +129,7 @@ sub _build_channel_member { shift->_new_resource('Channel::Member', 'channels') 
 sub _build_channels       { shift->_new_resource('Channels')                        }
 sub _build_cluster        { shift->_new_resource('Cluster')                         }
 sub _build_compliance     { shift->_new_resource('Compliance')                      }
+sub _build_config         { shift->_new_resource('Config')                          }
 sub _build_data_retention { shift->_new_resource('DataRetention', 'data_retention') }
 sub _build_elasticsearch  { shift->_new_resource('ElasticSearch')                   }
 sub _build_email          { shift->_new_resource('Email')                           }
@@ -190,6 +191,10 @@ See C<WebService::Mattermost::V4::API::Resource::Channel::Member>.
 =item C<cluster>
 
 See C<WebService::Mattermost::V4::API::Resource::Cluster>.
+
+=item C<config>
+
+See C<WebService::Mattermost::V4::API::Resource::Config>.
 
 =item C<compliance>
 
