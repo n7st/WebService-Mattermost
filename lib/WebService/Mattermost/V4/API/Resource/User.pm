@@ -47,6 +47,8 @@ around [ qw(
     delete_preferences
     list_preferences_by_category
     get_preference_by_category_and_name
+
+    get_flagged_posts
 ) ] => sub {
     my $orig = shift;
     my $self = shift;
@@ -366,6 +368,19 @@ sub get_preference_by_category_and_name {
     });
 }
 
+sub get_flagged_posts {
+    my $self = shift;
+    my $id   = shift;
+    my $args = shift;
+
+    return $self->_single_view_get({
+        endpoint   => '%s/posts/flagged',
+        ids        => [ $id ],
+        parameters => $args,
+        view       => 'Thread',
+    });
+}
+
 ################################################################################
 
 sub _build_available_user_roles {
@@ -653,6 +668,20 @@ L<Get a specific user preference|https://api.mattermost.com/#tag/preferences%2Fp
         'CATEGORY-HERE',
         'NAME-HERE',
     );
+
+=item C<get_flagged_posts()>
+
+L<Get a list of flagged posts|https://api.mattermost.com/#tag/posts%2Fpaths%2F~1users~1%7Buser_id%7D~1posts~1flagged%2Fget>
+
+Retrieve a list of posts flagged by the user with the given ID.
+
+    my $response = $resource->get_flagged_posts('USER-ID-HERE', {
+        # Optional parameters
+        team_id    => '...',
+        channel_id => '...',
+        page       => 0,
+        per_page   => 60,
+    });
 
 =back
 

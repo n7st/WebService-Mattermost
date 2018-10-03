@@ -37,6 +37,8 @@ around [ qw(
     remove_icon
 
     set_scheme
+
+    search_posts
 ) ] => sub {
     my $orig = shift;
     my $self = shift;
@@ -262,9 +264,10 @@ sub set_icon {
     my $filename = shift;
 
     return $self->_single_view_post({
-        endpoint => '%s/image',
-        ids      => [ $id ],
-        parameters => {
+        endpoint           => '%s/image',
+        ids                => [ $id ],
+        override_data_type => 'form',
+        parameters         => {
             image => { file => $filename },
         },
     });
@@ -308,11 +311,12 @@ sub import_from_existing {
     $args->{file} = { file => { file => $args->{filename} } };
 
     return $self->_single_view_post({
-        endpoint   => '%s/import',
-        ids        => [ $id ],
-        parameters => $args,
-        required   => [ qw(file filesize importFrom) ],
-        view       => 'Results',
+        endpoint           => '%s/import',
+        ids                => [ $id ],
+        override_data_type => 'form',
+        parameters         => $args,
+        required           => [ qw(file filesize importFrom) ],
+        view               => 'Results',
     });
 }
 
@@ -327,6 +331,22 @@ sub set_scheme {
         parameters => { scheme_id  => $scheme },
         required   => [ 'scheme_id' ],
         view       => 'Status',
+    });
+}
+
+sub search_posts {
+    my $self = shift;
+    my $id   = shift;
+    my $args = shift;
+
+    $args->{is_or_search} ||= \0;
+
+    return $self->_single_view_post({
+        endpoint   => '%s/posts/search',
+        ids        => [ $id ],
+        parameters => $args,
+        required   => [ qw(terms is_or_search) ],
+        view       => 'Thread',
     });
 }
 
@@ -498,6 +518,22 @@ L<Import a Team from other application|https://api.mattermost.com/#tag/teams%2Fp
         filename   => 'IMPORT-FILENAME',
         filesize   => 'filesize',
         importFrom => '...',
+    });
+
+=item C<search_posts()>
+
+L<Search for team posts|https://api.mattermost.com/#tag/posts%2Fpaths%2F~1teams~1%7Bteam_id%7D~1posts~1search%2Fpost>
+
+    my $response = $resource->search_posts('TEAM-ID-HERE', {
+        # Required parameters:
+        terms => '...',
+
+        # Optional parameters
+        is_or_search             => \1, # or \0 for false
+        time_zone_offset         => 0,
+        include_deleted_channels => \1, # or \0 for false
+        page                     => 0,
+        per_page                 => 60,
     });
 
 =back

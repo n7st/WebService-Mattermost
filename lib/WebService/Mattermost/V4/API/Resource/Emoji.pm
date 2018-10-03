@@ -31,8 +31,9 @@ sub create {
     }
 
     return $self->_single_view_post({
-        view       => 'Emoji',
-        parameters => {
+        view               => 'Emoji',
+        override_data_type => 'form',
+        parameters         => {
             image => { file => $filename },
             emoji => {
                 name       => $name,

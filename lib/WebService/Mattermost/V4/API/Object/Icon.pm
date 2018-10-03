@@ -4,12 +4,14 @@ use Moo;
 use Types::Standard qw(Int Maybe Str);
 
 extends 'WebService::Mattermost::V4::API::Object';
-with    'WebService::Mattermost::V4::API::Object::Role::ID';
+with    qw(
+    WebService::Mattermost::V4::API::Object::Role::ID
+    WebService::Mattermost::V4::API::Object::Role::Message
+);
 
 ################################################################################
 
 has status_code => (is => 'ro', isa => Maybe[Int], lazy => 1, builder => 1);
-has message     => (is => 'ro', isa => Maybe[Str], lazy => 1, builder => 1);
 has request_id  => (is => 'ro', isa => Maybe[Str], lazy => 1, builder => 1);
 
 ################################################################################
@@ -31,8 +33,6 @@ Details a Mattermost Icon object.
 
 =item C<status_code>
 
-=item C<message>
-
 =item C<request_id>
 
 =back
@@ -42,6 +42,8 @@ Details a Mattermost Icon object.
 =over 4
 
 =item C<WebService::Mattermost::V4::API::Object::Role::ID>
+
+=item C<WebService::Mattermost::V4::API::Object::Role::Message>
 
 =back
 
