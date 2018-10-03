@@ -13,6 +13,7 @@ use WebService::Mattermost::V4::API::Resource::Compliance;
 use WebService::Mattermost::V4::API::Resource::DataRetention;
 use WebService::Mattermost::V4::API::Resource::ElasticSearch;
 use WebService::Mattermost::V4::API::Resource::Emoji;
+use WebService::Mattermost::V4::API::Resource::File;
 use WebService::Mattermost::V4::API::Resource::Files;
 use WebService::Mattermost::V4::API::Resource::Jobs;
 use WebService::Mattermost::V4::API::Resource::LDAP;
@@ -54,6 +55,7 @@ has compliance     => (is => 'ro', isa => InstanceOf[v4 'Compliance'],      lazy
 has data_retention => (is => 'ro', isa => InstanceOf[v4 'DataRetention'],   lazy => 1, builder => 1);
 has elasticsearch  => (is => 'ro', isa => InstanceOf[v4 'ElasticSearch'],   lazy => 1, builder => 1);
 has emoji          => (is => 'ro', isa => InstanceOf[v4 'Emoji'],           lazy => 1, builder => 1);
+has file           => (is => 'ro', isa => InstanceOf[v4 'File'],            lazy => 1, builder => 1);
 has files          => (is => 'ro', isa => InstanceOf[v4 'Files'],           lazy => 1, builder => 1);
 has jobs           => (is => 'ro', isa => InstanceOf[v4 'Jobs'],            lazy => 1, builder => 1);
 has ldap           => (is => 'ro', isa => InstanceOf[v4 'LDAP'],            lazy => 1, builder => 1);
@@ -124,7 +126,8 @@ sub _build_compliance     { shift->_new_resource('Compliance')                  
 sub _build_data_retention { shift->_new_resource('DataRetention', 'data_retention') }
 sub _build_elasticsearch  { shift->_new_resource('ElasticSearch')                   }
 sub _build_emoji          { shift->_new_resource('Emoji')                           }
-sub _build_files          { shift->_new_resource('Files')                           }
+sub _build_files          { shift->_new_resource('Files', 'files')                  }
+sub _build_file           { shift->_new_resource('File')                            }
 sub _build_jobs           { shift->_new_resource('Jobs')                            }
 sub _build_ldap           { shift->_new_resource('LDAP')                            }
 sub _build_oauth          { shift->_new_resource('OAuth')                           }
@@ -146,4 +149,135 @@ sub _build_webhooks       { shift->_new_resource('Webhooks', 'hooks')           
 ################################################################################
 
 1;
+__END__
+
+=head1 NAME
+
+WebService::Mattermost::V4::API
+
+=head1 DESCRIPTION
+
+Container for API resources.
+
+=head2 ATTRIBUTES
+
+=over 4
+
+=item C<brand>
+
+See C<WebService::Mattermost::V4::API::Resource::Brand>.
+
+=item C<channels>
+
+See C<WebService::Mattermost::V4::API::Resource::Channels>.
+
+=item C<channel>
+
+See C<WebService::Mattermost::V4::API::Resource::Channel>.
+
+=item C<channel_member>
+
+See C<WebService::Mattermost::V4::API::Resource::Channel::Member>.
+
+=item C<cluster>
+
+See C<WebService::Mattermost::V4::API::Resource::Cluster>.
+
+=item C<compliance>
+
+See C<WebService::Mattermost::V4::API::Resource::Compliance>.
+
+=item C<data_retention>
+
+See C<WebService::Mattermost::V4::API::Resource::DataRetention>.
+
+=item C<elasticsearch>
+
+See C<WebService::Mattermost::V4::API::Resource::ElasticSearch>.
+
+=item C<emoji>
+
+See C<WebService::Mattermost::V4::API::Resource::Emoji>.
+
+=item C<file>
+
+See C<WebService::Mattermost::V4::API::Resource::File>.
+
+=item C<files>
+
+See C<WebService::Mattermost::V4::API::Resource::Files>.
+
+=item C<jobs>
+
+See C<WebService::Mattermost::V4::API::Resource::Jobs>.
+
+=item C<ldap>
+
+See C<WebService::Mattermost::V4::API::Resource::LDAP>.
+
+=item C<oauth>
+
+See C<WebService::Mattermost::V4::API::Resource::OAuth>.
+
+=item C<plugin>
+
+See C<WebService::Mattermost::V4::API::Resource::Plugin>.
+
+=item C<plugins>
+
+See C<WebService::Mattermost::V4::API::Resource::Plugins>.
+
+=item C<post>
+
+See C<WebService::Mattermost::V4::API::Resource::Post>.
+
+=item C<posts>
+
+See C<WebService::Mattermost::V4::API::Resource::Posts>.
+
+=item C<reactions>
+
+See C<WebService::Mattermost::V4::API::Resource::Reactions>.
+
+=item C<roles>
+
+See C<WebService::Mattermost::V4::API::Resource::Roles>.
+
+=item C<saml>
+
+See C<WebService::Mattermost::V4::API::Resource::SAML>.
+
+=item C<schemes>
+
+See C<WebService::Mattermost::V4::API::Resource::Schemes>.
+
+=item C<system>
+
+See C<WebService::Mattermost::V4::API::Resource::System>.
+
+=item C<team>
+
+See C<WebService::Mattermost::V4::API::Resource::Team>.
+
+=item C<teams>
+
+See C<WebService::Mattermost::V4::API::Resource::Teams>.
+
+=item C<user>
+
+See C<WebService::Mattermost::V4::API::Resource::User>.
+
+=item C<users>
+
+See C<WebService::Mattermost::V4::API::Resource::Users>.
+
+=item C<webhooks>
+
+See C<WebService::Mattermost::V4::API::Resource::Webhooks>.
+
+=back
+
+=head1 AUTHOR
+
+Mike Jones L<email:mike@netsplit.org.uk>
 
