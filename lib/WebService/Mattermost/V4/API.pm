@@ -11,6 +11,7 @@ use WebService::Mattermost::V4::API::Resource::Channels;
 use WebService::Mattermost::V4::API::Resource::Cluster;
 use WebService::Mattermost::V4::API::Resource::Compliance;
 use WebService::Mattermost::V4::API::Resource::DataRetention;
+use WebService::Mattermost::V4::API::Resource::Database;
 use WebService::Mattermost::V4::API::Resource::ElasticSearch;
 use WebService::Mattermost::V4::API::Resource::Emoji;
 use WebService::Mattermost::V4::API::Resource::File;
@@ -53,6 +54,7 @@ has channel_member => (is => 'ro', isa => InstanceOf[v4 'Channel::Member'], lazy
 has cluster        => (is => 'ro', isa => InstanceOf[v4 'Cluster'],         lazy => 1, builder => 1);
 has compliance     => (is => 'ro', isa => InstanceOf[v4 'Compliance'],      lazy => 1, builder => 1);
 has data_retention => (is => 'ro', isa => InstanceOf[v4 'DataRetention'],   lazy => 1, builder => 1);
+has database       => (is => 'ro', isa => InstanceOf[v4 'Database'],        lazy => 1, builder => 1);
 has elasticsearch  => (is => 'ro', isa => InstanceOf[v4 'ElasticSearch'],   lazy => 1, builder => 1);
 has emoji          => (is => 'ro', isa => InstanceOf[v4 'Emoji'],           lazy => 1, builder => 1);
 has file           => (is => 'ro', isa => InstanceOf[v4 'File'],            lazy => 1, builder => 1);
@@ -190,6 +192,10 @@ See C<WebService::Mattermost::V4::API::Resource::Compliance>.
 =item C<data_retention>
 
 See C<WebService::Mattermost::V4::API::Resource::DataRetention>.
+
+=item C<database>
+
+See C<WebService::Mattermost::V4::API::Resource::Database>.
 
 =item C<elasticsearch>
 
