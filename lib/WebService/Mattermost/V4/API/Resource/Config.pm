@@ -17,6 +17,39 @@ sub get {
     return $self->_single_view_get();
 }
 
+sub update {
+    my $self = shift;
+    my $args = shift;
+
+    return $self->_single_view_put({ parameters => $args });
+}
+
+sub reload {
+    my $self = shift;
+
+    return $self->_single_view_post({
+        endpoint => 'reload',
+        view     => 'Status',
+    });
+}
+
+sub client_subset {
+    my $self = shift;
+    my $args = shift;
+
+    return $self->_get({
+        endpoint   => 'client',
+        parameters => $args,
+        required   => [ 'format' ],
+    });
+}
+
+sub set_by_environment {
+    my $self = shift;
+
+    return $self->_single_view_get({ endpoint => 'environment' });
+}
+
 ################################################################################
 
 1;
@@ -50,6 +83,57 @@ WebService::Mattermost::V4::API::Resource::Config
 L<Get configuration|https://api.mattermost.com/#tag/system%2Fpaths%2F~1file~1s3_test%2Fpost>
 
     my $response = $resource->get();
+
+=item C<update()>
+
+L<Update configuration|https://api.mattermost.com/#tag/system%2Fpaths%2F~1config%2Fput>
+
+There are many available parameters for this API call which may require reading
+of the API documentation.
+
+    my $response = $resource->update({
+        # Optional parameters:
+        ServiceSettings      => {},
+        TeamSettings         => {},
+        SqlSettings          => {},
+        LogSettings          => {},
+        PasswordSettings     => {},
+        FileSettings         => {},
+        EmailSettings        => {},
+        RateLimitSettings    => {},
+        PrivacySettings      => {},
+        SupportSettings      => {},
+        GitLabSettings       => {},
+        GoogleSettings       => {},
+        Office365Settings    => {},
+        LdapSettings         => {},
+        ComplianceSettings   => {},
+        LocalizationSettings => {},
+        SamlSettings         => {},
+        NativeAppSettings    => {},
+        ClusterSettings      => {},
+        MetricsSettings      => {},
+        AnalyticsSettings    => {},
+        WebrtcSettings       => {},
+    });
+
+=item C<reload()>
+
+L<Reload configuration|https://api.mattermost.com/#tag/system%2Fpaths%2F~1config~1reload%2Fpost>
+
+    my $response = $resource->reload();
+
+=item C<client_subset()>
+
+L<Get client configuration|https://api.mattermost.com/#tag/system%2Fpaths%2F~1config~1reload%2Fpost>
+
+    my $response = $resource->client_subset();
+
+=item C<set_by_environment()>
+
+L<Get configuration made through environment variables|https://api.mattermost.com/#tag/system%2Fpaths%2F~1config~1environment%2Fget>
+
+    my $response = $client->set_by_environment();
 
 =back
 
