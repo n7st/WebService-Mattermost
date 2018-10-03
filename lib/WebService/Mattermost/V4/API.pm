@@ -49,6 +49,7 @@ has resources    => (is => 'rw', isa => ArrayRef, default => sub { [] },
         add_resource => 'push',
     });
 
+has audits         => (is => 'ro', isa => InstanceOf[v4 'Audits'],          lazy => 1, builder => 1);
 has brand          => (is => 'ro', isa => InstanceOf[v4 'Brand'],           lazy => 1, builder => 1);
 has channels       => (is => 'ro', isa => InstanceOf[v4 'Channels'],        lazy => 1, builder => 1);
 has channel        => (is => 'ro', isa => InstanceOf[v4 'Channel'],         lazy => 1, builder => 1);
@@ -123,6 +124,7 @@ sub _new_resource {
 # name", i.e. DataRetention's base resource is "data_retention", not
 # "dataretention".
 
+sub _build_audits         { shift->_new_resource('Audits')                          }
 sub _build_brand          { shift->_new_resource('Brand')                           }
 sub _build_channel        { shift->_new_resource('Channel', 'channels')             }
 sub _build_channel_member { shift->_new_resource('Channel::Member', 'channels')     }
