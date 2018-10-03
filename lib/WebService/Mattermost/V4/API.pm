@@ -4,7 +4,9 @@ use Moo;
 use MooX::HandlesVia;
 use Types::Standard qw(ArrayRef Bool InstanceOf Str);
 
+use WebService::Mattermost::V4::API::Resource::Audits;
 use WebService::Mattermost::V4::API::Resource::Brand;
+use WebService::Mattermost::V4::API::Resource::Cache;
 use WebService::Mattermost::V4::API::Resource::Channel;
 use WebService::Mattermost::V4::API::Resource::Channel::Member;
 use WebService::Mattermost::V4::API::Resource::Channels;
@@ -19,6 +21,7 @@ use WebService::Mattermost::V4::API::Resource::File;
 use WebService::Mattermost::V4::API::Resource::Files;
 use WebService::Mattermost::V4::API::Resource::Jobs;
 use WebService::Mattermost::V4::API::Resource::LDAP;
+use WebService::Mattermost::V4::API::Resource::Logs;
 use WebService::Mattermost::V4::API::Resource::OAuth;
 use WebService::Mattermost::V4::API::Resource::Plugin;
 use WebService::Mattermost::V4::API::Resource::Plugins;
@@ -51,6 +54,7 @@ has resources    => (is => 'rw', isa => ArrayRef, default => sub { [] },
 
 has audits         => (is => 'ro', isa => InstanceOf[v4 'Audits'],          lazy => 1, builder => 1);
 has brand          => (is => 'ro', isa => InstanceOf[v4 'Brand'],           lazy => 1, builder => 1);
+has cache          => (is => 'ro', isa => InstanceOf[v4 'Cache'],           lazy => 1, builder => 1);
 has channels       => (is => 'ro', isa => InstanceOf[v4 'Channels'],        lazy => 1, builder => 1);
 has channel        => (is => 'ro', isa => InstanceOf[v4 'Channel'],         lazy => 1, builder => 1);
 has channel_member => (is => 'ro', isa => InstanceOf[v4 'Channel::Member'], lazy => 1, builder => 1);
@@ -65,6 +69,7 @@ has file           => (is => 'ro', isa => InstanceOf[v4 'File'],            lazy
 has files          => (is => 'ro', isa => InstanceOf[v4 'Files'],           lazy => 1, builder => 1);
 has jobs           => (is => 'ro', isa => InstanceOf[v4 'Jobs'],            lazy => 1, builder => 1);
 has ldap           => (is => 'ro', isa => InstanceOf[v4 'LDAP'],            lazy => 1, builder => 1);
+has logs           => (is => 'ro', isa => InstanceOf[v4 'Logs'],            lazy => 1, builder => 1);
 has oauth          => (is => 'ro', isa => InstanceOf[v4 'OAuth'],           lazy => 1, builder => 1);
 has plugin         => (is => 'ro', isa => InstanceOf[v4 'Plugin'],          lazy => 1, builder => 1);
 has plugins        => (is => 'ro', isa => InstanceOf[v4 'Plugins'],         lazy => 1, builder => 1);
@@ -126,6 +131,7 @@ sub _new_resource {
 
 sub _build_audits         { shift->_new_resource('Audits')                          }
 sub _build_brand          { shift->_new_resource('Brand')                           }
+sub _build_cache          { shift->_new_resource('Cache', 'caches')                 }
 sub _build_channel        { shift->_new_resource('Channel', 'channels')             }
 sub _build_channel_member { shift->_new_resource('Channel::Member', 'channels')     }
 sub _build_channels       { shift->_new_resource('Channels')                        }
@@ -133,6 +139,7 @@ sub _build_cluster        { shift->_new_resource('Cluster')                     
 sub _build_compliance     { shift->_new_resource('Compliance')                      }
 sub _build_config         { shift->_new_resource('Config')                          }
 sub _build_data_retention { shift->_new_resource('DataRetention', 'data_retention') }
+sub _build_database       { shift->_new_resource('Database')                        }
 sub _build_elasticsearch  { shift->_new_resource('ElasticSearch')                   }
 sub _build_email          { shift->_new_resource('Email')                           }
 sub _build_emoji          { shift->_new_resource('Emoji')                           }
@@ -140,6 +147,7 @@ sub _build_files          { shift->_new_resource('Files', 'files')              
 sub _build_file           { shift->_new_resource('File')                            }
 sub _build_jobs           { shift->_new_resource('Jobs')                            }
 sub _build_ldap           { shift->_new_resource('LDAP')                            }
+sub _build_logs           { shift->_new_resource('Logs')                            }
 sub _build_oauth          { shift->_new_resource('OAuth')                           }
 sub _build_plugin         { shift->_new_resource('Plugin', 'plugins')               }
 sub _build_plugins        { shift->_new_resource('Plugins')                         }
@@ -173,6 +181,10 @@ Container for API resources.
 =head2 ATTRIBUTES
 
 =over 4
+
+=item C<audits>
+
+See C<WebService::Mattermost::V4::API::Resource::Audits>
 
 =item C<brand>
 
@@ -237,6 +249,10 @@ See C<WebService::Mattermost::V4::API::Resource::Jobs>.
 =item C<ldap>
 
 See C<WebService::Mattermost::V4::API::Resource::LDAP>.
+
+=item C<logs>
+
+See C<WebService::Mattermost::V4::API::Resource::Logs>.
 
 =item C<oauth>
 
