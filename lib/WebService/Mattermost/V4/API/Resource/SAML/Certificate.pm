@@ -19,8 +19,9 @@ sub idp_upload {
     # TODO: wrapping helper for filenames (here and Resource::Users)
 
     return $self->_post({
-        endpoint   => 'idp',
-        parameters => {
+        endpoint           => 'idp',
+        override_data_type => 'form',
+        parameters         => {
             certificate => { file => $filename },
         },
     });
@@ -39,8 +40,9 @@ sub public_upload {
     # TODO: wrapping helper for filenames (here and Resource::Users)
 
     return $self->_post({
-        endpoint   => 'public',
-        parameters => {
+        endpoint           => 'public',
+        override_data_type => 'form',
+        parameters         => {
             certificate => { file => $filename },
         },
     });
@@ -59,8 +61,9 @@ sub private_upload {
     # TODO: wrapping helper for filenames (here and Resource::Users)
 
     return $self->_post({
-        endpoint   => 'private',
-        parameters => {
+        endpoint           => 'private',
+        override_data_type => 'form',
+        parameters         => {
             certificate => { file => $filename },
         },
     });

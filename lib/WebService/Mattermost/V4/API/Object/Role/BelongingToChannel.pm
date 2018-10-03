@@ -5,8 +5,6 @@ use Types::Standard qw(InstanceOf Maybe Str);
 
 use WebService::Mattermost::Helper::Alias 'view';
 
-#requires 'raw_data';
-
 ################################################################################
 
 has channel_id => (is => 'ro', isa => Maybe[Str],                        lazy => 1, builder => 1);

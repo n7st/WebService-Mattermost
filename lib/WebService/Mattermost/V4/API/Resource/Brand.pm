@@ -17,11 +17,12 @@ sub upload {
     my $filename = shift;
 
     return $self->_post({
-        endpoint   => 'image',
-        parameters => {
+        endpoint           => 'image',
+        override_data_type => 'form',
+        parameters         => {
             image => { file => $filename },
         },
-        view       => 'Status',
+        view               => 'Status',
     });
 }
 
