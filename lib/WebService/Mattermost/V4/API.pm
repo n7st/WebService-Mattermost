@@ -26,6 +26,7 @@ use WebService::Mattermost::V4::API::Resource::Post;
 use WebService::Mattermost::V4::API::Resource::Posts;
 use WebService::Mattermost::V4::API::Resource::Reactions;
 use WebService::Mattermost::V4::API::Resource::Roles;
+use WebService::Mattermost::V4::API::Resource::S3;
 use WebService::Mattermost::V4::API::Resource::SAML;
 use WebService::Mattermost::V4::API::Resource::Schemes;
 use WebService::Mattermost::V4::API::Resource::System;
@@ -70,6 +71,7 @@ has post           => (is => 'ro', isa => InstanceOf[v4 'Post'],            lazy
 has posts          => (is => 'ro', isa => InstanceOf[v4 'Posts'],           lazy => 1, builder => 1);
 has reactions      => (is => 'ro', isa => InstanceOf[v4 'Reactions'],       lazy => 1, builder => 1);
 has roles          => (is => 'ro', isa => InstanceOf[v4 'Roles'],           lazy => 1, builder => 1);
+has s3             => (is => 'ro', isa => InstanceOf[v4 'S3'],              lazy => 1, builder => 1);
 has saml           => (is => 'ro', isa => InstanceOf[v4 'SAML'],            lazy => 1, builder => 1);
 has schemes        => (is => 'ro', isa => InstanceOf[v4 'Schemes'],         lazy => 1, builder => 1);
 has system         => (is => 'ro', isa => InstanceOf[v4 'System'],          lazy => 1, builder => 1);
@@ -142,6 +144,7 @@ sub _build_post           { shift->_new_resource('Post', 'posts')               
 sub _build_posts          { shift->_new_resource('Posts')                           }
 sub _build_reactions      { shift->_new_resource('Reactions')                       }
 sub _build_roles          { shift->_new_resource('Roles')                           }
+sub _build_s3             { shift->_new_resource('S3', 'file')                      }
 sub _build_saml           { shift->_new_resource('SAML')                            }
 sub _build_schemes        { shift->_new_resource('Schemes')                         }
 sub _build_system         { shift->_new_resource('System')                          }
@@ -255,6 +258,10 @@ See C<WebService::Mattermost::V4::API::Resource::Reactions>.
 =item C<roles>
 
 See C<WebService::Mattermost::V4::API::Resource::Roles>.
+
+=item C<s3>
+
+See C<WebService::Mattermost::V4::API::Resource::S3>.
 
 =item C<saml>
 
