@@ -1,4 +1,4 @@
-package WebService::Mattermost::V4::API::Object::Icon;
+package WebService::Mattermost::V4::API::Object::Response;
 
 use Moo;
 
@@ -17,21 +17,11 @@ __END__
 
 =head1 NAME
 
-WebService::Mattermost::V4::API::Object::Icon
+WebService::Mattermost::V4::API::Object::Response
 
 =head1 DESCRIPTION
 
-Details a Mattermost Icon object.
-
-=head2 ATTRIBUTES
-
-=over 4
-
-=item C<status_code>
-
-=item C<request_id>
-
-=back
+Details a generic response from Mattermost.
 
 =head1 SEE ALSO
 
