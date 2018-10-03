@@ -13,6 +13,7 @@ use WebService::Mattermost::V4::API::Resource::Compliance;
 use WebService::Mattermost::V4::API::Resource::DataRetention;
 use WebService::Mattermost::V4::API::Resource::Database;
 use WebService::Mattermost::V4::API::Resource::ElasticSearch;
+use WebService::Mattermost::V4::API::Resource::Email;
 use WebService::Mattermost::V4::API::Resource::Emoji;
 use WebService::Mattermost::V4::API::Resource::File;
 use WebService::Mattermost::V4::API::Resource::Files;
@@ -56,6 +57,7 @@ has compliance     => (is => 'ro', isa => InstanceOf[v4 'Compliance'],      lazy
 has data_retention => (is => 'ro', isa => InstanceOf[v4 'DataRetention'],   lazy => 1, builder => 1);
 has database       => (is => 'ro', isa => InstanceOf[v4 'Database'],        lazy => 1, builder => 1);
 has elasticsearch  => (is => 'ro', isa => InstanceOf[v4 'ElasticSearch'],   lazy => 1, builder => 1);
+has email          => (is => 'ro', isa => InstanceOf[v4 'Email'],           lazy => 1, builder => 1);
 has emoji          => (is => 'ro', isa => InstanceOf[v4 'Emoji'],           lazy => 1, builder => 1);
 has file           => (is => 'ro', isa => InstanceOf[v4 'File'],            lazy => 1, builder => 1);
 has files          => (is => 'ro', isa => InstanceOf[v4 'Files'],           lazy => 1, builder => 1);
@@ -127,6 +129,7 @@ sub _build_cluster        { shift->_new_resource('Cluster')                     
 sub _build_compliance     { shift->_new_resource('Compliance')                      }
 sub _build_data_retention { shift->_new_resource('DataRetention', 'data_retention') }
 sub _build_elasticsearch  { shift->_new_resource('ElasticSearch')                   }
+sub _build_email          { shift->_new_resource('Email')                           }
 sub _build_emoji          { shift->_new_resource('Emoji')                           }
 sub _build_files          { shift->_new_resource('Files', 'files')                  }
 sub _build_file           { shift->_new_resource('File')                            }
@@ -200,6 +203,10 @@ See C<WebService::Mattermost::V4::API::Resource::Database>.
 =item C<elasticsearch>
 
 See C<WebService::Mattermost::V4::API::Resource::ElasticSearch>.
+
+=item C<email>
+
+See C<WebService::Mattermost::V4::API::Resource::Email>.
 
 =item C<emoji>
 
