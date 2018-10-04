@@ -56,6 +56,24 @@ WebService::Mattermost::V4::API::Resource::Logs
 
 =over 4
 
+=item C<get()>
+
+L<Get logs|https://api.mattermost.com/#tag/system%2Fpaths%2F~1logs%2Fget>
+
+    my $response = $resource->get();
+
+=item C<add_message()>
+
+L<Add log message|https://api.mattermost.com/#tag/system%2Fpaths%2F~1logs%2Fpost>
+
+    my $response = $resource->add_message({
+        # Required parameters:
+        level   => 'ERROR', # or DEBUG
+        message => '...',
+    });
+
+=back
+
 =head1 AUTHOR
 
 Mike Jones L<email:mike@netsplit.org.uk>

@@ -31,6 +31,7 @@ use WebService::Mattermost::V4::API::Object::User::Preference;
 use WebService::Mattermost::V4::API::Object::User::Session;
 use WebService::Mattermost::V4::API::Object::User::Status;
 use WebService::Mattermost::V4::API::Object::User;
+use WebService::Mattermost::V4::API::Object::WebRTCToken;
 use WebService::Mattermost::Helper::Alias 'view';
 
 ################################################################################
