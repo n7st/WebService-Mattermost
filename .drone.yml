@@ -6,7 +6,9 @@ pipeline:
     build:
         image: poum/distzilla
         commands:
+            # Install dependencies quickly, don't test them
             - dzil authordeps | xargs -n 5 -P 10 cpanm --verbose --notest --quiet
             - dzil listdeps --author | xargs -n 5 -P 10 cpanm --verbose --no-interactive --notest --quiet
+            # Test our own module
             - dzil smoke
-#branch: master
+branch: master
