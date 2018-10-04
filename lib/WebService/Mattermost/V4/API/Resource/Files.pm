@@ -6,7 +6,7 @@ extends 'WebService::Mattermost::V4::API::Resource';
 
 ################################################################################
 
-around [ qw(upload get get_thumbnail get_preview get_link get_metadata) ] => sub {
+around [ qw(upload) ] => sub {
     my $orig = shift;
     my $self = shift;
     my $id   = shift;
@@ -25,56 +25,6 @@ sub upload {
             channel_id => $channel_id,
             files      => { file => $filename },
         },
-    });
-}
-
-sub get {
-    my $self    = shift;
-    my $file_id = shift;
-
-    return $self->_get({
-        endpoint => '%s',
-        ids      => [ $file_id ],
-    });
-}
-
-sub get_thumbnail {
-    my $self    = shift;
-    my $file_id = shift;
-
-    return $self->_get({
-        endpoint => '%s/thumbnail',
-        ids      => [ $file_id ],
-    });
-}
-
-sub get_preview {
-    my $self    = shift;
-    my $file_id = shift;
-
-    return $self->_get({
-        endpoint => '%s/preview',
-        ids      => [ $file_id ],
-    });
-}
-
-sub get_link {
-    my $self    = shift;
-    my $file_id = shift;
-
-    return $self->_get({
-        endpoint => '%s/link',
-        ids      => [ $file_id ],
-    });
-}
-
-sub get_metadata {
-    my $self    = shift;
-    my $file_id = shift;
-
-    return $self->_get({
-        endpoint => '%s/info',
-        ids      => [ $file_id ],
     });
 }
 
@@ -112,36 +62,6 @@ Upload a file to a channel.
 
     $resource->upload('CHANNEL_ID_HERE', '/path/to/filename.txt');
 
-=item C<get()>
-
-Get basic information about a file.
-
-    $resource->get('FILE_ID_HERE');
-
-=item C<get_thumbnail()>
-
-Get a file's thumbnail
-
-    $resource->get_thumbnail('FILE_ID_HERE');
-
-=item C<get_preview()>
-
-Get a file's preview.
-
-    $resource->get_preview('FILE_ID_HERE');
-
-=item C<get_link()>
-
-Get a public link to a file.
-
-    $resource->get_link('FILE_ID_HERE');
-
-=item C<get_metadata()>
-
-Get information about a file.
-
-    $resource->get_metadata('FILE_ID_HERE');
-
 =back
 
 =head1 SEE ALSO
@@ -151,3 +71,8 @@ Get information about a file.
 =item L<Official Files documentation|https://api.mattermost.com/#tag/files>
 
 =back
+
+=head1 AUTHOR
+
+Mike Jones L<email:mike@netsplit.org.uk>
+

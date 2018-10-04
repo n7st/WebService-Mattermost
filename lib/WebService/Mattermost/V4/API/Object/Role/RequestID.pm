@@ -1,18 +1,18 @@
-package WebService::Mattermost::V4::API::Object::Role::Name;
+package WebService::Mattermost::V4::API::Object::Role::RequestID;
 
 use Moo::Role;
 use Types::Standard qw(Maybe Str);
 
 ################################################################################
 
-has name => (is => 'ro', isa => Maybe[Str], lazy => 1, builder => 1);
+has request_id => (is => 'ro', isa => Maybe[Str], lazy => 1, builder => 1);
 
 ################################################################################
 
-sub _build_name {
+sub _build_request_id {
     my $self = shift;
 
-    return $self->raw_data->{name};
+    return $self->raw_data->{request_id};
 }
 
 ################################################################################
@@ -22,17 +22,19 @@ __END__
 
 =head1 NAME
 
-WebService::Mattermost::V4::API::Object::Role::Name
+WebService::Mattermost::V4::API::Object::Role::RequestID
 
 =head1 DESCRIPTION
 
-Attach a name to a v4::Object object.
+Attach a RequestID to a v4::Object object.
 
 =head2 ATTRIBUTES
 
 =over 4
 
-=item C<name>
+=item C<request_id>
+
+UUID.
 
 =back
 

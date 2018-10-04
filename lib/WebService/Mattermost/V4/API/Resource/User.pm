@@ -49,6 +49,8 @@ around [ qw(
     get_preference_by_category_and_name
 
     get_flagged_posts
+
+    remove_reaction
 ) ] => sub {
     my $orig = shift;
     my $self = shift;
@@ -381,6 +383,23 @@ sub get_flagged_posts {
     });
 }
 
+sub remove_reaction {
+    my $self       = shift;
+    my $user_id    = shift;
+    my $post_id    = shift;
+    my $emoji_name = shift;
+
+    unless ($post_id && $emoji_name) {
+        return $self->error_return('A post ID and an emoji name are required');
+    }
+
+    return $self->_single_view_delete({
+        endpoint => '%s/posts/%s/reactions/%s',
+        ids      => [ $user_id, $post_id, $emoji_name ],
+        view     => 'Status',
+    });
+}
+
 ################################################################################
 
 sub _build_available_user_roles {
@@ -682,6 +701,16 @@ Retrieve a list of posts flagged by the user with the given ID.
         page       => 0,
         per_page   => 60,
     });
+
+=item C<remove_reaction()>
+
+L<Remove a reaction from a user's post|https://api.mattermost.com/#tag/reactions%2Fpaths%2F~1users~1%7Buser_id%7D~1posts~1%7Bpost_id%7D~1reactions~1%7Bemoji_name%7D%2Fdelete>
+
+    my $response = $resource->remove_reaction(
+        'USER-ID-HERE',
+        'POST-ID-HERE',
+        'EMOJI-NAME-HERE',
+    );
 
 =back
 

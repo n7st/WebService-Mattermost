@@ -1,22 +1,19 @@
 package WebService::Mattermost::V4::API::Object::Error;
 
 use Moo;
-use Types::Standard qw(Str Int Maybe);
+use Types::Standard qw(Str Maybe);
 
 extends 'WebService::Mattermost::V4::API::Object';
 with    qw(
     WebService::Mattermost::V4::API::Object::Role::ID
     WebService::Mattermost::V4::API::Object::Role::Message
+    WebService::Mattermost::V4::API::Object::Role::RequestID
+    WebService::Mattermost::V4::API::Object::Role::StatusCode
 );
 
 ################################################################################
 
-has [ qw(
-    detailed_error
-    request_id
-) ] => (is => 'ro', isa => Maybe[Str], lazy => 1, builder => 1);
-
-has status_code => (is => 'ro', isa => Maybe[Int], lazy => 1, builder => 1);
+has detailed_error => (is => 'ro', isa => Maybe[Str], lazy => 1, builder => 1);
 
 ################################################################################
 
@@ -63,12 +60,6 @@ Details an error response from the API.
 
 =item C<detailed_error>
 
-=item C<id>
-
-=item C<request_id>
-
-=item C<status_code>
-
 =back
 
 =head1 SEE ALSO
@@ -78,6 +69,10 @@ Details an error response from the API.
 =item C<WebService::Mattermost::V4::API::Object::Role::ID>
 
 =item C<WebService::Mattermost::V4::API::Object::Role::Message>
+
+=item C<WebService::Mattermost::V4::API::Object::Role::RequestID>
+
+=item C<WebService::Mattermost::V4::API::Object::Role::StatusCode>
 
 =item L<Error documentation|https://api.mattermost.com/#tag/errors>
 

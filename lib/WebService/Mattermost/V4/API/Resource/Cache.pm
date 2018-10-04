@@ -1,4 +1,4 @@
-package WebService::Mattermost::V4::API::Resource::System;
+package WebService::Mattermost::V4::API::Resource::Cache;
 
 use Moo;
 
@@ -6,11 +6,11 @@ extends 'WebService::Mattermost::V4::API::Resource';
 
 ################################################################################
 
-sub ping {
+sub invalidate {
     my $self = shift;
 
-    return $self->_single_view_get({
-        endpoint => 'ping',
+    return $self->_single_view_post({
+        endpoint => 'invalidate',
         view     => 'Status',
     });
 }
@@ -22,7 +22,7 @@ __END__
 
 =head1 NAME
 
-WebService::Mattermost::V4::API::Resource::System
+WebService::Mattermost::V4::API::Resource::Cache
 
 =head1 DESCRIPTION
 
@@ -37,17 +37,17 @@ WebService::Mattermost::V4::API::Resource::System
         base_url     => 'https://my.mattermost.server.com/api/v4/',
     });
 
-    my $resource = $mm->api->system;
+    my $resource = $mm->api->cache;
 
 =head2 METHODS
 
 =over 4
 
-=item C<ping()>
+=item C<invalidate()>
 
-L<Check system health|https://api.mattermost.com/#tag/system%2Fpaths%2F~1system~1ping%2Fget>
+L<Invalidate all the caches|https://api.mattermost.com/#tag/system%2Fpaths%2F~1caches~1invalidate%2Fpost>
 
-    my $response = $resource->ping();
+    my $response = $resource->invalidate();
 
 =back
 
