@@ -4,19 +4,35 @@ use Mojo::JSON 'decode_json';
 use Moo;
 use Types::Standard qw(Any ArrayRef Bool InstanceOf Int Maybe Object Str);
 
+use WebService::Mattermost::V4::API::Object::Analytics::Old;
+use WebService::Mattermost::V4::API::Object::Audit;
 use WebService::Mattermost::V4::API::Object::Channel::Member;
 use WebService::Mattermost::V4::API::Object::Channel;
+use WebService::Mattermost::V4::API::Object::ChannelStats;
 use WebService::Mattermost::V4::API::Object::Compliance::Report;
+use WebService::Mattermost::V4::API::Object::Config;
+use WebService::Mattermost::V4::API::Object::DataRetentionPolicy;
 use WebService::Mattermost::V4::API::Object::Emoji;
 use WebService::Mattermost::V4::API::Object::Error;
 use WebService::Mattermost::V4::API::Object::File;
+use WebService::Mattermost::V4::API::Object::Icon;
+use WebService::Mattermost::V4::API::Object::Job;
+use WebService::Mattermost::V4::API::Object::Log;
+use WebService::Mattermost::V4::API::Object::NewLogEntry;
+use WebService::Mattermost::V4::API::Object::Plugin;
+use WebService::Mattermost::V4::API::Object::Plugins;
 use WebService::Mattermost::V4::API::Object::Post;
+use WebService::Mattermost::V4::API::Object::Reaction;
+use WebService::Mattermost::V4::API::Object::Response;
+use WebService::Mattermost::V4::API::Object::Status;
 use WebService::Mattermost::V4::API::Object::Team;
+use WebService::Mattermost::V4::API::Object::TeamStats;
 use WebService::Mattermost::V4::API::Object::Thread;
 use WebService::Mattermost::V4::API::Object::User::Preference;
 use WebService::Mattermost::V4::API::Object::User::Session;
 use WebService::Mattermost::V4::API::Object::User::Status;
 use WebService::Mattermost::V4::API::Object::User;
+use WebService::Mattermost::V4::API::Object::WebRTCToken;
 use WebService::Mattermost::Helper::Alias 'view';
 
 ################################################################################
@@ -44,12 +60,21 @@ has items => (is => 'ro', isa => Maybe[ArrayRef], lazy => 1, builder => 1);
 sub BUILD {
     my $self = shift;
 
-    # Rudimentary "is it JSON?" hack
-    if ($self->raw_content && $self->raw_content =~ /^[\{\[]/) {
+    if ($self->_looks_like_json($self->raw_content)) {
         $self->content(decode_json($self->raw_content));
     }
 
     return 1;
+}
+
+################################################################################
+
+sub _looks_like_json {
+    my $self = shift;
+    my $inp  = shift;
+
+    # Rudimentary "is it JSON?" hack
+    return $inp && $inp =~ /^[\{\[]/ ? 1 : 0;
 }
 
 ################################################################################
@@ -72,7 +97,20 @@ sub _build_items {
     my @ret;
 
     if ($self->item_view) {
-        my @items = ref $self->content eq 'ARRAY' ? @{$self->content} : ($self->content);
+        my @init_items = ref $self->content eq 'ARRAY' ? @{$self->content} : ($self->content);
+        my @items;
+
+        # Sometimes, for example in GET /logs, a JSON string is returned rather
+        # than a hash.
+        foreach (@init_items) {
+            $_ =~ s/\n//sg;
+
+            if ($self->_looks_like_json($_)) {
+                push @items, decode_json($_);
+            } else {
+                push @items, $_ if $_;
+            }
+        }
 
         if ($items[0]->{status_code} && $items[0]->{status_code} != 200) {
             # The response is actually an error - create an Error view

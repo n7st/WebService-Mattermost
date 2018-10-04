@@ -1,4 +1,4 @@
-package WebService::Mattermost::V4::API::Resource::System;
+package WebService::Mattermost::V4::API::Resource::Analytics;
 
 use Moo;
 
@@ -6,12 +6,14 @@ extends 'WebService::Mattermost::V4::API::Resource';
 
 ################################################################################
 
-sub ping {
+sub get {
     my $self = shift;
+    my $args = shift;
 
-    return $self->_single_view_get({
-        endpoint => 'ping',
-        view     => 'Status',
+    return $self->_get({
+        endpoint   => 'old',
+        parameters => $args,
+        view       => 'Analytics::Old',
     });
 }
 
@@ -22,7 +24,7 @@ __END__
 
 =head1 NAME
 
-WebService::Mattermost::V4::API::Resource::System
+WebService::Mattermost::V4::API::Resource::Analytics
 
 =head1 DESCRIPTION
 
@@ -37,17 +39,21 @@ WebService::Mattermost::V4::API::Resource::System
         base_url     => 'https://my.mattermost.server.com/api/v4/',
     });
 
-    my $resource = $mm->api->system;
+    my $resource = $mm->api->analytics;
 
 =head2 METHODS
 
 =over 4
 
-=item C<ping()>
+=item C<get()>
 
-L<Check system health|https://api.mattermost.com/#tag/system%2Fpaths%2F~1system~1ping%2Fget>
+L<Get analytics|https://api.mattermost.com/#tag/system%2Fpaths%2F~1analytics~1old%2Fget>
 
-    my $response = $resource->ping();
+    my $response = $resource->get({
+        # Optional parameters:
+        name    => 'standard', # 'post_counts_day', 'user_counts_with_posts_day', 'extra_counts'
+        team_id => 'TEAM-ID-HERE',
+    });
 
 =back
 
