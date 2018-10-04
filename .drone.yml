@@ -9,5 +9,4 @@ pipeline:
             - dzil authordeps | xargs -n 5 -P 10 cpanm --verbose --notest --quiet
             - dzil listdeps --author | xargs -n 5 -P 10 cpanm --verbose --no-interactive --notest --quiet
             - dzil smoke
-        when:
-            branch: master
+#branch: master
