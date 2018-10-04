@@ -4,6 +4,7 @@ use Mojo::JSON 'decode_json';
 use Moo;
 use Types::Standard qw(Any ArrayRef Bool InstanceOf Int Maybe Object Str);
 
+use WebService::Mattermost::V4::API::Object::Analytics::Old;
 use WebService::Mattermost::V4::API::Object::Audit;
 use WebService::Mattermost::V4::API::Object::Channel::Member;
 use WebService::Mattermost::V4::API::Object::Channel;

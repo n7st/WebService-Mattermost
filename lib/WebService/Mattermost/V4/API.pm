@@ -4,6 +4,7 @@ use Moo;
 use MooX::HandlesVia;
 use Types::Standard qw(ArrayRef Bool InstanceOf Str);
 
+use WebService::Mattermost::V4::API::Resource::Analytics;
 use WebService::Mattermost::V4::API::Resource::Audits;
 use WebService::Mattermost::V4::API::Resource::Brand;
 use WebService::Mattermost::V4::API::Resource::Cache;
@@ -53,6 +54,7 @@ has resources    => (is => 'rw', isa => ArrayRef, default => sub { [] },
         add_resource => 'push',
     });
 
+has analytics      => (is => 'ro', isa => InstanceOf[v4 'Analytics'],       lazy => 1, builder => 1);
 has audits         => (is => 'ro', isa => InstanceOf[v4 'Audits'],          lazy => 1, builder => 1);
 has brand          => (is => 'ro', isa => InstanceOf[v4 'Brand'],           lazy => 1, builder => 1);
 has cache          => (is => 'ro', isa => InstanceOf[v4 'Cache'],           lazy => 1, builder => 1);
@@ -131,6 +133,7 @@ sub _new_resource {
 # name", i.e. DataRetention's base resource is "data_retention", not
 # "dataretention".
 
+sub _build_analytics      { shift->_new_resource('Analytics')                       }
 sub _build_audits         { shift->_new_resource('Audits')                          }
 sub _build_brand          { shift->_new_resource('Brand')                           }
 sub _build_cache          { shift->_new_resource('Cache', 'caches')                 }
@@ -184,6 +187,10 @@ Container for API resources.
 =head2 ATTRIBUTES
 
 =over 4
+
+=item C<analytics>
+
+See C<WebService::Mattermost::V4::API::Resource::Analytics>
 
 =item C<audits>
 
