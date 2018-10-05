@@ -7,6 +7,9 @@ gateways.
 
 See individual POD files for details.
 
+This library supercedes [Net::Mattermost::Bot](https://git.netsplit.uk/mike/Net-Mattermost-Bot)
+and replaces all functionality.
+
 ## Installation
 
 ### From CPAN
