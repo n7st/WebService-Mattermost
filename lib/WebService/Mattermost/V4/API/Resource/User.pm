@@ -51,6 +51,9 @@ around [ qw(
     get_flagged_posts
 
     remove_reaction
+
+    get_authorized_apps
+    get_authorised_apps
 ) ] => sub {
     my $orig = shift;
     my $self = shift;
@@ -400,6 +403,21 @@ sub remove_reaction {
     });
 }
 
+sub get_authorized_apps { shift->get_authorised_apps(@_) }
+
+sub get_authorised_apps {
+    my $self = shift;
+    my $id   = shift;
+    my $args = shift;
+
+    return $self->_get({
+        endpoint   => '%s/oauth/apps/authorized',
+        ids        => [ $id ],
+        parameters => $args,
+        view       => 'Application',
+    });
+}
+
 ################################################################################
 
 sub _build_available_user_roles {
@@ -711,6 +729,20 @@ L<Remove a reaction from a user's post|https://api.mattermost.com/#tag/reactions
         'POST-ID-HERE',
         'EMOJI-NAME-HERE',
     );
+
+=item C<get_authorized_apps()>
+
+Alias for C<get_authorised_apps()>.
+
+=item C<get_authorised_apps()>
+
+L<Get authorized OAuth apps|https://api.mattermost.com/#tag/OAuth%2Fpaths%2F~1users~1%7Buser_id%7D~1oauth~1apps~1authorized%2Fget>
+
+    my $response = $resource->get_authorised_apps('USER-ID-HERE', {
+        # Optional parameters:
+        page     => 0,
+        per_page => 60,
+    });
 
 =back
 
