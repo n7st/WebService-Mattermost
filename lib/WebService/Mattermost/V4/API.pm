@@ -39,7 +39,7 @@ use WebService::Mattermost::V4::API::Resource::Team;
 use WebService::Mattermost::V4::API::Resource::Teams;
 use WebService::Mattermost::V4::API::Resource::User;
 use WebService::Mattermost::V4::API::Resource::Users;
-use WebService::Mattermost::V4::API::Resource::Webhooks;
+use WebService::Mattermost::V4::API::Resource::Webhook;
 use WebService::Mattermost::V4::API::Resource::WebRTC;
 use WebService::Mattermost::Helper::Alias 'v4';
 
@@ -90,7 +90,7 @@ has team           => (is => 'ro', isa => InstanceOf[v4 'Team'],               l
 has teams          => (is => 'ro', isa => InstanceOf[v4 'Teams'],              lazy => 1, builder => 1);
 has user           => (is => 'ro', isa => InstanceOf[v4 'User'],               lazy => 1, builder => 1);
 has users          => (is => 'ro', isa => InstanceOf[v4 'Users'],              lazy => 1, builder => 1);
-has webhooks       => (is => 'ro', isa => InstanceOf[v4 'Webhooks'],           lazy => 1, builder => 1);
+has webhooks       => (is => 'ro', isa => InstanceOf[v4 'Webhook'],            lazy => 1, builder => 1);
 has webrtc         => (is => 'ro', isa => InstanceOf[v4 'WebRTC'],             lazy => 1, builder => 1);
 
 ################################################################################
@@ -171,7 +171,7 @@ sub _build_team           { shift->_new_resource('Team', 'teams')               
 sub _build_teams          { shift->_new_resource('Teams')                           }
 sub _build_user           { shift->_new_resource('User', 'users')                   }
 sub _build_users          { shift->_new_resource('Users')                           }
-sub _build_webhooks       { shift->_new_resource('Webhooks', 'hooks')               }
+sub _build_webhooks       { shift->_new_resource('Webhook', 'hooks')               }
 sub _build_webrtc         { shift->_new_resource('WebRTC')                          }
 
 ################################################################################
@@ -333,7 +333,7 @@ See C<WebService::Mattermost::V4::API::Resource::Users>.
 
 =item C<webhooks>
 
-See C<WebService::Mattermost::V4::API::Resource::Webhooks>.
+See C<WebService::Mattermost::V4::API::Resource::Webhook>.
 
 =item C<webrtc>
 

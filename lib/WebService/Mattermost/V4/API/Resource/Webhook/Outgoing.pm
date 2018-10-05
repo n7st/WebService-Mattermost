@@ -1,4 +1,4 @@
-package WebService::Mattermost::V4::API::Resource::Webhooks::Outgoing;
+package WebService::Mattermost::V4::API::Resource::Webhook::Outgoing;
 
 use Moo;
 
@@ -77,7 +77,7 @@ __END__
 
 =head1 NAME
 
-WebService::Mattermost::V4::API::Resource::Webhooks::Outgoing
+WebService::Mattermost::V4::API::Resource::Webhook::Outgoing
 
 =head1 DESCRIPTION
 
