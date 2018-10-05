@@ -1,31 +1,31 @@
-package WebService::Mattermost::V4::API::Resource::Webhooks;
+package WebService::Mattermost::V4::API::Resource::Webhook;
 
 use Moo;
 use Types::Standard 'InstanceOf';
 
 use WebService::Mattermost::Helper::Alias 'v4';
-use WebService::Mattermost::V4::API::Resource::Webhooks::Incoming;
-use WebService::Mattermost::V4::API::Resource::Webhooks::Outgoing;
+use WebService::Mattermost::V4::API::Resource::Webhook::Incoming;
+use WebService::Mattermost::V4::API::Resource::Webhook::Outgoing;
 
 extends 'WebService::Mattermost::V4::API::Resource';
 
 ################################################################################
 
-has incoming => (is => 'ro', isa => InstanceOf[v4 'Webhooks::Incoming'], lazy => 1, builder => 1);
-has outgoing => (is => 'ro', isa => InstanceOf[v4 'Webhooks::Incoming'], lazy => 1, builder => 1);
+has incoming => (is => 'ro', isa => InstanceOf[v4 'Webhook::Incoming'], lazy => 1, builder => 1);
+has outgoing => (is => 'ro', isa => InstanceOf[v4 'Webhook::Incoming'], lazy => 1, builder => 1);
 
 ################################################################################
 
 sub _build_incoming {
     my $self = shift;
 
-    return $self->_new_related_resource('webhooks', 'Webhooks::Incoming');
+    return $self->_new_related_resource('webhooks', 'Webhook::Incoming');
 }
 
 sub _build_outgoing {
     my $self = shift;
 
-    return $self->_new_related_resource('webhooks', 'Webhooks::Outgoing');
+    return $self->_new_related_resource('webhooks', 'Webhook::Outgoing');
 }
 
 ################################################################################
@@ -35,7 +35,7 @@ __END__
 
 =head1 NAME
 
-WebService::Mattermost::V4::API::Resource::Webhooks
+WebService::Mattermost::V4::API::Resource::Webhook
 
 =head1 DESCRIPTION
 
@@ -59,14 +59,14 @@ WebService::Mattermost::V4::API::Resource::Webhooks
 =item C<incoming>
 
 Contains methods for incoming webhooks. See
-C<WebService::Mattermost::V4::API::Resource::Webhooks::Incoming>.
+C<WebService::Mattermost::V4::API::Resource::Webhook::Incoming>.
 
     my $incoming = $resource->incoming;
 
 =item C<outgoing>
 
 Contains methods for outgoing webhooks. See
-C<WebService::Mattermost::V4::API::Resource::Webhooks::Outgoing>.
+C<WebService::Mattermost::V4::API::Resource::Webhook::Outgoing>.
 
     my $outgoing = $resource->outgoing;
 
