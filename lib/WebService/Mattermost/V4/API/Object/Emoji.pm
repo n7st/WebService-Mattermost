@@ -5,11 +5,26 @@ use Types::Standard qw(Str Int);
 
 extends 'WebService::Mattermost::V4::API::Object';
 with    qw(
+    WebService::Mattermost::V4::API::Object::Role::APIMethods
     WebService::Mattermost::V4::API::Object::Role::Timestamps
     WebService::Mattermost::V4::API::Object::Role::BelongingToUser
     WebService::Mattermost::V4::API::Object::Role::ID
     WebService::Mattermost::V4::API::Object::Role::Name
 );
+
+################################################################################
+
+sub BUILD {
+    my $self = shift;
+
+    $self->api_resource_name('emoji');
+    $self->available_api_methods([ qw(
+        delete
+        get_image
+    ) ]);
+
+    return 1;
+}
 
 ################################################################################
 
@@ -24,9 +39,32 @@ WebService::Mattermost::V4::API::Object::Emoji
 
 Details a Mattermost Emoji object.
 
+=head2 METHODS
+
+See matching methods in C<WebService::Mattermost::V4::API::Resource::Emoji>
+for full documentation.
+
+ID parameters are not required:
+
+    my $response = $mattermost->api->emoji->get('ID-HERE')->item->get_image();
+
+Is the same as:
+
+    my $response = $mattermost->api->emoji->get_image('ID-HERE');
+
+=over 4
+
+=item C<delete()>
+
+=item C<get_image()>
+
+=back
+
 =head1 SEE ALSO
 
 =over 4
+
+=item C<WebService::Mattermost::V4::API::Object::Emoji>
 
 =item C<WebService::Mattermost::V4::API::Object::Role::Timestamps>
 
