@@ -37,6 +37,7 @@ use WebService::Mattermost;
 
 my $mattermost = WebService::Mattermost->new({
     authenticate => 1, # Log into Mattermost
+    debug        => 1, # Output some debug-level information via Mojo::Log
     username     => 'email@address.com',
     password     => 'hunter2',
     base_url     => 'https://my.mattermost.server.com/api/v4/',
