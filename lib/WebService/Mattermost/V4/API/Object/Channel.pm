@@ -5,6 +5,7 @@ use Types::Standard qw(HashRef InstanceOf Int Maybe Str);
 
 extends 'WebService::Mattermost::V4::API::Object';
 with    qw(
+    WebService::Mattermost::V4::API::Object::Role::APIMethods
     WebService::Mattermost::V4::API::Object::Role::Timestamps
     WebService::Mattermost::V4::API::Object::Role::BelongingToUser
     WebService::Mattermost::V4::API::Object::Role::BelongingToTeam
@@ -29,6 +30,28 @@ has [ qw(
 has [ qw(
     total_message_count
 ) ] => (is => 'ro', isa => Maybe[Int], lazy => 1, builder => 1);
+
+################################################################################
+
+sub BUILD {
+    my $self = shift;
+
+    $self->api_resource_name('channel');
+    $self->set_available_api_methods([ qw(
+        delete
+        get
+        patch
+        pinned
+        posts
+        restore
+        set_scheme
+        stats
+        toggle_private_status
+        update
+    ) ]);
+
+    return 1;
+}
 
 ################################################################################
 
@@ -80,6 +103,41 @@ WebService::Mattermost::V4::API::Object::Channel
 =head1 DESCRIPTION
 
 Details a Mattermost channel object.
+
+=head2 METHODS
+
+See matching methods in C<WebService::Mattermost::V4::API::Resource::Channel>
+for full documentation.
+
+ID parameters are not required:
+
+    my $response = $mattermost->api->channel->get('ID-HERE')->item->delete();
+
+Is the same as:
+
+    my $response = $mattermost->api->channel->delete('ID-HERE');
+
+=over 4
+
+=item C<delete()>
+
+=item C<patch()>
+
+=item C<pinned()>
+
+=item C<posts()>
+
+=item C<restore()>
+
+=item C<set_scheme()>
+
+=item C<stats()>
+
+=item C<toggle_private_status()>
+
+=item C<update()>
+
+=back
 
 =head2 ATTRIBUTES
 
@@ -135,6 +193,8 @@ The number of messages made in the channel.
 =head1 SEE ALSO
 
 =over 4
+
+=item C<WebService::Mattermost::V4::API::Resource::Channel>
 
 =item C<WebService::Mattermost::V4::API::Object::Role::Timestamps>
 

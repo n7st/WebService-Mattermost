@@ -7,6 +7,7 @@ use WebService::Mattermost::Helper::Alias 'view';
 
 extends 'WebService::Mattermost::V4::API::Object';
 with    qw(
+    WebService::Mattermost::V4::API::Object::Role::APIMethods
     WebService::Mattermost::V4::API::Object::Role::BelongingToChannel
     WebService::Mattermost::V4::API::Object::Role::BelongingToUser
     WebService::Mattermost::V4::API::Object::Role::ID
@@ -38,6 +39,27 @@ has [ qw(
 ) ] => (is => 'ro', isa => Maybe[ArrayRef], lazy => 1, builder => 1);
 
 has files => (is => 'ro', lazy => 1, builder => 1);
+
+################################################################################
+
+sub BUILD {
+    my $self = shift;
+
+    $self->api_resource_name('post');
+    $self->available_api_methods([ qw(
+        delete
+        update
+        patch
+        thread
+        files
+        pin
+        inpin
+        reactions
+        perform_action
+    ) ]);
+
+    return 1;
+}       
 
 ################################################################################
 
@@ -103,6 +125,41 @@ WebService::Mattermost::V4::API::Object::Post
 
 Describes a Mattermost post.
 
+=head2 METHODS
+
+See matching methods in C<WebService::Mattermost::V4::API::Resource::Post>
+for full documentation.
+
+ID parameters are not required:
+
+    my $response = $mattermost->api->post->get('ID-HERE')->item->delete();
+
+Is the same as:
+
+    my $response = $mattermost->api->post->delete('ID-HERE');
+
+=over 4
+
+=item C<delete()>
+
+=item C<update()>
+
+=item C<patch()>
+
+=item C<thread()>
+
+=item C<files()>
+
+=item C<pin()>
+
+=item C<inpin()>
+
+=item C<reactions()>
+
+=item C<perform_action()>
+
+=back
+
 =head2 ATTRIBUTES
 
 =over 4
@@ -148,6 +205,8 @@ Related root post object.
 =head1 SEE ALSO
 
 =over 4
+
+=item C<WebService::Mattermost::V4::API::Object::Post>
 
 =item C<WebService::Mattermost::V4::API::Object::Role::BelongingToChannel>
 
