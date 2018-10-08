@@ -12,7 +12,7 @@ with 'WebService::Mattermost::Role::Logger';
 has [ qw(base_url username password) ] => (is => 'ro', isa => Str, required => 1);
 
 has api_version                => (is => 'ro', isa => Int,  default => 4);
-has authenticate               => (is => 'rw', isa => Bool, default => 0);
+has [ qw(authenticate debug) ] => (is => 'rw', isa => Bool, default => 0);
 has [ qw(auth_token user_id) ] => (is => 'rw', isa => Str,  default => '');
 
 has api => (is => 'ro', isa => Object, lazy => 1, builder => 1);
@@ -75,6 +75,7 @@ sub _build_api {
     my $args = {
         base_url   => $self->base_url,
         auth_token => $self->auth_token,
+        debug      => $self->debug,
     };
 
     my $ver = 'WebService::Mattermost::V4::API';
@@ -109,7 +110,8 @@ See C<WebService::Mattermost::V4::API> for all available API integrations.
         base_url => 'https://my.mattermost.server.com/api/v4/',
 
         # Optional
-        authenticate => 1, # trigger a "login" to the Mattermost server
+        authenticate => 1,            # Trigger a "login" to the Mattermost server
+        debug        => 1,            # Debug via Mojo::Log
         username     => 'MyUsername', # Login credentials for the server
         password     => 'MyPassword',
     });
@@ -117,6 +119,15 @@ See C<WebService::Mattermost::V4::API> for all available API integrations.
     # Example REST API calls
     my $emojis = $mm->api->emoji->custom;
     my $user   = $mm->api->users->search_by_email('someone@somewhere.com');
+
+Where appropriate, a response object or list of objects may be returned. You can
+access these via (using the custom emoji search above as an example):
+
+    # First item only
+    my $item = $emojis->item;
+
+    # All items
+    my $items = $emoji->items;
 
 =head2 METHODS
 

@@ -48,8 +48,8 @@ use WebService::Mattermost::Helper::Alias 'v4';
 has auth_token => (is => 'ro', isa => Str, required => 1);
 has base_url   => (is => 'ro', isa => Str, required => 1);
 
-has authenticate => (is => 'ro', isa => Bool,     default => 0);
-has resources    => (is => 'rw', isa => ArrayRef, default => sub { [] },
+has [ qw(authenticate debug) ] => (is => 'ro', isa => Bool,     default => 0);
+has resources                  => (is => 'rw', isa => ArrayRef, default => sub { [] },
     handles_via => 'Array',
     handles     => {
         add_resource => 'push',
@@ -122,6 +122,7 @@ sub _new_resource {
         auth_token => $self->auth_token,
         base_url   => $self->base_url,
         resource   => $alt_name,
+        debug      => $self->debug,
     });
 
     $self->add_resource($resource);
@@ -152,7 +153,7 @@ sub _build_elasticsearch  { shift->_new_resource('ElasticSearch')               
 sub _build_email          { shift->_new_resource('Email')                           }
 sub _build_emoji          { shift->_new_resource('Emoji')                           }
 sub _build_files          { shift->_new_resource('Files', 'files')                  }
-sub _build_file           { shift->_new_resource('File')                            }
+sub _build_file           { shift->_new_resource('File', 'files')                   }
 sub _build_jobs           { shift->_new_resource('Jobs')                            }
 sub _build_ldap           { shift->_new_resource('LDAP')                            }
 sub _build_logs           { shift->_new_resource('Logs')                            }
@@ -171,7 +172,7 @@ sub _build_team           { shift->_new_resource('Team', 'teams')               
 sub _build_teams          { shift->_new_resource('Teams')                           }
 sub _build_user           { shift->_new_resource('User', 'users')                   }
 sub _build_users          { shift->_new_resource('Users')                           }
-sub _build_webhooks       { shift->_new_resource('Webhook', 'hooks')               }
+sub _build_webhooks       { shift->_new_resource('Webhook', 'hooks')                }
 sub _build_webrtc         { shift->_new_resource('WebRTC')                          }
 
 ################################################################################
