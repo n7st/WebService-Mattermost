@@ -5,6 +5,7 @@ use Types::Standard qw(Str InstanceOf Int Maybe);
 
 extends 'WebService::Mattermost::V4::API::Object';
 with    qw(
+    WebService::Mattermost::V4::API::Object::Role::APIMethods
     WebService::Mattermost::V4::API::Object::Role::ID
     WebService::Mattermost::V4::API::Object::Role::Status
     WebService::Mattermost::V4::API::Object::Role::CreatedAt
@@ -20,6 +21,17 @@ has [ qw(
     started_at
     ended_at
 ) ] => (is => 'ro', isa => Maybe[InstanceOf['DateTime']], lazy => 1, builder => 1);
+
+################################################################################
+
+sub BUILD {
+    my $self = shift;
+
+    $self->api_resource_name('compliance_report');
+    $self->available_api_methods([ 'download' ]);
+
+    return 1;
+}
 
 ################################################################################
 
@@ -76,6 +88,17 @@ WebService::Mattermost::V4::API::Object::Compliance::Report
 
 =head1 DESCRIPTION
 
+See matching methods in C<WebService::Mattermost::V4::API::Resource::Compliance::Report>
+for full documentation.
+
+ID parameters are not required:
+
+    my $response = $mattermost->api->compliance_report->get('ID-HERE')->item->download();
+
+Is the same as: 
+
+    my $response = $mattermost->api->compliance_report->download('ID-HERE');
+
 =head2 ATTRIBUTES
 
 =over 4
@@ -103,6 +126,8 @@ WebService::Mattermost::V4::API::Object::Compliance::Report
 =head1 SEE ALSO
 
 =over 4
+
+=item C<WebService::Mattermost::V4::API::Resource::Compliance::Report>
 
 =item C<WebService::Mattermost::V4::API::Object::Role::ID>
 

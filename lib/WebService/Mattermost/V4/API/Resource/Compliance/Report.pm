@@ -1,4 +1,4 @@
-package WebService::Mattermost::V4::API::Resource::Compliance;
+package WebService::Mattermost::V4::API::Resource::Compliance::Report;
 
 use Moo;
 use Types::Standard 'Str';
@@ -11,20 +11,32 @@ has view_name => (is => 'ro', isa => Str, default => 'Compliance::Report');
 
 ################################################################################
 
-sub create_report {
+around [ qw(get download) ] => sub {
+    my $orig = shift;
     my $self = shift;
+    my $id   = shift;
 
-    return $self->_post({ endpoint => 'reports' });
+    return $self->validate_id($orig, $id, @_);
+};
+
+sub get {
+    my $self = shift;
+    my $id   = shift;
+
+    return $self->_single_view_get({
+        endpoint => 'reports/%s',
+        ids      => [ $id ],
+    });
 }
 
-sub get_reports {
+sub download {
     my $self = shift;
-    my $args = shift;
+    my $id   = shift;
 
-    return $self->_get({
-        view       => 'Compliance::Report',
-        endpoint   => 'reports',
-        parameters => $args,
+    return $self->_single_view_get({
+        view     => 'Binary',
+        endpoint => 'reports/%s/download',
+        ids      => [ $id ],
     });
 }
 
@@ -35,7 +47,7 @@ __END__
 
 =head1 NAME
 
-WebService::Mattermost::V4::API::Resource::Compliance
+WebService::Mattermost::V4::API::Resource::Compliance::Report
 
 =head1 DESCRIPTION
 
@@ -50,27 +62,23 @@ WebService::Mattermost::V4::API::Resource::Compliance
         base_url     => 'https://my.mattermost.server.com/api/v4/',
     });
 
-    my $resource = $mm->api->compliance;
+    my $resource = $mm->api->compliance_report;
 
 =head2 METHODS
 
 =over 4
 
-=item C<create_report()>
+=item C<get()>
 
-Create a new compliance report.
+Get a compliance report by its ID.
 
-    my $response = $resource->create_report();
+    my $response = $resource->get('REPORT-ID-HERE');
 
-=item C<get_reports()>
+=item C<download()>
 
-Get all compliance reports.
+Download a compliance report by its ID.
 
-    my $response = $resource->get_reports({
-        # Optional parameters
-        page     => 0,  # default values
-        per_page => 60,
-    });
+    my $response = $resource->download('REPORT-ID-HERE');
 
 =back
 
