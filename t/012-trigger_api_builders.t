@@ -3,7 +3,6 @@
 use strict;
 use warnings;
 
-use DDP;
 use FindBin;
 use Test::Most;
 

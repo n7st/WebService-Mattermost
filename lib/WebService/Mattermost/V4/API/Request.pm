@@ -1,6 +1,5 @@
 package WebService::Mattermost::V4::API::Request;
 
-use DDP;
 use Mojo::URL;
 use Mojo::Util 'url_escape';
 use Moo;
