@@ -194,6 +194,8 @@ The number of messages made in the channel.
 
 =over 4
 
+=item C<WebService::Mattermost::V4::API::Resource::Channel>
+
 =item C<WebService::Mattermost::V4::API::Object::Role::Timestamps>
 
 =item C<WebService::Mattermost::V4::API::Object::Role::BelongingToUser>

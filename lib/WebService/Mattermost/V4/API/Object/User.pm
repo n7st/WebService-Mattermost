@@ -44,7 +44,6 @@ sub BUILD {
     $self->api_resource_name('user');
     $self->set_available_api_methods([ qw(
         generate_mfa_secret
-        get
         get_profile_image
         get_status
         patch
@@ -109,22 +108,52 @@ Object version of a Mattermost user.
 
 =head2 METHODS
 
+See matching methods in C<WebService::Mattermost::V4::API::Resource::User> for
+full documentation.
+
+ID parameters are not required:
+
+    my $response = $mattermost->api->user->get('ID-HERE')->item->get_status();
+
+Is the same as:
+
+    my $response = $mattermost->api->user->get_status('ID-HERE');
+
 =over 4
+
+=item C<generate_mfa_secret()>
+
+=item C<get_profile_image()>
+
+=item C<get_status()>
+
+=item C<patch()>
+
+=item C<set_profile_image()>
+
+=item C<set_status()>
+
+=item C<teams()>
 
 =item C<update()>
 
-Update this user. Takes the same parameters as C<WebService::Mattermost::V4::API::Resource::Users>
-C<update_by_id()>.
+=item C<update_active_status()>
 
-    $user->update({
-        # ...
-    });
+=item C<update_authentication_method()>
+
+=item C<update_mfa()>
+
+=item C<update_password()>
+
+=item C<update_roles()>
 
 =back
 
 =head1 SEE ALSO
 
 =over 4
+
+=item C<WebService::Mattermost::V4::API::Resource::User>
 
 =item C<WebService::Mattermost::V4::API::Object::Role::ID>
 
