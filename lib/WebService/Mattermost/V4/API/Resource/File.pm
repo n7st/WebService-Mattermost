@@ -13,6 +13,7 @@ sub get {
     return $self->_get({
         endpoint => '%s',
         ids      => [ $file_id ],
+        view     => 'Binary',
     }); 
 }
 

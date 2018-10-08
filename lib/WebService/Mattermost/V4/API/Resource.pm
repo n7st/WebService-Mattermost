@@ -2,7 +2,7 @@ package WebService::Mattermost::V4::API::Resource;
 
 use List::MoreUtils 'all';
 use Moo;
-use Types::Standard qw(HashRef Str);
+use Types::Standard qw(Bool HashRef Str);
 
 use WebService::Mattermost::Helper::Alias qw(v4 view);
 use WebService::Mattermost::V4::API::Object::Channel;
@@ -34,6 +34,7 @@ has GET     => (is => 'ro', isa => Str,     default => 'GET');
 has headers => (is => 'ro', isa => HashRef, default => sub { {} });
 has POST    => (is => 'ro', isa => Str,     default => 'POST');
 has PUT     => (is => 'ro', isa => Str,     default => 'PUT');
+has debug   => (is => 'ro', isa => Bool,    default => 0);
 
 ################################################################################
 
@@ -154,6 +155,7 @@ sub _as_request {
     $args->{auth_token} = $self->auth_token;
     $args->{base_url}   = $self->base_url;
     $args->{resource}   = $self->resource;
+    $args->{debug}      = $self->debug;
 
     $args->{endpoint}   ||= '';
     $args->{parameters} ||= {};

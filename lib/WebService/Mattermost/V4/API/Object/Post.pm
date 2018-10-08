@@ -37,6 +37,8 @@ has [ qw(
     file_ids
 ) ] => (is => 'ro', isa => Maybe[ArrayRef], lazy => 1, builder => 1);
 
+has files => (is => 'ro', lazy => 1, builder => 1);
+
 ################################################################################
 
 sub _get_related_post {
@@ -79,6 +81,13 @@ sub _build_root_post {
     my $self = shift;
 
     return $self->_get_related_post($self->root_id);
+}
+
+sub _build_files {
+    my $self = shift;
+
+    return [] unless $self->file_ids;
+    return [ map { $self->api->file->get($_) } @{$self->file_ids} ];
 }
 
 ################################################################################
