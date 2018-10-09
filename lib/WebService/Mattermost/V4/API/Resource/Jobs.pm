@@ -6,14 +6,6 @@ extends 'WebService::Mattermost::V4::API::Resource';
 
 ################################################################################
 
-around [ qw(get_by_id cancel_by_id) ] => sub {
-    my $orig = shift;
-    my $self = shift;
-    my $id   = shift;
-
-    return $self->_validate_id($orig, $id, @_);
-};
-
 sub all {
     my $self = shift;
     my $args = shift;
@@ -32,28 +24,6 @@ sub create {
         view       => 'Job',
         parameters => $args,
         required   => [ 'type' ],
-    });
-}
-
-sub get_by_id {
-    my $self = shift;
-    my $id   = shift;
-
-    return $self->_single_view_get({
-        view     => 'Job',
-        endpoint => '%s',
-        ids      => [ $id ],
-    });
-}
-
-sub cancel_by_id {
-    my $self = shift;
-    my $id   = shift;
-
-    return $self->_single_view_post({
-        view     => 'Job',
-        endpoint => '%s/cancel',
-        ids      => [ $id ],
     });
 }
 
@@ -123,18 +93,6 @@ L<Create a new job|https://api.mattermost.com/#tag/jobs%2Fpaths%2F~1jobs%2Fpost>
         # Optional arguments
         data => {},
     });
-
-=item C<get_by_id()>
-
-L<Get a job|https://api.mattermost.com/#tag/jobs%2Fpaths%2F~1jobs~1%7Bjob_id%7D%2Fget>
-
-    my $response = $resource->get_by_id('JOB-ID-HERE');
-
-=item C<cancel_by_id()>
-
-L<Cancel a job|https://api.mattermost.com/#tag/jobs%2Fpaths%2F~1jobs~1%7Bjob_id%7D~1cancel%2Fpost>
-
-    my $response = $resource->cancel_by_id('JOB-ID-HERE');
 
 =item C<get_by_type()>
 
