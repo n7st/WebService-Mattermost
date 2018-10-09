@@ -169,6 +169,8 @@ A containing class for the available resources for API version 4.
 
 =over 4
 
+=item L<Bug tracker and source|https://git.netsplit.uk/mike/WebService-Mattermost>
+
 =item L<https://api.mattermost.com/>
 
 Plain Mattermost API documentation.
