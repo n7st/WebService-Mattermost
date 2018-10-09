@@ -39,3 +39,5 @@ test.pl
 *.sw0
 lib/Example/
 script/
+
+WebService-Mattermost*
