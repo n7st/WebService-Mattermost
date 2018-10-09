@@ -5,6 +5,7 @@ use Types::Standard qw(Bool HashRef Maybe Str);
 
 extends 'WebService::Mattermost::V4::API::Object';
 with    qw(
+    WebService::Mattermost::V4::API::Object::Role::APIMethods
     WebService::Mattermost::V4::API::Object::Role::Description
     WebService::Mattermost::V4::API::Object::Role::Name
     WebService::Mattermost::V4::API::Object::Role::ID
@@ -31,6 +32,15 @@ around BUILDARGS => sub {
     return $self->$orig($args);
 };
 
+sub BUILD {
+    my $self = shift;
+
+    $self->api_resource_name('plugin');
+    $self->set_available_api_methods([ qw(remove activate deactivate) ]);
+
+    return 1;
+}
+
 ################################################################################
 
 1;
@@ -43,6 +53,29 @@ WebService::Mattermost::V4::API::Object::Plugin
 =head1 DESCRIPTION
 
 An active or inactive plugin.
+
+=head2 METHODS
+
+See matching methods in C<WebService::Mattermost::V4::API::Resource::Plugin>
+for full documentation.
+
+ID parameters are not required:
+
+    my @responses = map { $_->deactivate } @{$mattermost->api->plugins->all->item->active};
+
+Is the same as:
+
+    my @responses = map { $mattermost->api->plugin->deactivate($_) } qw(PLUGIN-IDS-HERE);
+
+=over 4
+
+=item C<remove()>
+
+=item C<activate()>
+
+=item C<deactivate()>
+
+=back
 
 =head2 ATTRIBUTES
 
@@ -63,6 +96,10 @@ An active or inactive plugin.
 =head1 SEE ALSO
 
 =over 4
+
+=item C<WebService::Mattermost::V4::API::Resource::Plugin>
+
+=item C<WebService::Mattermost::V4::API::Resource::Plugins>
 
 =item C<WebService::Mattermost::V4::API::Object::Role::Description>
 

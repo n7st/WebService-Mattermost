@@ -21,6 +21,7 @@ use WebService::Mattermost::V4::API::Resource::Email;
 use WebService::Mattermost::V4::API::Resource::Emoji;
 use WebService::Mattermost::V4::API::Resource::File;
 use WebService::Mattermost::V4::API::Resource::Files;
+use WebService::Mattermost::V4::API::Resource::Job;
 use WebService::Mattermost::V4::API::Resource::Jobs;
 use WebService::Mattermost::V4::API::Resource::LDAP;
 use WebService::Mattermost::V4::API::Resource::Logs;
@@ -74,6 +75,7 @@ has email             => (is => 'ro', isa => InstanceOf[v4 'Email'],            
 has emoji             => (is => 'ro', isa => InstanceOf[v4 'Emoji'],              lazy => 1, builder => 1);
 has file              => (is => 'ro', isa => InstanceOf[v4 'File'],               lazy => 1, builder => 1);
 has files             => (is => 'ro', isa => InstanceOf[v4 'Files'],              lazy => 1, builder => 1);
+has job               => (is => 'ro', isa => InstanceOf[v4 'Job'],                lazy => 1, builder => 1);
 has jobs              => (is => 'ro', isa => InstanceOf[v4 'Jobs'],               lazy => 1, builder => 1);
 has ldap              => (is => 'ro', isa => InstanceOf[v4 'LDAP'],               lazy => 1, builder => 1);
 has logs              => (is => 'ro', isa => InstanceOf[v4 'Logs'],               lazy => 1, builder => 1);
@@ -155,8 +157,9 @@ sub _build_database          { shift->_new_resource('Database')                 
 sub _build_elasticsearch     { shift->_new_resource('ElasticSearch')                    }
 sub _build_email             { shift->_new_resource('Email')                            }
 sub _build_emoji             { shift->_new_resource('Emoji')                            }
-sub _build_files             { shift->_new_resource('Files', 'files')                   }
+sub _build_files             { shift->_new_resource('Files')                            }
 sub _build_file              { shift->_new_resource('File', 'files')                    }
+sub _build_job               { shift->_new_resource('Job', 'jobs')                      }
 sub _build_jobs              { shift->_new_resource('Jobs')                             }
 sub _build_ldap              { shift->_new_resource('LDAP')                             }
 sub _build_logs              { shift->_new_resource('Logs')                             }
@@ -266,6 +269,10 @@ See C<WebService::Mattermost::V4::API::Resource::File>.
 =item C<files>
 
 See C<WebService::Mattermost::V4::API::Resource::Files>.
+
+=item C<job>
+
+See C<WebService::Mattermost::V4::API::Resource::Job>.
 
 =item C<jobs>
 

@@ -5,6 +5,7 @@ use Types::Standard qw(HashRef Int Maybe Object Str);
 
 extends 'WebService::Mattermost::V4::API::Object';
 with    qw(
+    WebService::Mattermost::V4::API::Object::Role::APIMethods
     WebService::Mattermost::V4::API::Object::Role::ID
     WebService::Mattermost::V4::API::Object::Role::CreatedAt
     WebService::Mattermost::V4::API::Object::Role::Status
@@ -18,6 +19,17 @@ has last_activity_at => (is => 'ro', isa => Maybe[Int],     lazy => 1, builder =
 has progress         => (is => 'ro', isa => Maybe[Int],     lazy => 1, builder => 1);
 has data             => (is => 'ro', isa => Maybe[HashRef], lazy => 1, builder => 1);
 has started_at       => (is => 'ro', isa => Maybe[Object],  lazy => 1, builder => 1);
+
+################################################################################
+
+sub BUILD {
+    my $self = shift;
+
+    $self->api_resource_name('job');
+    $self->set_available_api_methods([ 'cancel' ]);
+
+    return 1;
+}
 
 ################################################################################
 
@@ -68,6 +80,25 @@ WebService::Mattermost::V4::API::Object::Job
 
 =head1 DESCRIPTION
 
+=head2 METHODS
+
+See matching methods in C<WebService::Mattermost::V4::API::Resource::Job>
+for full documentation.
+
+ID parameters are not required:
+
+    my $response = $mattermost->api->job->get('ID-HERE')->item->cancel();
+
+Is the same as:
+
+    my $response = $mattermost->api->job->cancel('ID-HERE');
+
+=over 4
+
+=item C<cancel()>
+
+=back
+
 =head2 ATTRIBUTES
 
 =over 4
@@ -91,6 +122,10 @@ DateTime.
 =head1 SEE ALSO
 
 =over 4
+
+=item C<WebService::Mattermost::V4::API::Object::Job>
+
+=item C<WebService::Mattermost::V4::API::Object::Jobs>
 
 =item C<WebService::Mattermost::V4::API::Object::Role::ID>
 
