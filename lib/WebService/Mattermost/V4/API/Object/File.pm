@@ -5,6 +5,7 @@ use Types::Standard qw(Bool Int Maybe Str);
 
 extends 'WebService::Mattermost::V4::API::Object';
 with    qw(
+    WebService::Mattermost::V4::API::Object::Role::APIMethods
     WebService::Mattermost::V4::API::Object::Role::BelongingToPost
     WebService::Mattermost::V4::API::Object::Role::BelongingToUser
     WebService::Mattermost::V4::API::Object::Role::ID
@@ -29,6 +30,22 @@ sub _build_has_preview_image { shift->raw_data->{has_preview_image} ? 1 : 0 }
 
 ################################################################################
 
+sub BUILD {
+    my $self = shift;
+
+    $self->api_resource_name('file');
+    $self->set_available_api_methods([ qw(
+        get_thumbnail
+        get_preview
+        get_link
+        get_metadata
+    ) ]);
+
+    return 1;
+}
+
+################################################################################
+
 1;
 __END__
 
@@ -39,6 +56,31 @@ WebService::Mattermost::V4::API::Object::File
 =head1 DESCRIPTION
 
 Details a Mattermost File object.
+
+=head2 METHODS
+
+See matching methods in C<WebService::Mattermost::V4::API::Resource::File>
+for full documentation.
+
+ID parameters are not required:
+
+    my $response = $mattermost->api->file->get('ID-HERE')->item->get_thumbnail();
+
+Is the same as:
+
+    my $response = $mattermost->api->file->get_thumbnail('ID-HERE');
+
+=over 4
+
+=item C<get_thumbnail()>
+
+=item C<get_preview()>
+
+=item C<get_link()>
+
+=item C<get_metadata()>
+
+=back
 
 =head2 ATTRIBUTES
 
@@ -61,6 +103,10 @@ Details a Mattermost File object.
 =head1 SEE ALSO
 
 =over 4
+
+=item C<WebService::Mattermost::V4::API::Resource::File>
+
+=item C<WebService::Mattermost::V4::API::Resource::Files>
 
 =item C<WebService::Mattermost::V4::API::Object::Role::BelongingToPost>
 
