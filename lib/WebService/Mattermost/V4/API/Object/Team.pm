@@ -5,6 +5,7 @@ use Types::Standard qw(Bool Str);
 
 extends 'WebService::Mattermost::V4::API::Object';
 with    qw(
+    WebService::Mattermost::V4::API::Object::Role::APIMethods
     WebService::Mattermost::V4::API::Object::Role::Name
     WebService::Mattermost::V4::API::Object::Role::Description
     WebService::Mattermost::V4::API::Object::Role::ID
@@ -19,6 +20,32 @@ has email          => (is => 'ro', isa => Str,  lazy => 1, builder => 1);
 has invite_id      => (is => 'ro', isa => Str,  lazy => 1, builder => 1);
 has is_invite_only => (is => 'ro', isa => Bool, lazy => 1, builder => 1);
 has open_invite    => (is => 'ro', isa => Bool, lazy => 1, builder => 1);
+
+################################################################################
+
+sub BUILD {
+    my $self = shift;
+
+    $self->api_resource_name('team');
+    $self->set_available_api_methods([ qw(
+        add_member
+        add_members
+        delete
+        get_icon
+        invite_by_emails
+        members
+        members_by_ids
+        patch
+        remove_icon
+        search_posts
+        set_icon
+        set_scheme
+        stats
+        update
+    ) ]);
+
+    return 1;
+}
 
 ################################################################################
 
@@ -41,6 +68,51 @@ WebService::Mattermost::V4::API::Object::Team
 =head1 DESCRIPTION
 
 Object version of a Mattermost team.
+
+=head2 METHODS
+
+See matching methods in C<WebService::Mattermost::V4::API::Resource::Team>
+for full documentation.
+
+ID parameters are not required:
+
+    my $response = $mattermost->api->team->get('ID-HERE')->item->delete();
+
+Is the same as:
+
+    my $response = $mattermost->api->team->delete('ID-HERE');
+
+=over 4
+
+=item C<add_member()>
+
+=item C<add_members()>
+
+=item C<delete()>
+
+=item C<get_icon()>
+
+=item C<invite_by_emails()>
+
+=item C<members()>
+
+=item C<members_by_ids()>
+
+=item C<patch()>
+
+=item C<remove_icon()>
+
+=item C<search_posts()>
+
+=item C<set_icon()>
+
+=item C<set_scheme()>
+
+=item C<stats()>
+
+=item C<update()>
+
+=back
 
 =head2 ATTRIBUTES
 
@@ -75,6 +147,10 @@ Boolean.
 =head1 SEE ALSO
 
 =over 4
+
+=item C<WebService::Mattermost::V4::API::Resource::Team>
+
+=item C<WebService::Mattermost::V4::API::Resource::Teams>
 
 =item C<WebService::Mattermost::V4::API::Object::Role::Name>
 
