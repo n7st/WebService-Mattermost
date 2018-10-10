@@ -194,9 +194,12 @@ sub _validate {
     my $args     = shift;
     my $required = shift;
 
-    # Grab a slice of the keys from given arguments
-    my %slice = %{$args}{@{$required}};
+    my %slice;
 
+    # Grab a slice of the keys from given arguments
+    @slice{@{$required}} = @{$args}{@{$required}};
+
+    # Return early, all's well
     return { valid => 1 } if all { defined($_) } values %slice;
 
     my @missing;
