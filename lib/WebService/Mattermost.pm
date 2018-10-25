@@ -44,7 +44,7 @@ sub _try_authentication {
             $self->user_id($ret->content->{id});
             $self->_set_resource_auth_token();
         } else {
-            $self->logger->logdie($ret->message);
+            $self->logger->fatal($ret->message);
         }
     } elsif ($self->authenticate && !($self->username && $self->password)) {
         $self->logger->logdie('"username" and "password" are required attributes for authentication');
