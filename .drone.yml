@@ -1,14 +1,22 @@
-workspace:
-    base: /opt
-    path: WebService-Mattermost
+---
+kind: pipeline
+name: default
 
-pipeline:
-    build:
-        image: poum/distzilla
-        commands:
-            # Install dependencies quickly, don't test them
-            - dzil authordeps | xargs -n 5 -P 10 cpanm --verbose --notest --quiet
-            - dzil listdeps --author | xargs -n 5 -P 10 cpanm --verbose --no-interactive --notest --quiet
-            # Test our own module
-            - dzil smoke
-            - echo Done
+platform:
+  os: linux
+  arch: amd64
+
+workspace:
+  base: /opt
+  path: WebService-Mattermost
+
+steps:
+- name: build
+  pull: default
+  image: poum/distzilla
+  commands:
+  - "dzil authordeps | xargs -n 5 -P 10 cpanm --verbose --notest --quiet"
+  - "dzil listdeps --author | xargs -n 5 -P 10 cpanm --verbose --no-interactive --notest --quiet"
+  - dzil smoke
+
+...
