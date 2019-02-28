@@ -12,7 +12,7 @@ __END__
 
 =head1 NAME
 
-t/999-pod.t
+xt/002-pod.t
 
 =head1 DESCRIPTION
 
