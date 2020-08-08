@@ -68,7 +68,7 @@ Get SAML metadata from the server.
 
 =item C<certificate>
 
-An instance of C<WebService::Mattermost::V4::API::Resource::SAML::Certificate>,
+An instance of L<WebService::Mattermost::V4::API::Resource::SAML::Certificate>,
 which handles getting and setting of certificates (IDP, public and private).
 
 =back

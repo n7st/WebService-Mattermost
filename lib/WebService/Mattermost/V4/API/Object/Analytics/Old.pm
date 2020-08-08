@@ -26,9 +26,9 @@ Details an old Mattermost analytics node.
 
 =over 4
 
-=item C<WebService::Mattermost::V4::API::Object::Role::Name>
+=item L<WebService::Mattermost::V4::API::Object::Role::Name>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::Value>
+=item L<WebService::Mattermost::V4::API::Object::Role::Value>
 
 =back
 

@@ -59,7 +59,7 @@ Details a Mattermost File object.
 
 =head2 METHODS
 
-See matching methods in C<WebService::Mattermost::V4::API::Resource::File>
+See matching methods in L<WebService::Mattermost::V4::API::Resource::File>
 for full documentation.
 
 ID parameters are not required:
@@ -104,19 +104,19 @@ Is the same as:
 
 =over 4
 
-=item C<WebService::Mattermost::V4::API::Resource::File>
+=item L<WebService::Mattermost::V4::API::Resource::File>
 
-=item C<WebService::Mattermost::V4::API::Resource::Files>
+=item L<WebService::Mattermost::V4::API::Resource::Files>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::BelongingToPost>
+=item L<WebService::Mattermost::V4::API::Object::Role::BelongingToPost>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::BelongingToUser>
+=item L<WebService::Mattermost::V4::API::Object::Role::BelongingToUser>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::ID>
+=item L<WebService::Mattermost::V4::API::Object::Role::ID>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::Name>
+=item L<WebService::Mattermost::V4::API::Object::Role::Name>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::Timestamps>
+=item L<WebService::Mattermost::V4::API::Object::Role::Timestamps>
 
 =back
 

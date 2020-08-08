@@ -27,13 +27,13 @@ Details a generic response from Mattermost.
 
 =over 4
 
-=item C<WebService::Mattermost::V4::API::Object::Role::ID>
+=item L<WebService::Mattermost::V4::API::Object::Role::ID>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::Message>
+=item L<WebService::Mattermost::V4::API::Object::Role::Message>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::RequestID>
+=item L<WebService::Mattermost::V4::API::Object::Role::RequestID>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::StatusCode>
+=item L<WebService::Mattermost::V4::API::Object::Role::StatusCode>
 
 =back
 

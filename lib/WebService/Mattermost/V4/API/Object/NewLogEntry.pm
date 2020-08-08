@@ -31,7 +31,7 @@ Details a Mattermost NewLogEntry object.
 
 =over 4
 
-=item C<WebService::Mattermost::V4::API::Object::Role::Message>
+=item L<WebService::Mattermost::V4::API::Object::Role::Message>
 
 =back
 

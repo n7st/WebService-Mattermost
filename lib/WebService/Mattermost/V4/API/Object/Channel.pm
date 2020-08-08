@@ -106,7 +106,7 @@ Details a Mattermost channel object.
 
 =head2 METHODS
 
-See matching methods in C<WebService::Mattermost::V4::API::Resource::Channel>
+See matching methods in L<WebService::Mattermost::V4::API::Resource::Channel>
 for full documentation.
 
 ID parameters are not required:
@@ -194,17 +194,17 @@ The number of messages made in the channel.
 
 =over 4
 
-=item C<WebService::Mattermost::V4::API::Resource::Channel>
+=item L<WebService::Mattermost::V4::API::Resource::Channel>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::Timestamps>
+=item L<WebService::Mattermost::V4::API::Object::Role::Timestamps>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::BelongingToUser>
+=item L<WebService::Mattermost::V4::API::Object::Role::BelongingToUser>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::BelongingToTeam>
+=item L<WebService::Mattermost::V4::API::Object::Role::BelongingToTeam>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::ID>
+=item L<WebService::Mattermost::V4::API::Object::Role::ID>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::Name>
+=item L<WebService::Mattermost::V4::API::Object::Role::Name>
 
 =item L<Channel documentation|https://api.mattermost.com/#tag/channels>
 

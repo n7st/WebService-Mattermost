@@ -63,7 +63,7 @@ C<DateTime> object.
 
 =over 4
 
-=item C<WebService::Mattermost::V4::API::Object::Role::CreatedAt>
+=item L<WebService::Mattermost::V4::API::Object::Role::CreatedAt>
 
 =back
 

@@ -18,7 +18,7 @@ WebService::Mattermost::V4::API::Resource::Role::View::User
 
 =head1 DESCRIPTION
 
-Set a resource as using the C<WebService::Mattermost::V4::API::Object::User>
+Set a resource as using the L<WebService::Mattermost::V4::API::Object::User>
 view.
 
 =head1 ATTRIBUTES

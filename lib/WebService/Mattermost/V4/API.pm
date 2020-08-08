@@ -200,159 +200,159 @@ Container for API resources.
 
 =item C<analytics>
 
-See C<WebService::Mattermost::V4::API::Resource::Analytics>
+See L<WebService::Mattermost::V4::API::Resource::Analytics>
 
 =item C<application>
 
-See C<WebService::Mattermost::V4::API::Resource::OAuth::Application>
+See L<WebService::Mattermost::V4::API::Resource::OAuth::Application>
 
 =item C<audits>
 
-See C<WebService::Mattermost::V4::API::Resource::Audits>
+See L<WebService::Mattermost::V4::API::Resource::Audits>
 
 =item C<brand>
 
-See C<WebService::Mattermost::V4::API::Resource::Brand>.
+See L<WebService::Mattermost::V4::API::Resource::Brand>.
 
 =item C<channels>
 
-See C<WebService::Mattermost::V4::API::Resource::Channels>.
+See L<WebService::Mattermost::V4::API::Resource::Channels>.
 
 =item C<channel>
 
-See C<WebService::Mattermost::V4::API::Resource::Channel>.
+See L<WebService::Mattermost::V4::API::Resource::Channel>.
 
 =item C<channel_member>
 
-See C<WebService::Mattermost::V4::API::Resource::Channel::Member>.
+See L<WebService::Mattermost::V4::API::Resource::Channel::Member>.
 
 =item C<cluster>
 
-See C<WebService::Mattermost::V4::API::Resource::Cluster>.
+See L<WebService::Mattermost::V4::API::Resource::Cluster>.
 
 =item C<config>
 
-See C<WebService::Mattermost::V4::API::Resource::Config>.
+See L<WebService::Mattermost::V4::API::Resource::Config>.
 
 =item C<compliance>
 
-See C<WebService::Mattermost::V4::API::Resource::Compliance>.
+See L<WebService::Mattermost::V4::API::Resource::Compliance>.
 
 =item C<compliance_report>
 
-See C<WebService::Mattermost::V4::API::Resource::Compliance::Report>.
+See L<WebService::Mattermost::V4::API::Resource::Compliance::Report>.
 
 =item C<data_retention>
 
-See C<WebService::Mattermost::V4::API::Resource::DataRetention>.
+See L<WebService::Mattermost::V4::API::Resource::DataRetention>.
 
 =item C<database>
 
-See C<WebService::Mattermost::V4::API::Resource::Database>.
+See L<WebService::Mattermost::V4::API::Resource::Database>.
 
 =item C<elasticsearch>
 
-See C<WebService::Mattermost::V4::API::Resource::ElasticSearch>.
+See L<WebService::Mattermost::V4::API::Resource::ElasticSearch>.
 
 =item C<email>
 
-See C<WebService::Mattermost::V4::API::Resource::Email>.
+See L<WebService::Mattermost::V4::API::Resource::Email>.
 
 =item C<emoji>
 
-See C<WebService::Mattermost::V4::API::Resource::Emoji>.
+See L<WebService::Mattermost::V4::API::Resource::Emoji>.
 
 =item C<file>
 
-See C<WebService::Mattermost::V4::API::Resource::File>.
+See L<WebService::Mattermost::V4::API::Resource::File>.
 
 =item C<files>
 
-See C<WebService::Mattermost::V4::API::Resource::Files>.
+See L<WebService::Mattermost::V4::API::Resource::Files>.
 
 =item C<job>
 
-See C<WebService::Mattermost::V4::API::Resource::Job>.
+See L<WebService::Mattermost::V4::API::Resource::Job>.
 
 =item C<jobs>
 
-See C<WebService::Mattermost::V4::API::Resource::Jobs>.
+See L<WebService::Mattermost::V4::API::Resource::Jobs>.
 
 =item C<ldap>
 
-See C<WebService::Mattermost::V4::API::Resource::LDAP>.
+See L<WebService::Mattermost::V4::API::Resource::LDAP>.
 
 =item C<logs>
 
-See C<WebService::Mattermost::V4::API::Resource::Logs>.
+See L<WebService::Mattermost::V4::API::Resource::Logs>.
 
 =item C<oauth>
 
-See C<WebService::Mattermost::V4::API::Resource::OAuth>.
+See L<WebService::Mattermost::V4::API::Resource::OAuth>.
 
 =item C<plugin>
 
-See C<WebService::Mattermost::V4::API::Resource::Plugin>.
+See L<WebService::Mattermost::V4::API::Resource::Plugin>.
 
 =item C<plugins>
 
-See C<WebService::Mattermost::V4::API::Resource::Plugins>.
+See L<WebService::Mattermost::V4::API::Resource::Plugins>.
 
 =item C<post>
 
-See C<WebService::Mattermost::V4::API::Resource::Post>.
+See L<WebService::Mattermost::V4::API::Resource::Post>.
 
 =item C<posts>
 
-See C<WebService::Mattermost::V4::API::Resource::Posts>.
+See L<WebService::Mattermost::V4::API::Resource::Posts>.
 
 =item C<reactions>
 
-See C<WebService::Mattermost::V4::API::Resource::Reactions>.
+See L<WebService::Mattermost::V4::API::Resource::Reactions>.
 
 =item C<roles>
 
-See C<WebService::Mattermost::V4::API::Resource::Roles>.
+See L<WebService::Mattermost::V4::API::Resource::Roles>.
 
 =item C<s3>
 
-See C<WebService::Mattermost::V4::API::Resource::S3>.
+See L<WebService::Mattermost::V4::API::Resource::S3>.
 
 =item C<saml>
 
-See C<WebService::Mattermost::V4::API::Resource::SAML>.
+See L<WebService::Mattermost::V4::API::Resource::SAML>.
 
 =item C<schemes>
 
-See C<WebService::Mattermost::V4::API::Resource::Schemes>.
+See L<WebService::Mattermost::V4::API::Resource::Schemes>.
 
 =item C<system>
 
-See C<WebService::Mattermost::V4::API::Resource::System>.
+See L<WebService::Mattermost::V4::API::Resource::System>.
 
 =item C<team>
 
-See C<WebService::Mattermost::V4::API::Resource::Team>.
+See L<WebService::Mattermost::V4::API::Resource::Team>.
 
 =item C<teams>
 
-See C<WebService::Mattermost::V4::API::Resource::Teams>.
+See L<WebService::Mattermost::V4::API::Resource::Teams>.
 
 =item C<user>
 
-See C<WebService::Mattermost::V4::API::Resource::User>.
+See L<WebService::Mattermost::V4::API::Resource::User>.
 
 =item C<users>
 
-See C<WebService::Mattermost::V4::API::Resource::Users>.
+See L<WebService::Mattermost::V4::API::Resource::Users>.
 
 =item C<webhooks>
 
-See C<WebService::Mattermost::V4::API::Resource::Webhook>.
+See L<WebService::Mattermost::V4::API::Resource::Webhook>.
 
 =item C<webrtc>
 
-See C<WebService::Mattermost::V4::API::Resource::WebRTC>.
+See L<WebService::Mattermost::V4::API::Resource::WebRTC>.
 
 =back
 

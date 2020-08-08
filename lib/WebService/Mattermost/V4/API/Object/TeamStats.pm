@@ -47,9 +47,9 @@ Details a Mattermost TeamStats object.
 
 =over 4
 
-=item C<WebService::Mattermost::V4::API::Object::Role::BelongingToUser>
+=item L<WebService::Mattermost::V4::API::Object::Role::BelongingToUser>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::BelongingToTeam>
+=item L<WebService::Mattermost::V4::API::Object::Role::BelongingToTeam>
 
 =back
 

@@ -108,7 +108,7 @@ Object version of a Mattermost user.
 
 =head2 METHODS
 
-See matching methods in C<WebService::Mattermost::V4::API::Resource::User> for
+See matching methods in L<WebService::Mattermost::V4::API::Resource::User> for
 full documentation.
 
 ID parameters are not required:
@@ -153,13 +153,13 @@ Is the same as:
 
 =over 4
 
-=item C<WebService::Mattermost::V4::API::Resource::User>
+=item L<WebService::Mattermost::V4::API::Resource::User>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::ID>
+=item L<WebService::Mattermost::V4::API::Object::Role::ID>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::Roles>
+=item L<WebService::Mattermost::V4::API::Object::Role::Roles>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::Timestamps>
+=item L<WebService::Mattermost::V4::API::Object::Role::Timestamps>
 
 =back
 

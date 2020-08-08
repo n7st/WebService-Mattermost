@@ -48,7 +48,7 @@ The channel's ID.
 
 =item C<channel>
 
-Linked C<WebService::Mattermost::V4::API::Object::Channel> object.
+Linked L<WebService::Mattermost::V4::API::Object::Channel> object.
 
 =back
 

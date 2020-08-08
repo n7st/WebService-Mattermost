@@ -42,7 +42,7 @@ The post's ID.
 
 =item C<post>
 
-Linked C<WebService::Mattermost::V4::API::Object::Post> object.
+Linked L<WebService::Mattermost::V4::API::Object::Post> object.
 
 =back
 

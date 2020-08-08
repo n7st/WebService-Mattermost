@@ -50,7 +50,7 @@ The creator's string ID.
 
 =item C<team>
 
-Linked C<WebService::Mattermost::V4::API::Object::Team> object.
+Linked L<WebService::Mattermost::V4::API::Object::Team> object.
 
 =back
 

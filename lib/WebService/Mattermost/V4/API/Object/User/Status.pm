@@ -47,11 +47,11 @@ Was the status set manually?
 
 =over 4
 
-=item C<WebService::Mattermost::V4::API::Object::Role::BelongingToUser>
+=item L<WebService::Mattermost::V4::API::Object::Role::BelongingToUser>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::LastActivityAt>
+=item L<WebService::Mattermost::V4::API::Object::Role::LastActivityAt>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::Status>
+=item L<WebService::Mattermost::V4::API::Object::Role::Status>
 
 =back
 

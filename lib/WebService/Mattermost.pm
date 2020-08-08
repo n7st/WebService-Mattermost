@@ -102,7 +102,7 @@ and supercedes C<Net::Mattermost::Bot>, replacing all functionality.
 
 =head2 SYNOPSIS
 
-See C<WebService::Mattermost::V4::API> for all available API integrations.
+See L<WebService::Mattermost::V4::API> for all available API integrations.
 
     use WebService::Mattermost;
 
@@ -176,14 +176,10 @@ A containing class for the available resources for API version 4.
 
 Plain Mattermost API documentation.
 
-=item C<WebService::Mattermost::V4::API>
+=item L<WebService::Mattermost::V4::API>
 
 Containing object for resources for version 4 of the Mattermost REST API.
 Accessible from this class via the C<api> attribute.
-
-=item C<Net::Mattermost::Bot>
-
-Deprecated original library.
 
 =back
 

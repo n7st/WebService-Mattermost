@@ -51,7 +51,7 @@ The name of the emoji attached to the post.
 
 =item C<emoji>
 
-Related C<WebService::Mattermost::V4::API::Object::Emoji> object.
+Related L<WebService::Mattermost::V4::API::Object::Emoji> object.
 
 =back
 
@@ -59,11 +59,11 @@ Related C<WebService::Mattermost::V4::API::Object::Emoji> object.
 
 =over 4
 
-=item C<WebService::Mattermost::V4::API::Object::Role::BelongingToPost>
+=item L<WebService::Mattermost::V4::API::Object::Role::BelongingToPost>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::BelongingToUser>
+=item L<WebService::Mattermost::V4::API::Object::Role::BelongingToUser>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::CreatedAt>
+=item L<WebService::Mattermost::V4::API::Object::Role::CreatedAt>
 
 =back
 

@@ -55,7 +55,7 @@ A C<Mojo::Log> object.
 
 =over 4
 
-=item C<WebService::Mattermost::Util::Logger>
+=item L<WebService::Mattermost::Util::Logger>
 
 =item C<Log::Log4perl>
 

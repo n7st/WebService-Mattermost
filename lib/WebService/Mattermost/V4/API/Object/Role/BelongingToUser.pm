@@ -50,7 +50,7 @@ The creator's string ID.
 
 =item C<created_by|user>
 
-Linked C<WebService::Mattermost::V4::API::Object::User> object.
+Linked L<WebService::Mattermost::V4::API::Object::User> object.
 
 =back
 

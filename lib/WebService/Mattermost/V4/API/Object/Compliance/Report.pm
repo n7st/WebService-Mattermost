@@ -88,7 +88,7 @@ WebService::Mattermost::V4::API::Object::Compliance::Report
 
 =head1 DESCRIPTION
 
-See matching methods in C<WebService::Mattermost::V4::API::Resource::Compliance::Report>
+See matching methods in L<WebService::Mattermost::V4::API::Resource::Compliance::Report>
 for full documentation.
 
 ID parameters are not required:
@@ -127,15 +127,15 @@ Is the same as:
 
 =over 4
 
-=item C<WebService::Mattermost::V4::API::Resource::Compliance::Report>
+=item L<WebService::Mattermost::V4::API::Resource::Compliance::Report>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::ID>
+=item L<WebService::Mattermost::V4::API::Object::Role::ID>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::Status>
+=item L<WebService::Mattermost::V4::API::Object::Role::Status>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::CreatedAt>
+=item L<WebService::Mattermost::V4::API::Object::Role::CreatedAt>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::BelongingToUser>
+=item L<WebService::Mattermost::V4::API::Object::Role::BelongingToUser>
 
 =back
 

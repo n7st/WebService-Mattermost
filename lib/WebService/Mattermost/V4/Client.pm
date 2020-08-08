@@ -316,7 +316,7 @@ extended in a child class, or used in a script.
 
 =head3 EXTENSION
 
-See C<WebService::Mattermost::V4::Example::Bot>.
+See L<WebService::Mattermost::V4::Example::Bot>.
 
 =head2 EVENTS
 

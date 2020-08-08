@@ -56,7 +56,7 @@ An active or inactive plugin.
 
 =head2 METHODS
 
-See matching methods in C<WebService::Mattermost::V4::API::Resource::Plugin>
+See matching methods in L<WebService::Mattermost::V4::API::Resource::Plugin>
 for full documentation.
 
 ID parameters are not required:
@@ -97,15 +97,15 @@ Is the same as:
 
 =over 4
 
-=item C<WebService::Mattermost::V4::API::Resource::Plugin>
+=item L<WebService::Mattermost::V4::API::Resource::Plugin>
 
-=item C<WebService::Mattermost::V4::API::Resource::Plugins>
+=item L<WebService::Mattermost::V4::API::Resource::Plugins>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::Description>
+=item L<WebService::Mattermost::V4::API::Object::Role::Description>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::Name>
+=item L<WebService::Mattermost::V4::API::Object::Role::Name>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::ID>
+=item L<WebService::Mattermost::V4::API::Object::Role::ID>
 
 =back
 

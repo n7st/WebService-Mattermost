@@ -18,7 +18,7 @@ WebService::Mattermost::V4::API::Resource::Role::View::ChannelMember
 
 =head1 DESCRIPTION
 
-Set a resource as using the C<WebService::Mattermost::V4::API::Object::ChannelMember>
+Set a resource as using the L<WebService::Mattermost::V4::API::Object::ChannelMember>
 view.
 
 =head1 ATTRIBUTES

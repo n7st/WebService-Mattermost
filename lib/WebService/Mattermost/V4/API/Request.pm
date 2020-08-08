@@ -59,7 +59,7 @@ A request to be sent to the Mattermost API.
 
 =head2 USAGE
 
-See C<WebService::Mattermost::V4::API::Resource::_call()>.
+See L<WebService::Mattermost::V4::API::Resource::_call()>.
 
 =head2 ATTRIBUTES
 

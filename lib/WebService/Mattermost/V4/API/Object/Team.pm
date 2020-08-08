@@ -71,7 +71,7 @@ Object version of a Mattermost team.
 
 =head2 METHODS
 
-See matching methods in C<WebService::Mattermost::V4::API::Resource::Team>
+See matching methods in L<WebService::Mattermost::V4::API::Resource::Team>
 for full documentation.
 
 ID parameters are not required:
@@ -148,17 +148,17 @@ Boolean.
 
 =over 4
 
-=item C<WebService::Mattermost::V4::API::Resource::Team>
+=item L<WebService::Mattermost::V4::API::Resource::Team>
 
-=item C<WebService::Mattermost::V4::API::Resource::Teams>
+=item L<WebService::Mattermost::V4::API::Resource::Teams>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::Name>
+=item L<WebService::Mattermost::V4::API::Object::Role::Name>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::Description>
+=item L<WebService::Mattermost::V4::API::Object::Role::Description>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::ID>
+=item L<WebService::Mattermost::V4::API::Object::Role::ID>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::Timestamps>
+=item L<WebService::Mattermost::V4::API::Object::Role::Timestamps>
 
 =back
 

@@ -82,7 +82,7 @@ WebService::Mattermost::V4::API::Object::Job
 
 =head2 METHODS
 
-See matching methods in C<WebService::Mattermost::V4::API::Resource::Job>
+See matching methods in L<WebService::Mattermost::V4::API::Resource::Job>
 for full documentation.
 
 ID parameters are not required:
@@ -123,15 +123,15 @@ DateTime.
 
 =over 4
 
-=item C<WebService::Mattermost::V4::API::Object::Job>
+=item L<WebService::Mattermost::V4::API::Object::Job>
 
-=item C<WebService::Mattermost::V4::API::Object::Jobs>
+=item L<WebService::Mattermost::V4::API::Object::Jobs>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::ID>
+=item L<WebService::Mattermost::V4::API::Object::Role::ID>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::CreatedAt>
+=item L<WebService::Mattermost::V4::API::Object::Role::CreatedAt>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::Status>
+=item L<WebService::Mattermost::V4::API::Object::Role::Status>
 
 =back
 

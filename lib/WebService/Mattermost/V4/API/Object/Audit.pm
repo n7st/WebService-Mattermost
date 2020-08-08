@@ -41,11 +41,11 @@ Details a generic response from Mattermost.
 
 =over 4
 
-=item C<WebService::Mattermost::V4::API::Object::Role::BelongingToUser>
+=item L<WebService::Mattermost::V4::API::Object::Role::BelongingToUser>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::CreatedAt>
+=item L<WebService::Mattermost::V4::API::Object::Role::CreatedAt>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::ID>
+=item L<WebService::Mattermost::V4::API::Object::Role::ID>
 
 =back
 

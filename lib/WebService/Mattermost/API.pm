@@ -50,7 +50,7 @@ A wrapper for the Mattermost V4 API.
 
 =over 4
 
-=item C<WebService::Mattermost::V4::API>
+=item L<WebService::Mattermost::V4::API>
 
 =back
 

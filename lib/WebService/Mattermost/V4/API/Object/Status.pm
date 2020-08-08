@@ -23,7 +23,7 @@ Details a Mattermost Status object.
 
 =over 4
 
-=item C<WebService::Mattermost::V4::API::Object::Role::Status>
+=item L<WebService::Mattermost::V4::API::Object::Role::Status>
 
 =back
 

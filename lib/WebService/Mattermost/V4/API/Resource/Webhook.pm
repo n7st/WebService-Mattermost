@@ -59,14 +59,14 @@ WebService::Mattermost::V4::API::Resource::Webhook
 =item C<incoming>
 
 Contains methods for incoming webhooks. See
-C<WebService::Mattermost::V4::API::Resource::Webhook::Incoming>.
+L<WebService::Mattermost::V4::API::Resource::Webhook::Incoming>.
 
     my $incoming = $resource->incoming;
 
 =item C<outgoing>
 
 Contains methods for outgoing webhooks. See
-C<WebService::Mattermost::V4::API::Resource::Webhook::Outgoing>.
+L<WebService::Mattermost::V4::API::Resource::Webhook::Outgoing>.
 
     my $outgoing = $resource->outgoing;
 

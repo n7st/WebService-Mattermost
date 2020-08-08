@@ -127,7 +127,7 @@ Describes a Mattermost post.
 
 =head2 METHODS
 
-See matching methods in C<WebService::Mattermost::V4::API::Resource::Post>
+See matching methods in L<WebService::Mattermost::V4::API::Resource::Post>
 for full documentation.
 
 ID parameters are not required:
@@ -206,19 +206,19 @@ Related root post object.
 
 =over 4
 
-=item C<WebService::Mattermost::V4::API::Object::Post>
+=item L<WebService::Mattermost::V4::API::Object::Post>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::BelongingToChannel>
+=item L<WebService::Mattermost::V4::API::Object::Role::BelongingToChannel>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::BelongingToUser>
+=item L<WebService::Mattermost::V4::API::Object::Role::BelongingToUser>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::ID>
+=item L<WebService::Mattermost::V4::API::Object::Role::ID>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::Message>
+=item L<WebService::Mattermost::V4::API::Object::Role::Message>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::Props>
+=item L<WebService::Mattermost::V4::API::Object::Role::Props>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::Timestamps>
+=item L<WebService::Mattermost::V4::API::Object::Role::Timestamps>
 
 =back
 

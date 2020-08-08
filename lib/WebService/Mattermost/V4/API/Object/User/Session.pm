@@ -57,17 +57,17 @@ WebService::Mattermost::V4::API::Object::User::Session
 
 =over 4
 
-=item C<WebService::Mattermost::V4::API::Object::Role::BelongingToUser>
+=item L<WebService::Mattermost::V4::API::Object::Role::BelongingToUser>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::CreatedAt>
+=item L<WebService::Mattermost::V4::API::Object::Role::CreatedAt>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::ExpiresAt>
+=item L<WebService::Mattermost::V4::API::Object::Role::ExpiresAt>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::ID>
+=item L<WebService::Mattermost::V4::API::Object::Role::ID>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::LastActivityAt>
+=item L<WebService::Mattermost::V4::API::Object::Role::LastActivityAt>
 
-=item C<WebService::Mattermost::V4::API::Object::Role::Props>
+=item L<WebService::Mattermost::V4::API::Object::Role::Props>
 
 =back
 

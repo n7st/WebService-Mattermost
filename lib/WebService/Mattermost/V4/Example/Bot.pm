@@ -78,7 +78,7 @@ WebService::Mattermost::V4::Example::Bot
 
 =head1 DESCRIPTION
 
-An example Mattermost WebSocket bot using C<WebService::Mattermost>. The bot connects
+An example Mattermost WebSocket bot using L<WebService::Mattermost>. The bot connects
 to the network, and responds to "Ping" messages with "Pong".
 
 =head2 USAGE
@@ -98,7 +98,7 @@ to the network, and responds to "Ping" messages with "Pong".
     })->start();
 
 The C<gw_> methods in this class are events emitted by
-C<WebService::Mattermost::V4::Client>. Each one has one argument passed which is a HashRef
+L<WebService::Mattermost::V4::Client>. Each one has one argument passed which is a HashRef
 of decoded data from the Mattermost server.
 
 =head2 METHODS

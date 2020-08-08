@@ -18,7 +18,7 @@ WebService::Mattermost::V4::API::Resource::Role::View::Application
 
 =head1 DESCRIPTION
 
-Set a resource as using the C<WebService::Mattermost::V4::API::Object::Application>
+Set a resource as using the L<WebService::Mattermost::V4::API::Object::Application>
 view.
 
 =head1 ATTRIBUTES

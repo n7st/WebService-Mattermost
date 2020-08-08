@@ -266,7 +266,7 @@ The API's base URL.
 
 =item C<resource>
 
-The name of the API resource, for example C<WebService::Mattermost::V4::API::Brand>'s
+The name of the API resource, for example L<WebService::Mattermost::V4::API::Brand>'s
 resource is 'brand'.
 
 =back
