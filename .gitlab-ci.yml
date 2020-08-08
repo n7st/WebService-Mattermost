@@ -2,6 +2,7 @@ image: poum/distzilla
 
 stages:
   - test
+  - release
 
 before_script:
   - dzil authordeps --missing          | xargs -n 5 -P 10 cpanm --no-interactive --notest --quiet
@@ -15,6 +16,18 @@ test:
     refs:
       - master
       - merge_requests
+      - tags
     changes:
       - '**/*.pm'
       - '**/*.t'
+
+release:
+  stage: release
+  before_script:
+    - mkdir -p ~/.dzil
+    - echo -e "[%PAUSE]\\nusername = ${PAUSE_USERNAME}\\npassword = ${PAUSE_PASSWORD}\\n" > ~/.dzil/config.ini
+  script:
+    - dzil release
+  only:
+    refs:
+      - tags
