@@ -18,6 +18,7 @@ use WebService::Mattermost::V4::API::Request;
 use WebService::Mattermost::V4::API::Response;
 
 with qw(
+    WebService::Mattermost::Role::Logger
     WebService::Mattermost::Role::Returns
     WebService::Mattermost::Role::UserAgent
     WebService::Mattermost::V4::API::Role::RequireID
@@ -171,6 +172,10 @@ sub _as_response {
 
     if ($args->{view}) {
         $view_name = $args->{view};
+    }
+
+    if ($res->is_error && $self->debug) {
+        $self->logger->warnf('An API error occurred: %s', $res->message);
     }
 
     return WebService::Mattermost::V4::API::Response->new({

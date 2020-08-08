@@ -46,7 +46,6 @@ sub BUILD {
     my $self = shift;
 
     $self->authenticate(1);
-    $self->_try_authentication();
 
     # Set up expected subroutines for a child class to catch. The events can
     # also be caught raw in a script.
