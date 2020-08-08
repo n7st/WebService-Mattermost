@@ -1,6 +1,4 @@
-# WebService::Mattermost
-
-[![Build Status](https://drone.netsplit.uk/api/badges/mike/WebService-Mattermost/status.svg?branch=master)](https://drone.netsplit.uk/mike/WebService-Mattermost)
+# WebService::Mattermost [![pipeline status](https://git.netsplit.uk/mike/WebService-Mattermost/badges/master/pipeline.svg)](https://git.netsplit.uk/mike/WebService-Mattermost/-/commits/master) [![coverage report](https://git.netsplit.uk/mike/WebService-Mattermost/badges/master/coverage.svg)](https://git.netsplit.uk/mike/WebService-Mattermost/-/commits/master)
 
 Suite for interacting with Mattermost chat servers. Includes API and WebSocket
 gateways.
