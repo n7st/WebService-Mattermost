@@ -94,4 +94,3 @@ Format text as tables for Mattermost.
 =head1 AUTHOR
 
 Mike Jones L<email:mike@netsplit.org.uk>
-

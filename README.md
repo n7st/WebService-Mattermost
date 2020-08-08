@@ -119,6 +119,12 @@ The available events are the same:
 * `gw_ws_finished`
 * `gw_ws_started`
 
+## Running the test suite
+
+```
+% prove -lv t/**/*.t
+```
+
 ## License
 
 MIT. See LICENSE.txt.
