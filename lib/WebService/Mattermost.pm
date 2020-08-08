@@ -5,9 +5,7 @@ use Types::Standard qw(Bool Int Object Str);
 
 use WebService::Mattermost::V4::API;
 
-our $VERSION = 0.100;
-
-with 'WebService::Mattermost::Role::Logger';
+our $VERSION = 0.110;
 
 ################################################################################
 
@@ -17,7 +15,7 @@ has api_version                => (is => 'ro', isa => Int,  default => 4);
 has [ qw(authenticate debug) ] => (is => 'rw', isa => Bool, default => 0);
 has [ qw(auth_token user_id) ] => (is => 'rw', isa => Str,  default => '');
 
-has api => (is => 'ro', isa => Object, lazy => 1, builder => 1);
+has api => (is => 'ro', isa => Object, lazy => 1, builder => 1, clearer => 1);
 
 ################################################################################
 
@@ -45,11 +43,12 @@ sub _try_authentication {
             $self->auth_token($ret->headers->header('Token'));
             $self->user_id($ret->content->{id});
             $self->_set_resource_auth_token();
+            $self->clear_api; # Force the API to be rebuilt with the new token
         } else {
-            $self->logger->fatal($ret->message);
+            die $ret->message;
         }
     } elsif ($self->authenticate && !($self->username && $self->password)) {
-        $self->logger->logdie('"username" and "password" are required attributes for authentication');
+        die '"username" and "password" are required attributes for authentication';
     } elsif ($self->auth_token) {
         $self->_set_resource_auth_token();
     }

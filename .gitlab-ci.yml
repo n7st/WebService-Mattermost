@@ -1,0 +1,20 @@
+image: poum/distzilla
+
+stages:
+  - test
+
+before_script:
+  - dzil authordeps --missing          | xargs -n 5 -P 10 cpanm --no-interactive --notest --quiet
+  - dzil listdeps   --missing --author | xargs -n 5 -P 10 cpanm --no-interactive --notest --quiet
+
+test:
+  stage: test
+  script:
+    - dzil cover
+  only:
+    refs:
+      - master
+      - merge_requests
+    changes:
+      - '**/*.pm'
+      - '**/*.t'
