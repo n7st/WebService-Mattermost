@@ -5,7 +5,7 @@ use Types::Standard qw(Bool Int Object Str);
 
 use WebService::Mattermost::V4::API;
 
-our $VERSION = 0.112;
+our $VERSION = 0.20;
 
 ################################################################################
 
@@ -93,12 +93,15 @@ __END__
 
 =head1 NAME
 
-WebService::Mattermost - a SDK for interacting with Mattermost.
+WebService::Mattermost - Perl client library for Mattermost.
 
 =head1 DESCRIPTION
 
 WebService::Mattermost provides websocket and REST API integrations for Mattermost,
 and supercedes C<Net::Mattermost::Bot>, replacing all functionality.
+
+See the [repository](https://github.com/n7st/webservice-mattermost) for more
+information.
 
 =head2 SYNOPSIS
 
