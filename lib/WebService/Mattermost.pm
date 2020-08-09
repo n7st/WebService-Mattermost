@@ -5,7 +5,7 @@ use Types::Standard qw(Bool Int Object Str);
 
 use WebService::Mattermost::V4::API;
 
-our $VERSION = 0.110;
+our $VERSION = 0.112;
 
 ################################################################################
 

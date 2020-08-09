@@ -104,3 +104,4 @@ describe 'WebService::Mattermost::V4::Client' => sub {
 };
 
 runtests unless caller;
+
