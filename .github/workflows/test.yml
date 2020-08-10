@@ -1,0 +1,21 @@
+name: 'perl-test'
+description: "Runs the library's test suite"
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: 'ubuntu-latest'
+    container:
+      image: 'poum/distzilla'
+    steps:
+      - name: 'Install dependencies'
+        run: |
+          dzil authordeps --missing | xargs -n 5 -P 10 cpanm --no-interactive --notest --quiet
+          dzil listdeps --missing --author | xargs -n 5 -P 10 cpanm --no-interactive --notest --quiet
+      - name: 'Run the test suite'
+        run: dzil cover

@@ -1,0 +1,23 @@
+name: 'perl-release'
+description: 'Releases the library to PAUSE'
+
+on:
+  release:
+    types: [ published ]
+
+jobs:
+  test:
+    runs-on: 'ubuntu-latest'
+    container:
+      image: 'poum/distzilla'
+    steps:
+      - name: 'Install dependencies'
+        run: |
+          dzil authordeps --missing | xargs -n 5 -P 10 cpanm --no-interactive --notest --quiet
+          dzil listdeps --missing --author | xargs -n 5 -P 10 cpanm --no-interactive --notest --quiet
+      - name: 'Create the credential file'
+        run: |
+          echo -e "username=${PAUSE_USERNAME}\\npassword=${PAUSE_PASSWORD}" > ~/.pause
+      - name: 'Release to PAUSE'
+        run: dzil release
+
