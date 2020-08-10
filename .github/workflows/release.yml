@@ -14,6 +14,7 @@ jobs:
         run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
       - name: 'Check out the code'
         uses: 'actions/checkout@v2'
+      - name: 'Switch to tag'
         run: git checkout $RELEASE_VERSION
       - name: 'Install dependencies'
         run: |
