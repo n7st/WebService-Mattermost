@@ -8,14 +8,16 @@ jobs:
   release:
     runs-on: 'ubuntu-latest'
     container:
-      image: 'poum/distzilla'
+      image: 'n7st/distzilla:5.32.0'
     steps:
+      - name: 'Get git version'
+        run: git --version
       - name: 'Get the tag name'
         run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
       - name: 'Check out the code'
         uses: 'actions/checkout@v2'
-        with:
-          ref: "v${RELEASE_VERSION}"
+      - name: 'Check out tag'
+        run: git checkout $RELEASE_VERSION
       - name: 'Install dependencies'
         run: |
           dzil authordeps --missing | xargs -n 5 -P 10 cpanm --no-interactive --notest --quiet
