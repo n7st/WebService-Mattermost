@@ -48,7 +48,7 @@ Please fill out the sections in the pull request template.
 
 Enhancements should be suggested using the
 [issue tracker](https://github.com/n7st/WebService-Mattermost/issues) or can be
-discussed in IRC [here](ircs://irc.snoonet.org:+6697/##Mike).
+discussed in IRC at irc.snoonet.org ##Mike.
 
 Before making a suggestion, please check there isn't an open issue or pull
 request which matches what you would like.
