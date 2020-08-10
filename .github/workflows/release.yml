@@ -10,10 +10,12 @@ jobs:
     container:
       image: 'poum/distzilla'
     steps:
+      - name: 'Get the tag name'
+        run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
       - name: 'Check out the code'
         uses: 'actions/checkout@v2'
-      - name: 'Display directory contents (temporary)'
-        run: ls -l
+        with:
+          ref: "v${RELEASE_VERSION}"
       - name: 'Install dependencies'
         run: |
           dzil authordeps --missing | xargs -n 5 -P 10 cpanm --no-interactive --notest --quiet
