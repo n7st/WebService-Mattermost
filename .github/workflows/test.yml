@@ -1,5 +1,4 @@
 name: 'perl-test'
-description: "Runs the library's test suite"
 
 on:
   push:

@@ -1,5 +1,4 @@
 name: 'perl-release'
-description: 'Releases the library to PAUSE'
 
 on:
   release:
