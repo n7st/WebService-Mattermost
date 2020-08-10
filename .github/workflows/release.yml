@@ -5,11 +5,15 @@ on:
     types: [ published ]
 
 jobs:
-  test:
+  release:
     runs-on: 'ubuntu-latest'
     container:
       image: 'poum/distzilla'
     steps:
+      - name: 'Check out the code'
+        uses: 'actions/checkout@v2'
+        with:
+          ref: ${GITHUB_REF}
       - name: 'Install dependencies'
         run: |
           dzil authordeps --missing | xargs -n 5 -P 10 cpanm --no-interactive --notest --quiet
@@ -18,5 +22,5 @@ jobs:
         run: |
           echo -e "username=${PAUSE_USERNAME}\\npassword=${PAUSE_PASSWORD}" > ~/.pause
       - name: 'Release to PAUSE'
-        run: dzil release
+        run: dzil test # TODO: switch for release
 

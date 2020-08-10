@@ -12,9 +12,11 @@ jobs:
     container:
       image: 'poum/distzilla'
     steps:
+      - name: 'Check out the code'
+        uses: 'actions/checkout@v2'
       - name: 'Install dependencies'
         run: |
           dzil authordeps --missing | xargs -n 5 -P 10 cpanm --no-interactive --notest --quiet
           dzil listdeps --missing --author | xargs -n 5 -P 10 cpanm --no-interactive --notest --quiet
       - name: 'Run the test suite'
-        run: dzil test
+        run: dzil cover
