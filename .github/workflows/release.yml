@@ -10,14 +10,10 @@ jobs:
     container:
       image: 'poum/distzilla'
     steps:
-      - name: Install git
-        run: apt-get update && apt-get install -y git
-      - name: 'Get the tag name'
-        run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
       - name: 'Check out the code'
         uses: 'actions/checkout@v2'
-      - name: 'Switch to the tag'
-        run: git checkout $RELEASE_VERSION
+      - name: 'Display directory contents (temporary)'
+        run: ls -l
       - name: 'Install dependencies'
         run: |
           dzil authordeps --missing | xargs -n 5 -P 10 cpanm --no-interactive --notest --quiet
