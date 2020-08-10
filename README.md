@@ -1,4 +1,4 @@
-# WebService::Mattermost [![test status](https://github.com/n7st/webservice-mattermost/workflows/test/badge.svg)]
+# WebService::Mattermost ![test status](https://github.com/n7st/webservice-mattermost/workflows/test/badge.svg)
 
 Suite for interacting with Mattermost chat servers. Includes API and WebSocket
 gateways.
