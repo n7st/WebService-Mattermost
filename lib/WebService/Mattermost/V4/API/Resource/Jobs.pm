@@ -32,7 +32,7 @@ sub get_by_type {
     my $type = shift;
 
     unless ($type) {
-        return $self->_error_return('The first argument must be a job type');
+        return $self->error_return('The first argument must be a job type');
     }
 
     return $self->_get({

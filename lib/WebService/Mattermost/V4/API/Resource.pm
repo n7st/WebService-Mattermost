@@ -219,15 +219,6 @@ sub _validate {
     };
 }
 
-sub _error_return {
-    my $self  = shift;
-    my $error = shift;
-
-    # Temporary: moved to WebService::Mattermost::Role::Returns
-
-    return $self->error_return($error);
-}
-
 sub _new_related_resource {
     my $self     = shift;
     my $base     = shift;

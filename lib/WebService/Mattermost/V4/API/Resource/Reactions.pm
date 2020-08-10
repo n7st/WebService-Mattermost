@@ -21,7 +21,7 @@ sub react {
     my $user_id    = shift;
 
     unless ($emoji_name && $user_id) {
-        return $self->_error_return('The second and third arguments must be an emoji name and a user ID');
+        return $self->error_return('The second and third arguments must be an emoji name and a user ID');
     }
 
     return $self->_post({

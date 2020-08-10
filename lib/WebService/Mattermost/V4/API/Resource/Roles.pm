@@ -50,7 +50,7 @@ sub get_by_names {
     my $names = shift;
 
     unless (ref $names eq 'ARRAY' && scalar @{$names}) {
-        return $self->_error_return('The first argument must be an ArrayRef of names');
+        return $self->error_return('The first argument must be an ArrayRef of names');
     }
 
     return $self->_post({

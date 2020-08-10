@@ -14,7 +14,7 @@ sub create {
 
     # O for public, P for private
     if (!$args->{type} || !grep { $_ eq $args->{type} } qw(O P)) {
-        return $self->_error_return('"type" must be O or P');
+        return $self->error_return('"type" must be O or P');
     }
 
     return $self->_post({
@@ -28,7 +28,7 @@ sub create_direct_channel {
     my $user_ids = shift;
 
     if (scalar @{$user_ids} != 2) {
-        return $self->_error_return('Two user IDs must be passed');
+        return $self->error_return('Two user IDs must be passed');
     }
 
     return $self->_post({
@@ -42,7 +42,7 @@ sub create_group_channel {
     my $user_ids = shift;
 
     if (scalar @{$user_ids} < 2) {
-        return $self->_error_return('At least two user IDs must be passed');
+        return $self->error_return('At least two user IDs must be passed');
     }
 
     return $self->_post({

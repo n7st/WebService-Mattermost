@@ -3,7 +3,7 @@ package WebService::Mattermost::V4::API::Role::RequireID;
 use Moo::Role;
 use Types::Standard 'RegexpRef';
 
-requires '_error_return';
+requires 'error_return';
 
 ################################################################################
 
@@ -20,7 +20,7 @@ sub validate_id {
         return $self->$next($id, @_);
     }
 
-    return $self->_error_return('Invalid or missing ID parameter');
+    return $self->error_return('Invalid or missing ID parameter');
 }
 
 sub validate_id_no_next {

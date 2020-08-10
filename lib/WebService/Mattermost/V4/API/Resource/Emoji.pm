@@ -27,7 +27,7 @@ sub create {
     my $creator_id = shift;
 
     unless ($filename && -f $filename) {
-        return $self->_error_return("'${filename}' is not a real file");
+        return $self->error_return("'${filename}' is not a real file");
     }
 
     return $self->_single_view_post({
@@ -70,7 +70,7 @@ sub get_by_name {
     my $name = shift;
 
     unless ($name) {
-        return $self->_error_return('The first argument should be an emoji name');
+        return $self->error_return('The first argument should be an emoji name');
     }
 
     return $self->_single_view_get({

@@ -53,7 +53,7 @@ around [ qw(get_by_name exists_by_name) ] => sub {
     my $name = shift;
 
     unless ($name) {
-        return $self->_error_return('The first parameter must be a name.');
+        return $self->error_return('The first parameter must be a name.');
     }
 
     return $self->$orig($name, @_);
@@ -66,7 +66,7 @@ around [ qw(get_member remove_member) ] => sub {
     my $user_id = shift;
 
     unless ($team_id && $user_id) {
-        return $self->_error_return('The first parameter should be a team ID and the second a user ID.');
+        return $self->error_return('The first parameter should be a team ID and the second a user ID.');
     }
 
     return $self->$orig($team_id, $user_id, @_);
@@ -214,7 +214,7 @@ sub get_member {
     my $user_id = shift;
 
     unless ($user_id) {
-        return $self->_error_return('The second parameter should be a user ID');
+        return $self->error_return('The second parameter should be a user ID');
     }
 
     return $self->_single_view_get({
@@ -305,7 +305,7 @@ sub import_from_existing {
     my $filename = $args->{filename};
 
     unless ($args->{file}) {
-        return $self->_error_return('A filename argument is required');
+        return $self->error_return('A filename argument is required');
     }
 
     $args->{file} = { file => { file => $args->{filename} } };

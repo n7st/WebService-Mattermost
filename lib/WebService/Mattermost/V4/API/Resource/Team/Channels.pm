@@ -20,7 +20,7 @@ sub by_ids {
     my $channel_ids = shift;
 
     unless (scalar @{$channel_ids}) {
-        return $self->_error_return('The second argument should be an arrayref of channel_ids');
+        return $self->error_return('The second argument should be an arrayref of channel_ids');
     }
 
     return $self->_post({
@@ -91,7 +91,7 @@ sub by_name {
     my $name    = shift;
 
     unless ($name) {
-        return $self->_error_return('The second argument should be a channel name');
+        return $self->error_return('The second argument should be a channel name');
     }
 
     return $self->_single_view_get({
@@ -107,11 +107,11 @@ sub by_name_and_team_name {
     my $channel_name = shift;
 
     unless ($team_name) {
-        return $self->_error_return('The first argument should be a team name');
+        return $self->error_return('The first argument should be a team name');
     }
 
     unless ($channel_name) {
-        return $self->_error_return('The second argument should be a channel name');
+        return $self->error_return('The second argument should be a channel name');
     }
 
     return $self->_single_view_get({

@@ -13,7 +13,7 @@ around [ qw(get_by_username check_mfa_by_username) ] => sub {
     my $username = shift;
 
     unless ($username) {
-        return $self->_error_return('Invalid or missing username parameter');
+        return $self->error_return('Invalid or missing username parameter');
     }
 
     return $self->$orig($username, @_);
@@ -25,7 +25,7 @@ around [ qw(get_by_email send_password_reset_email) ] => sub {
     my $email = shift;
 
     unless ($email) {
-        return $self->_error_return('Invalid or missing email parameter');
+        return $self->error_return('Invalid or missing email parameter');
     }
 
     return $self->$orig($email, @_);
@@ -41,7 +41,7 @@ around [ qw(
     my $token = shift;
 
     unless ($token) {
-        return $self->_error_return('Invalid or missing token parameter');
+        return $self->error_return('Invalid or missing token parameter');
     }
 
     return $self->$orig($token, @_);

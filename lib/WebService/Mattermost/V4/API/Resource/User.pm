@@ -127,7 +127,7 @@ sub update_roles {
             my $err = sprintf('"%s" is not a valid role. Valid roles: %s',
                 $role, join(', ', keys %{$self->available_user_roles}));
 
-            return $self->_error_return($err);
+            return $self->error_return($err);
         }
     }
 
@@ -178,7 +178,7 @@ sub set_profile_image {
     my $filename = shift;
 
     unless ($filename && -f $filename) {
-        return $self->_error_return(sprintf('%s is not a valid file', $filename));
+        return $self->error_return(sprintf('%s is not a valid file', $filename));
     }
 
     return $self->_post({
