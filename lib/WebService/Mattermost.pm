@@ -100,7 +100,7 @@ WebService::Mattermost - Perl client library for Mattermost.
 WebService::Mattermost provides websocket and REST API integrations for Mattermost,
 and supercedes C<Net::Mattermost::Bot>, replacing all functionality.
 
-See the [repository](https://github.com/n7st/webservice-mattermost) for more
+See the L<repository|(https://github.com/n7st/webservice-mattermost> for more
 information.
 
 =head2 SYNOPSIS
