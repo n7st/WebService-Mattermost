@@ -26,6 +26,7 @@ jobs:
         env:
           PAUSE_USERNAME: ${{ secrets.PAUSE_USERNAME }}
           PAUSE_PASSWORD: ${{ secrets.PAUSE_PASSWORD }}
+          DZIL_CONFIRMRELEASE_DEFAULT: 'yes'
         run: |
           mkdir -p ~/.dzil
           /bin/echo -e "[%PAUSE]\\nusername=${PAUSE_USERNAME}\\npassword=${PAUSE_PASSWORD}\\n" > ~/.dzil/config.ini
