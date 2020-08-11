@@ -18,8 +18,6 @@ package RequireIDConsumer {
         my $self = shift;
         my $id   = shift;
 
-        use DDP; p $id;
-
         return 1;
     }
 };
