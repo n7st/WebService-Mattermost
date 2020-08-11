@@ -28,9 +28,9 @@ jobs:
           PAUSE_PASSWORD: ${{ secrets.PAUSE_PASSWORD }}
           DZIL_CONFIRMRELEASE_DEFAULT: 'yes'
         run: |
+          perl -e 'print $ENV{DZIL_CONFIRMRELEASE_DEFAULT}'
           mkdir -p ~/.dzil
           /bin/echo -e "[%PAUSE]\\nusername=${PAUSE_USERNAME}\\npassword=${PAUSE_PASSWORD}\\n" > ~/.dzil/config.ini
-          perl -e 'print $ENV{DZIL_CONFIRMRELEASE_DEFAULT}'
       - name: 'Release to PAUSE'
         run: |
           dzil release
