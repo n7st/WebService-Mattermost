@@ -27,5 +27,7 @@ jobs:
           mkdir -p ~/.dzil
           echo -e "[%PAUSE]\\nusername=${PAUSE_USERNAME}\\npassword=${PAUSE_PASSWORD}\\n" > ~/.dzil/config.ini
       - name: 'Release to PAUSE'
-        run: dzil release
+        run: |
+          cat ~/.dzil/config.ini
+          dzil release
 
