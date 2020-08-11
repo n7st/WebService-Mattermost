@@ -24,7 +24,8 @@ jobs:
           dzil listdeps --missing --author | xargs -n 5 -P 10 cpanm --no-interactive --notest --quiet
       - name: 'Create the credential file'
         run: |
-          echo -e "username=${PAUSE_USERNAME}\\npassword=${PAUSE_PASSWORD}" > ~/.pause
+          mkdir -p ~/.pause
+          echo -e "username=${PAUSE_USERNAME}\\npassword=${PAUSE_PASSWORD}" > ~/.pause/config.ini
       - name: 'Release to PAUSE'
         run: dzil release
 
