@@ -26,5 +26,5 @@ jobs:
         run: |
           echo -e "username=${PAUSE_USERNAME}\\npassword=${PAUSE_PASSWORD}" > ~/.pause
       - name: 'Release to PAUSE'
-        run: dzil test # TODO: switch for release
+        run: dzil release
 
