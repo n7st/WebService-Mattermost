@@ -23,6 +23,9 @@ jobs:
           dzil authordeps --missing | xargs -n 5 -P 10 cpanm --no-interactive --notest --quiet
           dzil listdeps --missing --author | xargs -n 5 -P 10 cpanm --no-interactive --notest --quiet
       - name: 'Create the credential file'
+        env:
+          PAUSE_USERNAME: ${{ secrets.PAUSE_USERNAME }}
+          PAUSE_PASSWORD: ${{ secrets.PAUSE_PASSWORD }}
         run: |
           mkdir -p ~/.dzil
           /bin/echo -e "[%PAUSE]\\nusername=${PAUSE_USERNAME}\\npassword=${PAUSE_PASSWORD}\\n" > ~/.dzil/config.ini
