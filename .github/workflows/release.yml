@@ -30,6 +30,7 @@ jobs:
         run: |
           mkdir -p ~/.dzil
           /bin/echo -e "[%PAUSE]\\nusername=${PAUSE_USERNAME}\\npassword=${PAUSE_PASSWORD}\\n" > ~/.dzil/config.ini
+          perl -e 'print $ENV{DZIL_CONFIRMRELEASE_DEFAULT}'
       - name: 'Release to PAUSE'
         run: |
           dzil release
