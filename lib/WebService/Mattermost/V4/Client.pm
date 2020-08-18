@@ -22,10 +22,11 @@ has websocket_url => (is => 'ro', isa => Str,                           lazy => 
 
 has ws => (is => 'rw', isa => Maybe[InstanceOf['Mojo::Base']]);
 
-has debug                  => (is => 'ro', isa => Bool, default => 0);
-has ignore_self            => (is => 'ro', isa => Bool, default => 1);
-has ping_interval          => (is => 'ro', isa => Int,  default => 15);
-has reconnection_wait_time => (is => 'ro', isa => Int,  default => 2);
+has debug                     => (is => 'ro', isa => Bool, default => 0);
+has ignore_self               => (is => 'ro', isa => Bool, default => 1);
+has ping_interval             => (is => 'ro', isa => Int,  default => 15);
+has reconnection_wait_time    => (is => 'ro', isa => Int,  default => 2);
+has reauthentication_interval => (is => 'ro', isa => Int,  default => 3600);
 
 has last_seq => (is => 'rw', isa => Int,  default => 1,
     handles_via => 'Number',
@@ -95,7 +96,9 @@ sub _connect {
         $self->emit(gw_ws_started => {});
 
         $self->logger->debug('Adding ping loop');
+
         $self->add_loop($self->ioloop->recurring(15 => sub { $self->_ping($tx) }));
+        $self->add_loop($self->ioloop->recurring($self->reauthentication_interval => sub { $self->_reauthenticate() }));
 
         $tx->on(error   => sub { $self->_on_error(@_)   });
         $tx->on(finish  => sub { $self->_on_finish(@_)  });
@@ -219,6 +222,18 @@ sub _on_error {
     $self->emit(gw_ws_error => { message => $message });
 
     return $ws->finish($message);
+}
+
+sub _reauthenticate {
+    my $self = shift;
+
+    # Mattermost authentication tokens expire after a given (and unknown) amount
+    # of time. By default, the client will reconnect every hour in order to
+    # refresh the token.
+    $self->authenticate(1);
+    $self->_try_authentication();
+
+    return 1;
 }
 
 sub _reconnect {
