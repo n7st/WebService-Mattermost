@@ -20,7 +20,7 @@ Please provide the following information where possible:
 ## Making code changes
 
 First, please check for issues marked as
-[help wanted](https://github.com/n7st/WebService-Mattermost/labels/help-wanted).
+[help wanted](https://github.com/n7st/WebService-Mattermost/labels/help%20wanted).
 
 ### Local development
 
