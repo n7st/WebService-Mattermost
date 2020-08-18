@@ -4,10 +4,11 @@ use FindBin;
 use Test::Spec;
 
 use WebService::Mattermost::V4::Client;
-
-use lib "$FindBin::RealBin/../../../..";
-
-require 'test_helper.pl';
+use WebService::Mattermost::TestHelper qw(
+    client_arguments
+    response
+    user_resource_expects_login
+);
 
 describe 'WebService::Mattermost::V4::Client' => sub {
     share my %vars;

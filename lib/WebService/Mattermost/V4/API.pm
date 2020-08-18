@@ -50,8 +50,9 @@ use WebService::Mattermost::Helper::Alias 'v4';
 has auth_token => (is => 'ro', isa => Str, required => 1);
 has base_url   => (is => 'ro', isa => Str, required => 1);
 
-has [ qw(authenticate debug) ] => (is => 'ro', isa => Bool,     default => 0);
-has resources                  => (is => 'rw', isa => ArrayRef, default => sub { [] },
+has authenticate           => (is => 'ro', isa => Bool,     default => 0);
+has debug                  => (is => 'ro', isa => Bool,     default => 0);
+has resources              => (is => 'rw', isa => ArrayRef, default => sub { [] },
     handles_via => 'Array',
     handles     => {
         add_resource => 'push',
@@ -123,6 +124,7 @@ sub _new_resource {
     my $alt_name = shift || lc $name;
 
     my $resource = v4($name)->new({
+        api        => $self,
         auth_token => $self->auth_token,
         base_url   => $self->base_url,
         resource   => $alt_name,

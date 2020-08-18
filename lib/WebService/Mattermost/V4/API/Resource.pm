@@ -2,7 +2,7 @@ package WebService::Mattermost::V4::API::Resource;
 
 use List::MoreUtils 'all';
 use Moo;
-use Types::Standard qw(Bool HashRef Str);
+use Types::Standard qw(Bool HashRef Object Str);
 
 use WebService::Mattermost::Helper::Alias qw(v4 view);
 use WebService::Mattermost::V4::API::Object::Channel;
@@ -26,9 +26,10 @@ with qw(
 
 ################################################################################
 
-has base_url   => (is => 'ro', isa => Str, required => 1);
-has resource   => (is => 'ro', isa => Str, required => 1);
-has auth_token => (is => 'rw', isa => Str, required => 1);
+has api        => (is => 'ro', isa => Object, required => 1);
+has base_url   => (is => 'ro', isa => Str,    required => 1);
+has resource   => (is => 'ro', isa => Str,    required => 1);
+has auth_token => (is => 'rw', isa => Str,    required => 1);
 
 has DELETE  => (is => 'ro', isa => Str,     default => 'DELETE');
 has GET     => (is => 'ro', isa => Str,     default => 'GET');

@@ -6,9 +6,11 @@ use Test::Spec;
 
 use WebService::Mattermost;
 
-use lib "$FindBin::RealBin/..";
-
-require 'test_helper.pl';
+use WebService::Mattermost::TestHelper qw(
+    client_arguments
+    response
+    user_resource_expects_login
+);
 
 describe 'API queries' => sub {
     share my %vars;

@@ -9,15 +9,18 @@ use WebService::Mattermost;
 use WebService::Mattermost::V4::API::Resource::Users;
 use WebService::Mattermost::V4::API::Response;
 
-use lib "$FindBin::RealBin/../../";
-
-require 'test_helper.pl';
+use WebService::Mattermost::TestHelper qw(
+    BASE_URL
+    client_arguments
+    response
+    user_resource_expects_login
+);
 
 describe 'WebService::Mattermost' => sub {
     share my %vars;
 
     before each => sub {
-        $vars{base_url}  = base_url();
+        $vars{base_url}  = BASE_URL;
         $vars{init_args} = client_arguments();
 
         delete $vars{app};

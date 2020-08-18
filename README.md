@@ -98,8 +98,9 @@ my $bot = WebService::Mattermost::V4::Client->new({
     base_url => 'https://mattermost.server.com/api/v4/',
 
     # Optional arguments
-    debug       => 1, # Show extra connection information
-    ignore_self => 0, # May cause recursion!
+    debug                     => 1,   # Show extra connection information
+    ignore_self               => 0,   # May cause recursion!
+    reauthentication_interval => 600, # Shorten the reauthentication loop delay
 });
 
 $bot->on(gw_message => sub {
