@@ -110,9 +110,22 @@ Test files should import the helper as follows:
 
 =over 4
 
+=item * C<client_arguments()>
+
+Basic arguments required for L<WebService::Mattermost>.
+
+=item * C<response()>
+
+A dummy L<Mojo::Message::Response>.
+
 =item * C<webservice_mattermost()>
 
 Creates a L<WebService::Mattermost> object with some defaults.
+
+=item * C<user_resource_expects_login()>
+
+Stubs the user resource's "login" method with a successful response. This can be
+used to fake a successful login call.
 
 =back
 
