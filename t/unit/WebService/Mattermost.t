@@ -35,23 +35,23 @@ describe 'WebService::Mattermost' => sub {
             });
         };
 
-        it 'should not attempt to log into Mattermost' => sub {
+        it 'does not attempt to log into Mattermost' => sub {
             WebService::Mattermost::V4::API::Resource::Users->expects('login')->never;
 
             is 'helloworld', $vars{app}->auth_token;
         };
 
-        it 'should set the token on the API resource classes' => sub {
+        it 'sets the token on the API resource classes' => sub {
             test_auth_token_was_set_on_resources($vars{app}, 'helloworld');
         };
 
-        it 'should set up an API client with the token' => sub {
+        it 'sets up an API client with the token' => sub {
             test_api_client($vars{app}, 'helloworld');
         };
     };
 
     describe 'with missing password' => sub {
-        it 'should die' => sub {
+        it 'dies with a missing credential error' => sub {
             test_throws_credential_error({
                 authenticate => 1,
                 base_url     => $vars{base_url},
@@ -62,12 +62,25 @@ describe 'WebService::Mattermost' => sub {
     };
 
     describe 'with missing username' => sub {
-        it 'should die' => sub {
+        it 'dies with a missing credential error' => sub {
             test_throws_credential_error({
                 authenticate => 1,
                 base_url     => $vars{base_url},
                 password     => 'foo',
                 username     => '',
+            });
+        };
+    };
+
+    describe 'without intending to authenticate' => sub {
+        it 'never attempts to authenticate' => sub {
+            WebService::Mattermost::V4::API::Resource::Users->expects('login')->never;
+
+            WebService::Mattermost->new({
+                authenticate => 0,
+                base_url     => $vars{base_url},
+                username     => 'foo',
+                password     => 'bar',
             });
         };
     };
@@ -80,21 +93,21 @@ describe 'WebService::Mattermost' => sub {
                 $vars{app} = WebService::Mattermost->new($vars{init_args});
             };
 
-            it 'should set the auth token' => sub {
+            it 'sets the auth token' => sub {
                 is 'whatever', $vars{app}->auth_token;
             };
 
-            it 'should set the token on the API resource classes' => sub {
+            it 'sets the token on the API resource classes' => sub {
                 test_auth_token_was_set_on_resources($vars{app}, 'whatever');
             };
 
-            it 'should set up an API client with the token' => sub {
+            it 'sets up an API client with the token' => sub {
                 test_api_client($vars{app}, 'whatever');
             };
         };
 
         describe 'login failure' => sub {
-            it 'should die' => sub {
+            it 'dies with an "unauthorized" error' => sub {
                 user_resource_expects_login(response({
                     is_success => 0,
                     message    => 'Unauthorized',
