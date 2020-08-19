@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Jobs;
 
+# ABSTRACT: Wrapped API methods for the jobs API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -46,10 +48,6 @@ sub get_by_type {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Jobs
 
 =head1 DESCRIPTION
 
@@ -109,8 +107,3 @@ L<https://api.mattermost.com/#tag/jobs%2Fpaths%2F~1jobs~1type~1%7Btype%7D%2Fget>
 =item L<Official Jobs documentation|https://api.mattermost.com/#tag/jobs>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

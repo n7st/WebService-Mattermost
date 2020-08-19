@@ -1,9 +1,9 @@
 package WebService::Mattermost::V4::API::Object::Role::ExpiresAt;
 
+# ABSTRACT: Adds an "expires_at" field to an object.
+
 use Moo::Role;
 use Types::Standard qw(InstanceOf Int Maybe);
-
-#requires qw(_from_epoch raw_data);
 
 ################################################################################
 

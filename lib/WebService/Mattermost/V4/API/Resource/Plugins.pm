@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Plugins;
 
+# ABSTRACT: Wrapped API methods for the plugins API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -37,10 +39,6 @@ sub all_webapp {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Plugins
 
 =head1 DESCRIPTION
 
@@ -80,8 +78,3 @@ L<Get webapp plugins|https://api.mattermost.com/#tag/plugins%2Fpaths%2F~1plugins
     my $response = $resource->all_webapp();
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

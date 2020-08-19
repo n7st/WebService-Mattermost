@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::S3;
 
+# ABSTRACT: Wrapped API methods for the S3 API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -20,10 +22,6 @@ sub test {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::S3
 
 =head1 DESCRIPTION
 
@@ -80,8 +78,3 @@ Providing no parameters will use the ones set on your Mattermost server.
     });
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

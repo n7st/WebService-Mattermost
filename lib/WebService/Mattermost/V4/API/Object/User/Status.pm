@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::User::Status;
 
+# ABSTRACT: A user status item.
+
 use Moo;
 use Types::Standard qw(Maybe Bool);
 
@@ -24,10 +26,6 @@ sub _build_manual {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::User::Status
 
 =head1 DESCRIPTION
 

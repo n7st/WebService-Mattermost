@@ -1,5 +1,7 @@
 package WebService::Mattermost::Role::Returns;
 
+# ABSTRACT: Standard returns for user-facing subroutines.
+
 use Moo::Role;
 
 ################################################################################
@@ -17,10 +19,6 @@ sub error_return {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::Role::Returns
 
 =head1 DESCRIPTION
 
@@ -42,8 +40,3 @@ Return an unsuccessful response with an error message.
     # }
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

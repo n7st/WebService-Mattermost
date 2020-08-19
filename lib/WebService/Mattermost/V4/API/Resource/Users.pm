@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Users;
 
+# ABSTRACT: Wrapped API methods for the users API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -229,10 +231,6 @@ sub search_tokens {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Users
-
 =head1 DESCRIPTION
 
 =head2 USAGE
@@ -403,8 +401,3 @@ Get a user by email address.
     my $response = $resource->get_by_email('me@somewhere.com');
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::ChannelStats;
 
+# ABSTRACT: A channel stats item.
+
 use Moo;
 use Types::Standard qw(Int Maybe);
 
@@ -20,10 +22,6 @@ sub _build_member_count { shift->raw_data->{member_count} }
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::ChannelStats
 
 =head1 DESCRIPTION
 
@@ -46,8 +44,3 @@ Details a Mattermost ChannelStats object.
 =item L<WebService::Mattermost::V4::API::Object::Role::BelongingToChannel>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

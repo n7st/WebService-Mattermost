@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Post;
 
+# ABSTRACT: Wrapped API methods for the post API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -151,10 +153,6 @@ sub perform_action {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Post
-
 =head1 DESCRIPTION
 
 =head2 USAGE
@@ -252,8 +250,3 @@ L<Perform a post action|https://api.mattermost.com/#tag/posts%2Fpaths%2F~1posts~
     my $response = $resource->perform_action('POST-ID-HERE', 'REACTION-ID-HERE');
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

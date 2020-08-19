@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Results;
 
+# ABSTRACT: A result object.
+
 use Moo;
 use Types::Standard qw(Maybe Str);
 
@@ -18,15 +20,17 @@ sub _build_results { shift->raw_data->{results} }
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Results
-
 =head1 DESCRIPTION
 
-Details a Mattermost Results object.
+Details a Mattermost Results object. Returned only by L<WebService::Mattermost::V4::API::Resource::Team>'s
+C<import_from_existing()> method.
 
-=head1 AUTHOR
+=head2 ATTRIBUTES
 
-Mike Jones L<email:mike@netsplit.org.uk>
+=over 4
 
+=item * C<results>
+
+Stringified "results".
+
+=back

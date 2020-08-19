@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Files;
 
+# ABSTRACT: Wrapped API methods for the files API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -32,10 +34,6 @@ sub upload {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Files
 
 =head1 DESCRIPTION
 
@@ -71,8 +69,3 @@ Upload a file to a channel.
 =item L<Official Files documentation|https://api.mattermost.com/#tag/files>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

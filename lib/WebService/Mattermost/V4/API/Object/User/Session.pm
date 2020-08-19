@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::User::Session;
 
+# ABSTRACT: A user session item.
+
 use Moo;
 use Types::Standard qw(ArrayRef Bool Maybe Str);
 
@@ -32,10 +34,6 @@ sub _build_token        { shift->raw_data->{token}            }
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::User::Session
 
 =head1 DESCRIPTION
 
@@ -70,8 +68,3 @@ WebService::Mattermost::V4::API::Object::User::Session
 =item L<WebService::Mattermost::V4::API::Object::Role::Props>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

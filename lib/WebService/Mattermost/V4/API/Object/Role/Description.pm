@@ -1,9 +1,9 @@
 package WebService::Mattermost::V4::API::Object::Role::Description;
 
+# ABSTRACT: Adds a "description" field to an object.
+
 use Moo::Role;
 use Types::Standard qw(Maybe Str);
-
-#requires 'raw_data';
 
 ################################################################################
 
@@ -22,10 +22,6 @@ sub _build_description {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Role::Description
-
 =head1 DESCRIPTION
 
 Attach a description to a v4::Object object.
@@ -37,8 +33,3 @@ Attach a description to a v4::Object object.
 =item C<description>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

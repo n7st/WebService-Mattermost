@@ -1,9 +1,9 @@
 package WebService::Mattermost::V4::API::Object::Role::CreatedAt;
 
+# ABSTRACT: Adds a "created_at" attribute to an object.
+
 use Moo::Role;
 use Types::Standard qw(InstanceOf Int Maybe);
-
-#requires qw(_from_epoch raw_data);
 
 ################################################################################
 
@@ -29,10 +29,6 @@ sub _build_created_at {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Role::CreatedAt
-
 =head1 DESCRIPTION
 
 Attach common timestamps to a v4::Object object.
@@ -50,8 +46,3 @@ UNIX timestamp.
 C<DateTime> object.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

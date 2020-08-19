@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Role::Name;
 
+# ABSTRACT: Adds a "name" field to an object.
+
 use Moo::Role;
 use Types::Standard qw(Maybe Str);
 
@@ -20,10 +22,6 @@ sub _build_name {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Role::Name
-
 =head1 DESCRIPTION
 
 Attach a name to a v4::Object object.
@@ -35,8 +33,3 @@ Attach a name to a v4::Object object.
 =item C<name>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

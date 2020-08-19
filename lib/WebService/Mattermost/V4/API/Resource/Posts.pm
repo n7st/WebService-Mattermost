@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Posts;
 
+# ABSTRACT: Wrapped API methods for the posts API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -64,10 +66,6 @@ sub _validate_minimum_post_args {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Posts
-
 =head1 DESCRIPTION
 
 =head2 USAGE
@@ -126,8 +124,3 @@ L<Create a ephemeral post|https://api.mattermost.com/#tag/posts%2Fpaths%2F~1post
 Official "posts" API documentation.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

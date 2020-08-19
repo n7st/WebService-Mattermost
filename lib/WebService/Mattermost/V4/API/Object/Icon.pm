@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Icon;
 
+# ABSTRACT: An icon item.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Object';
@@ -14,10 +16,6 @@ with    qw(
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Icon
 
 =head1 DESCRIPTION
 
@@ -46,8 +44,3 @@ Details a Mattermost Icon object.
 =item L<WebService::Mattermost::V4::API::Object::Role::StatusCode>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Audits;
 
+# ABSTRACT: Wrapped API methods for the audits API endpoints.
+
 use Moo;
 use Types::Standard 'Str';
 
@@ -22,10 +24,6 @@ sub get {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Audits
 
 =head1 DESCRIPTION
 
@@ -57,8 +55,3 @@ L<Get audits|https://api.mattermost.com/#tag/system%2Fpaths%2F~1audits%2Fget>
     });
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

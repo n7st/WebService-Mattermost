@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::WebRTCToken;
 
+# ABSTRACT: A WebRTC token item.
+
 use Moo;
 use Types::Standard qw(Str Maybe);
 
@@ -30,10 +32,6 @@ sub _build_turn_username  { shift->raw_data->{turn_username} }
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::WebRTCToken
-
 =head1 DESCRIPTION
 
 Details a Mattermost WebRTC token object.
@@ -59,8 +57,3 @@ Details a Mattermost WebRTC token object.
 =back
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

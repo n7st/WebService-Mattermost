@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::ElasticSearch;
 
+# ABSTRACT: Wrapped API methods for the ElasticSearch API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -28,10 +30,6 @@ sub purge_indexes {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::ElasticSearch
 
 =head1 DESCRIPTION
 
@@ -71,8 +69,3 @@ WebService::Mattermost::V4::API::Resource::ElasticSearch
 Official "ElasticSearch" API documentation.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

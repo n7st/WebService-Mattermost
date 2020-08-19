@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource;
 
+# ABSTRACT: Base class for API resources.
+
 use List::MoreUtils 'all';
 use Moo;
 use Types::Standard qw(Bool HashRef Object Str);
@@ -237,10 +239,6 @@ sub _new_related_resource {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource - base class for API resources.
-
 =head1 DESCRIPTION
 
 =head2 ATTRIBUTES
@@ -262,8 +260,3 @@ The name of the API resource, for example L<WebService::Mattermost::V4::API::Bra
 resource is 'brand'.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

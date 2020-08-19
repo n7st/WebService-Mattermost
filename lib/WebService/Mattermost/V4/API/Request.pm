@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Request;
 
+# ABSTRACT: A request to be sent to the Mattermost API.
+
 use Mojo::URL;
 use Mojo::Util 'url_escape';
 use Moo;
@@ -49,10 +51,6 @@ sub _build_url {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Request
-
 =head1 DESCRIPTION
 
 A request to be sent to the Mattermost API.
@@ -88,8 +86,3 @@ IDs to replace into the URL with C<sprintf>.
 =item C<url>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

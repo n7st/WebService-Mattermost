@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::File;
 
+# ABSTRACT: A file item.
+
 use Moo;
 use Types::Standard qw(Bool Int Maybe Str);
 
@@ -48,10 +50,6 @@ sub BUILD {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::File
 
 =head1 DESCRIPTION
 
@@ -119,8 +117,3 @@ Is the same as:
 =item L<WebService::Mattermost::V4::API::Object::Role::Timestamps>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

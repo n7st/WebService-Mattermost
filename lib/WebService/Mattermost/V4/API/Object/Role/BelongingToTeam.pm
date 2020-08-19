@@ -1,11 +1,11 @@
 package WebService::Mattermost::V4::API::Object::Role::BelongingToTeam;
 
+# ABSTRACT: Mark an object as belonging to a team.
+
 use Moo::Role;
 use Types::Standard qw(InstanceOf Maybe Str);
 
 use WebService::Mattermost::Helper::Alias 'view';
-
-#requires 'raw_data';
 
 ################################################################################
 
@@ -32,10 +32,6 @@ sub _build_team {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Role::BelongingToTeam
-
 =head1 DESCRIPTION
 
 Link a view object to its creator.
@@ -53,8 +49,3 @@ The creator's string ID.
 Linked L<WebService::Mattermost::V4::API::Object::Team> object.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

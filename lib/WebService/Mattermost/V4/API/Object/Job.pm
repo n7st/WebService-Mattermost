@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Job;
 
+# ABSTRACT: A job item.
+
 use Moo;
 use Types::Standard qw(HashRef Int Maybe Object Str);
 
@@ -74,10 +76,6 @@ sub _build_started_at {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Job
-
 =head1 DESCRIPTION
 
 =head2 METHODS
@@ -134,8 +132,3 @@ DateTime.
 =item L<WebService::Mattermost::V4::API::Object::Role::Status>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

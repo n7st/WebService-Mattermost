@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Role::UpdatedAt;
 
+# ABSTRACT: Adds an "updated_at" field to an object.
+
 use Moo::Role;
 use Types::Standard qw(InstanceOf Int Maybe);
 
@@ -27,10 +29,6 @@ sub _build_updated_at {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Role::UpdatedAt
-
 =head1 DESCRIPTION
 
 Attach common timestamps to a v4::Object object.
@@ -48,8 +46,3 @@ UNIX timestamp.
 C<DateTime> object.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

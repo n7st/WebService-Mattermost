@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Role::APIMethods;
 
+# ABSTRACT: Allows a result object to call the API.
+
 use Moo::Role;
 use Types::Standard qw(HashRef Str);
 
@@ -45,10 +47,6 @@ sub method_is_valid {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Role::APIMethods
 
 =head1 DESCRIPTION
 
@@ -101,4 +99,3 @@ Checks whether the given method is set as permitted.
     my $valid = $self->method_is_valid('foo'); # 1 or 0
 
 =back
-

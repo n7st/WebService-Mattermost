@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Role::RequireID;
 
+# ABSTRACT: ID validation.
+
 use Moo::Role;
 use Types::Standard 'RegexpRef';
 
@@ -35,10 +37,6 @@ sub validate_id_no_next {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Role::RequireID
-
 =head1 DESCRIPTION
 
 Validate that the first parameter passed to a subroutine is a valid UUID for
@@ -67,8 +65,3 @@ Validate the ID but do not run the next subroutine.
 Basic UUID matching regular expression.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

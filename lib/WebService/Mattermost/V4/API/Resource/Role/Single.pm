@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Role::Single;
 
+# ABSTRACT: Marks a resource as an object with an identifier.
+
 use Moo::Role;
 use Types::Standard 'Str';
 
@@ -11,10 +13,6 @@ has id => (is => 'rw', isa => Str, required => 0);
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Role::Single
 
 =head1 DESCRIPTION
 
@@ -33,8 +31,3 @@ method call (which will take precedence over the C<id> attribute).
 String.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

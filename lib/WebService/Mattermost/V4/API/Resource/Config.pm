@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Config;
 
+# ABSTRACT: Wrapped API methods for the config API endpoints.
+
 use Moo;
 use Types::Standard 'Str';
 
@@ -54,10 +56,6 @@ sub set_by_environment {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Config
 
 =head1 DESCRIPTION
 
@@ -136,8 +134,3 @@ L<Get configuration made through environment variables|https://api.mattermost.co
     my $response = $client->set_by_environment();
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

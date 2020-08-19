@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object;
 
+# ABSTRACT: Base class for results returned from the API.
+
 use DateTime;
 use Moo;
 use Types::Standard qw(HashRef InstanceOf Str);
@@ -56,13 +58,9 @@ sub _build_api {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object
-
 =head1 DESCRIPTION
 
-Base class for wrappers for results returned from the Mattermost API.
+Base class for wrappers for individual results returned from the Mattermost API.
 
 =head2 METHODS
 
@@ -96,8 +94,3 @@ The server's base URL.
 API access for the Object classes.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

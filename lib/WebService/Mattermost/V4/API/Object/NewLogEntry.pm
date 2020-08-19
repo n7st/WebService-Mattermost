@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::NewLogEntry;
 
+# ABSTRACT: A new log entry item.
+
 use Moo;
 use Types::Standard qw(Maybe InstanceOf Int Str);
 
@@ -19,10 +21,6 @@ sub _build_level  { shift->raw_data->{level}  }
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::NewLogEntry
-
 =head1 DESCRIPTION
 
 Details a Mattermost NewLogEntry object.
@@ -34,8 +32,3 @@ Details a Mattermost NewLogEntry object.
 =item L<WebService::Mattermost::V4::API::Object::Role::Message>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

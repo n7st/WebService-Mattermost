@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Role::View::Team;
 
+# ABSTRACT: Links a resource to the team view.
+
 use Moo::Role;
 use Types::Standard 'Str';
 
@@ -11,10 +13,6 @@ has view_name => (is => 'ro', isa => Str, default => 'Team');
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Role::View::Team
 
 =head1 DESCRIPTION
 
@@ -28,8 +26,3 @@ view.
 =item C<view_name>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

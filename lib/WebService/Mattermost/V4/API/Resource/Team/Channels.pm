@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Team::Channels;
 
+# ABSTRACT: Wrapped API methods for the team channels API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -126,10 +128,6 @@ sub by_name_and_team_name {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Team::Channels
-
 =head1 DESCRIPTION
 
 =head2 USAGE
@@ -198,8 +196,3 @@ L<Search channels|https://api.mattermost.com/#tag/channels%2Fpaths%2F~1teams~1%7
     });
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Plugins;
 
+# ABSTRACT: Many plugin items.
+
 use Moo;
 use Types::Standard qw(ArrayRef Maybe);
 
@@ -49,4 +51,33 @@ sub _build_inactive {
 ################################################################################
 
 1;
+__END__
+
+=head1 DESCRIPTION
+
+Contains active and inactive plugins.
+
+=head2 attributes
+
+=over 4
+
+=item * C<active>
+
+A list of enabled plugins.
+
+=item * C<inactive>
+
+A list of disabled plugins.
+
+=back
+
+=head1 SEE ALSO
+
+=over 4
+
+=item * L<WebService::Mattermost::V4::API::Object::Plugin>
+
+The "plugins" referred to in C<active> and C<inactive>.
+
+=back
 

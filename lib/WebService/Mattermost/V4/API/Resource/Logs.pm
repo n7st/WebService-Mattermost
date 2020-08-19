@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Logs;
 
+# ABSTRACT: Wrapped API methods for the logs API endpoints.
+
 use Moo;
 use Types::Standard 'Str';
 
@@ -32,10 +34,6 @@ sub add_message {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Logs
 
 =head1 DESCRIPTION
 
@@ -73,8 +71,3 @@ L<Add log message|https://api.mattermost.com/#tag/system%2Fpaths%2F~1logs%2Fpost
     });
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

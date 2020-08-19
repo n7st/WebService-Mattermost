@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Team;
 
+# ABSTRACT: Wrapped API methods for the team API endpoints.
+
 use Moo;
 use Types::Standard 'InstanceOf';
 
@@ -363,10 +365,6 @@ sub _build_channels {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Team
-
 =head1 DESCRIPTION
 
 API methods relating to a single team by ID or name.
@@ -537,8 +535,3 @@ L<Search for team posts|https://api.mattermost.com/#tag/posts%2Fpaths%2F~1teams~
     });
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

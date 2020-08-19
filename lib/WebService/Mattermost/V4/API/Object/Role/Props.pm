@@ -1,9 +1,9 @@
 package WebService::Mattermost::V4::API::Object::Role::Props;
 
+# ABSTRACT: Adds a "props" field to an object.
+
 use Moo::Role;
 use Types::Standard qw(HashRef Maybe);
-
-#requires 'raw_data';
 
 ################################################################################
 
@@ -22,10 +22,6 @@ sub _build_props {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Role::Props
-
 =head1 DESCRIPTION
 
 Attach a props HashRef to a v4::Object object.
@@ -37,8 +33,3 @@ Attach a props HashRef to a v4::Object object.
 =item C<props>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

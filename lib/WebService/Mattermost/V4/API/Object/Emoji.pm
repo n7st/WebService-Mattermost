@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Emoji;
 
+# ABSTRACT: An emoji item.
+
 use Moo;
 use Types::Standard qw(Str Int);
 
@@ -30,10 +32,6 @@ sub BUILD {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Emoji
 
 =head1 DESCRIPTION
 
@@ -75,8 +73,3 @@ Is the same as:
 =item L<WebService::Mattermost::V4::API::Object::Role::Name>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

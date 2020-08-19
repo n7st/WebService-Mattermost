@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Role::StatusCode;
 
+# ABSTRACT: Adds a "status_code" field to an object.
+
 use Moo::Role;
 use Types::Standard qw(Int Maybe);
 
@@ -20,10 +22,6 @@ sub _build_status_code {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Role::StatusCode
-
 =head1 DESCRIPTION
 
 Attach a StatusCode to a v4::Object object.
@@ -35,8 +33,3 @@ Attach a StatusCode to a v4::Object object.
 =item C<status_code>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

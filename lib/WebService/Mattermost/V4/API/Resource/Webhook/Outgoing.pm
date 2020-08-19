@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Webhook::Outgoing;
 
+# ABSTRACT: Wrapped API methods for the outgoing webhook API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -75,10 +77,6 @@ sub regenerate_token {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Webhook::Outgoing
-
 =head1 DESCRIPTION
 
 =head2 USAGE
@@ -152,8 +150,3 @@ L<Regenerate the token for the outgoing webhook|https://api.mattermost.com/#tag/
     my $response = $resource->regenerate_token('WEBHOOK-ID-HERE');
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

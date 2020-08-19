@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Emoji;
 
+# ABSTRACT: Wrapped API methods for the emoji API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -119,10 +121,6 @@ sub autocomplete {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Emoji
-
 =head1 DESCRIPTION
 
     use WebService::Mattermost;
@@ -197,8 +195,3 @@ Autocomplete an emoji name.
 =item L<Official Emoji documentation|https://api.mattermost.com/#tag/emoji>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

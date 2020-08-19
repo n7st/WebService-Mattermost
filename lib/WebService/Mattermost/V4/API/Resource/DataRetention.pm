@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::DataRetention;
 
+# ABSTRACT: Wrapped API methods for the data retention API endpoints.
+
 use Moo;
 use Types::Standard 'Str';
 
@@ -21,10 +23,6 @@ sub policy {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::DataRetention
 
 =head1 DESCRIPTION
 
@@ -60,8 +58,3 @@ WebService::Mattermost::V4::API::Resource::DataRetention
 Official "DataRetention" API documentation.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

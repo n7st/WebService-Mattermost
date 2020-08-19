@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::User;
 
+# ABSTRACT: A user item.
+
 use Moo;
 use Types::Standard qw(ArrayRef Bool HashRef InstanceOf Int Maybe Str);
 
@@ -98,10 +100,6 @@ sub _build_picture_updated_at {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::User
-
 =head1 DESCRIPTION
 
 Object version of a Mattermost user.
@@ -162,8 +160,3 @@ Is the same as:
 =item L<WebService::Mattermost::V4::API::Object::Role::Timestamps>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

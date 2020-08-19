@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Channel::Member;
 
+# ABSTRACT: A channel member item.
+
 use Moo;
 use Types::Standard qw(HashRef InstanceOf Int Maybe Str);
 
@@ -45,10 +47,6 @@ sub _build_last_viewed {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Channel::Member
-
 =head1 DESCRIPTION
 
 A member of a channel.
@@ -92,8 +90,3 @@ DateTime.
 =item L<WebService::Mattermost::V4::API::Object::Role::Roles>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

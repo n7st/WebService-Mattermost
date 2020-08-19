@@ -1,5 +1,7 @@
 package WebService::Mattermost::Util::Logger;
 
+# ABSTRACT: Internal logger.
+
 use Moo;
 use Mojo::Util 'monkey_patch';
 use Mojo::Log;
@@ -36,10 +38,6 @@ sub _build_logger {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::Util::Logger
-
 =head1 DESCRIPTION
 
 Patched instance of C<Mojo::Log> with some wrapping methods.
@@ -73,8 +71,3 @@ A C<Mojo::Log> object with additional methods:
 =back
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

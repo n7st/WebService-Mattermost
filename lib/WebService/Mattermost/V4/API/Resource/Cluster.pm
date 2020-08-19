@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Cluster;
 
+# ABSTRACT: Wrapped API methods for the cluster API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -16,10 +18,6 @@ sub status {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Cluster
 
 =head1 DESCRIPTION
 
@@ -55,8 +53,3 @@ WebService::Mattermost::V4::API::Resource::Cluster
 Official "cluster" API documentation.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-
