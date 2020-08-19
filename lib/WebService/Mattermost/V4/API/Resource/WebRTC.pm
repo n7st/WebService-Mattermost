@@ -26,6 +26,10 @@ WebService::Mattermost::V4::API::Resource::WebRTC
 
 =head1 DESCRIPTION
 
+B<This API endpoint was removed from Mattermost in version v5.6 (October 2018).
+As such, the methods in this class will not do anything when used with recent
+versions of Mattermost!>
+
 =head2 USAGE
 
     use WebService::Mattermost;
