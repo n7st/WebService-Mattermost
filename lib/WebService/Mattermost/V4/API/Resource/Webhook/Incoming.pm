@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Webhook::Incoming;
 
+# ABSTRACT: Wrapped API methods for the incoming webhook API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -64,10 +66,6 @@ sub update_by_id {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Webhook::Incoming
 
 =head1 DESCRIPTION
 
@@ -136,8 +134,3 @@ L<Update an incoming webhook|https://api.mattermost.com/#tag/webhooks%2Fpaths%2F
     });
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

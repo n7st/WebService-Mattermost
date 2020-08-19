@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Config;
 
+# ABSTRACT: A config item.
+
 use Moo;
 use Types::Standard qw(HashRef Maybe);
 
@@ -62,10 +64,6 @@ sub _build_webrtc_settings        { shift->raw_data->{WebrtcSettings}        }
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Config
-
 =head1 DESCRIPTION
 
 Describes a Mattermost configuration response.
@@ -119,8 +117,3 @@ Describes a Mattermost configuration response.
 =item C<webrtc_settings>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

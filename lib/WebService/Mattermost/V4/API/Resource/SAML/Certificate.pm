@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::SAML::Certificate;
 
+# ABSTRACT: Wrapped API methods for the SAML certificate API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -80,10 +82,6 @@ sub private_remove {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::SAML::Certificate
-
 =head1 DESCRIPTION
 
 =head2 USAGE
@@ -148,8 +146,3 @@ Remove your associated private key.
 =item L<Official SAML documentation|https://api.mattermost.com/#tag/SAML>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

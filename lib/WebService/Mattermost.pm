@@ -1,5 +1,7 @@
 package WebService::Mattermost;
 
+# ABSTRACT: Perl client library for Mattermost's REST API and websocket gateway
+
 use Moo;
 use Types::Standard qw(Bool Int Object Str);
 
@@ -91,10 +93,6 @@ sub _build_api {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost - Perl client library for Mattermost.
-
 =head1 DESCRIPTION
 
 WebService::Mattermost provides websocket and REST API integrations for Mattermost,
@@ -185,8 +183,3 @@ Containing object for resources for version 4 of the Mattermost REST API.
 Accessible from this class via the C<api> attribute.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

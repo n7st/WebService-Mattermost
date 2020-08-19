@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::File;
 
+# ABSTRACT: Wrapped API methods for the file API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -62,10 +64,6 @@ sub get_metadata {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::File
-
 =head1 DESCRIPTION
 
 =head2 USAGE
@@ -124,8 +122,3 @@ Get information about a file.
 =item L<Official Files documentation|https://api.mattermost.com/#tag/files>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

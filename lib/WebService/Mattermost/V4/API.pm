@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API;
 
+# ABSTRACT: Mattermost API v4 wrapper.
+
 use Moo;
 use MooX::HandlesVia;
 use Types::Standard qw(ArrayRef Bool InstanceOf Str);
@@ -188,10 +190,6 @@ sub _build_webrtc            { shift->_new_resource('WebRTC')                   
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API
-
 =head1 DESCRIPTION
 
 Container for API resources.
@@ -357,8 +355,3 @@ See L<WebService::Mattermost::V4::API::Resource::Webhook>.
 See L<WebService::Mattermost::V4::API::Resource::WebRTC>.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

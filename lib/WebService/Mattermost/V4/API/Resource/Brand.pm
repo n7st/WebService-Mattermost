@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Brand;
 
+# ABSTRACT: Wrapped API methods for the brand API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -30,10 +32,6 @@ sub upload {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Brand
 
 =head1 DESCRIPTION
 
@@ -79,8 +77,3 @@ Set a new brand image for your Mattermost server.
 =item L<Official "brand" API documentation|https://api.mattermost.com/#tag/brand>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

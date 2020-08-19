@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Response;
 
+# ABSTRACT: Container for API responses.
+
 use Mojo::JSON 'decode_json';
 use Moo;
 use Types::Standard qw(Any ArrayRef Bool InstanceOf Int Maybe Object Str);
@@ -139,10 +141,6 @@ sub _build_items {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::API::Response - container for responses from the Mattermost API
-
 =head1 DESCRIPTION
 
 A common container for responses from the Mattermost API.
@@ -197,8 +195,3 @@ The first v4::Object object.
 All view objects.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

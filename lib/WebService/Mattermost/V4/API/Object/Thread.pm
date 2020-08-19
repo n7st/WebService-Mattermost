@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Thread;
 
+# ABSTRACT: A message thread.
+
 use Moo;
 use Types::Standard qw(ArrayRef Maybe);
 
@@ -42,10 +44,6 @@ sub _build_posts {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Thread
-
 =head1 DESCRIPTION
 
 Describes a list of Mattermost posts.
@@ -65,8 +63,3 @@ If the posts are a search result, a list of strings that match.
 An arrayref of posts in the list, ordered by date created.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::TeamMember;
 
+# ABSTRACT: A team member item.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Object';
@@ -13,10 +15,6 @@ with    qw(
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::TeamMember
 
 =head1 DESCRIPTION
 
@@ -33,8 +31,3 @@ Details a Mattermost TeamMember object.
 =item L<WebService::Mattermost::V4::API::Object::Role::Roles>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

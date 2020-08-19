@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Role::BelongingToPost;
 
+# ABSTRACT: Mark an object as belonging to a post.
+
 use Moo::Role;
 use Types::Standard qw(Maybe InstanceOf Str);
 
@@ -24,10 +26,6 @@ sub _build_post {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Role::BelongingToPost
-
 =head1 DESCRIPTION
 
 Link a view object to a post.
@@ -45,8 +43,3 @@ The post's ID.
 Linked L<WebService::Mattermost::V4::API::Object::Post> object.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

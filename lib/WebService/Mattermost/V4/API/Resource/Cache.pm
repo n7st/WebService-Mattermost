@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Cache;
 
+# ABSTRACT: Wrapped API methods for the cache API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -19,10 +21,6 @@ sub invalidate {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Cache
 
 =head1 DESCRIPTION
 
@@ -50,8 +48,3 @@ L<Invalidate all the caches|https://api.mattermost.com/#tag/system%2Fpaths%2F~1c
     my $response = $resource->invalidate();
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

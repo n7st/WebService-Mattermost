@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Channel::Member;
 
+# ABSTRACT: Wrapped API methods for the channel member API endpoints.
+
 use Moo;
 use Types::Standard 'Str';
 
@@ -176,10 +178,6 @@ sub set_viewed {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Channel::Member
-
 =head1 DESCRIPTION
 
 Channel member related API calls.
@@ -290,8 +288,3 @@ L<View channel|https://api.mattermost.com/#tag/channels%2Fpaths%2F~1channels~1me
     });
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

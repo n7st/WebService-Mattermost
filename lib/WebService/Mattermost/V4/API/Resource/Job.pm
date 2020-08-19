@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Job;
 
+# ABSTRACT: Wrapped API methods for the job API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -41,10 +43,6 @@ sub cancel {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Job
-
 =head1 DESCRIPTION
 
 =head2 USAGE
@@ -85,8 +83,3 @@ L<Cancel a job|https://api.mattermost.com/#tag/jobs%2Fpaths%2F~1jobs~1%7Bjob_id%
 =item L<Official Jobs documentation|https://api.mattermost.com/#tag/jobs>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

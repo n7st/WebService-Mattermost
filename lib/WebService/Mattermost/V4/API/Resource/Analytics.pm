@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Analytics;
 
+# ABSTRACT: Wrapped API methods for the analytics API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -21,10 +23,6 @@ sub get {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Analytics
 
 =head1 DESCRIPTION
 
@@ -56,8 +54,3 @@ L<Get analytics|https://api.mattermost.com/#tag/system%2Fpaths%2F~1analytics~1ol
     });
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::OAuth;
 
+# ABSTRACT: Wrapped API methods for the OAuth API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -32,10 +34,6 @@ sub get_apps {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::OAuth
 
 =head1 DESCRIPTION
 
@@ -83,8 +81,3 @@ L<Get OAuth apps|https://api.mattermost.com/#tag/OAuth%2Fpaths%2F~1oauth~1apps%2
     });
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

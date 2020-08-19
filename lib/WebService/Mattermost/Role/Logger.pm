@@ -1,5 +1,7 @@
 package WebService::Mattermost::Role::Logger;
 
+# ABSTRACT: Internal logger role.
+
 use Moo::Role;
 use Types::Standard 'InstanceOf';
 
@@ -20,10 +22,6 @@ sub _build_logger {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::Role::Logger
 
 =head1 DESCRIPTION
 
@@ -60,8 +58,3 @@ A C<Mojo::Log> object.
 =item C<Log::Log4perl>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

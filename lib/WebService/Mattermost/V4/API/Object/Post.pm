@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Post;
 
+# ABSTRACT: A post item.
+
 use Moo;
 use Types::Standard qw(ArrayRef Maybe Str InstanceOf);
 
@@ -117,10 +119,6 @@ sub _build_files {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Post
-
 =head1 DESCRIPTION
 
 Describes a Mattermost post.
@@ -221,8 +219,3 @@ Related root post object.
 =item L<WebService::Mattermost::V4::API::Object::Role::Timestamps>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

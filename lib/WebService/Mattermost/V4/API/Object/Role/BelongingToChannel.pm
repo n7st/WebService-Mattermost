@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Role::BelongingToChannel;
 
+# ABSTRACT: Mark an object as belonging to a channel.
+
 use Moo::Role;
 use Types::Standard qw(InstanceOf Maybe Str);
 
@@ -30,10 +32,6 @@ sub _build_channel {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Role::BelongingToChannel
-
 =head1 DESCRIPTION
 
 Link a view object to its channel.
@@ -51,8 +49,3 @@ The channel's ID.
 Linked L<WebService::Mattermost::V4::API::Object::Channel> object.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

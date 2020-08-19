@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Error;
 
+# ABSTRACT: An error item.
+
 use Moo;
 use Types::Standard qw(Str Maybe);
 
@@ -46,10 +48,6 @@ sub _build_status_code {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Error
-
 =head1 DESCRIPTION
 
 Details an error response from the API.
@@ -79,8 +77,3 @@ Details an error response from the API.
 Official documentation for API errors.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

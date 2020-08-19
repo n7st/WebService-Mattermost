@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Role::Level;
 
+# ABSTRACT: Adds a "level" field to an object.
+
 use Moo::Role;
 use Types::Standard qw(Maybe Str);
 
@@ -20,10 +22,6 @@ sub _build_level {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Role::Level
-
 =head1 DESCRIPTION
 
 Attach an Level to a v4::Object object.
@@ -35,8 +33,3 @@ Attach an Level to a v4::Object object.
 =item C<level>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

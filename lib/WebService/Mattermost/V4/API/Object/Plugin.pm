@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Plugin;
 
+# ABSTRACT: A plugin item.
+
 use Moo;
 use Types::Standard qw(Bool HashRef Maybe Str);
 
@@ -45,10 +47,6 @@ sub BUILD {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Plugin
 
 =head1 DESCRIPTION
 
@@ -108,8 +106,3 @@ Is the same as:
 =item L<WebService::Mattermost::V4::API::Object::Role::ID>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

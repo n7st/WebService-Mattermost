@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::WebRTC;
 
+# ABSTRACT: Wrapped API methods for the WebRTC API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -19,10 +21,6 @@ sub get_token {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::WebRTC
 
 =head1 DESCRIPTION
 
@@ -50,8 +48,3 @@ L<Get WebRTC token|https://api.mattermost.com/#tag/system%2Fpaths%2F~1webrtc~1to
     my $response = $resource->get_token();
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

@@ -1,5 +1,7 @@
 package WebService::Mattermost::Helper::Alias;
 
+# ABSTRACT: Alias helper for shortening package names.
+
 use strict;
 use warnings;
 
@@ -41,10 +43,6 @@ sub view {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::Helper::Alias
-
 =head1 DESCRIPTION
 
 Static helpers used in the library.
@@ -63,8 +61,3 @@ Format the name of an endpoint for the version 4 API.
     print util 'UserAgent'; # prints WebService::Mattermost::Util::UserAgent
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

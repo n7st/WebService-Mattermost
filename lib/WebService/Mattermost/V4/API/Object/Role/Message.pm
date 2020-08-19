@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Role::Message;
 
+# ABSTRACT: Adds a "message" field to an object.
+
 use Moo::Role;
 use Types::Standard qw(Maybe Str);
 
@@ -20,10 +22,6 @@ sub _build_message {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Role::Message
-
 =head1 DESCRIPTION
 
 Attach an Message to a v4::Object object.
@@ -35,8 +33,3 @@ Attach an Message to a v4::Object object.
 =item C<message>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

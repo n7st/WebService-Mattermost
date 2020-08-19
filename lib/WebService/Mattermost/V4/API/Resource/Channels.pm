@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Channels;
 
+# ABSTRACT: Wrapped API methods for the channels API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -55,10 +57,6 @@ sub create_group_channel {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Channels
 
 =head1 DESCRIPTION
 
@@ -123,8 +121,3 @@ provided.
     ) ]);
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

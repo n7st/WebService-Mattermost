@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Reactions;
 
+# ABSTRACT: Wrapped API methods for the reactions API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -38,10 +40,6 @@ sub react {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Reactions
-
 =head1 DESCRIPTION
 
 =head2 USAGE
@@ -68,8 +66,3 @@ L<Create a reaction|https://api.mattermost.com/#tag/reactions%2Fpaths%2F~1reacti
     my $response = $resource->react('POST-ID-HERE', 'EMOJI-NAME-HERE', 'USER-ID-HERE');
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

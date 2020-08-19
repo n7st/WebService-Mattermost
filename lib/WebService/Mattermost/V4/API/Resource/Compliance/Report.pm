@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Compliance::Report;
 
+# ABSTRACT: Wrapped API methods for the compliance report API endpoints.
+
 use Moo;
 use Types::Standard 'Str';
 
@@ -45,10 +47,6 @@ sub download {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Compliance::Report
-
 =head1 DESCRIPTION
 
 =head2 USAGE
@@ -89,8 +87,3 @@ Download a compliance report by its ID.
 =item L<Official compliance documentation|https://api.mattermost.com/#tag/compliance>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

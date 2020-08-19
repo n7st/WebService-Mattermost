@@ -1,5 +1,7 @@
 package WebService::Mattermost::Helper::Table;
 
+# ABSTRACT: Markdown table generator.
+
 use Moo;
 use Types::Standard qw(ArrayRef Enum Str);
 
@@ -59,10 +61,6 @@ sub _build_table {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::Helper::Table
-
 =head1 DESCRIPTION
 
 Format text as tables for Mattermost.
@@ -90,7 +88,3 @@ Format text as tables for Mattermost.
 =item L<Mattermost Markdown|https://docs.mattermost.com/help/messaging/formatting-text.html#tables>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>

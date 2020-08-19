@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Reaction;
 
+# ABSTRACT: A reaction item.
+
 use Moo;
 use Types::Standard qw(InstanceOf Maybe Str);
 
@@ -33,10 +35,6 @@ sub _build_emoji {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Reaction
-
 =head1 DESCRIPTION
 
 Details a Mattermost reaction object.
@@ -66,8 +64,3 @@ Related L<WebService::Mattermost::V4::API::Object::Emoji> object.
 =item L<WebService::Mattermost::V4::API::Object::Role::CreatedAt>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

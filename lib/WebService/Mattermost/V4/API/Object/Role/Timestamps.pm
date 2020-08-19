@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Role::Timestamps;
 
+# ABSTRACT: Adds common timestamp fields to an object.
+
 use Moo::Role;
 use Types::Standard qw(InstanceOf Int Maybe);
 
@@ -37,10 +39,6 @@ sub _build_deleted_at {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Role::Timestamps
-
 =head1 DESCRIPTION
 
 Attach common timestamps to a v4::Object object.
@@ -66,8 +64,3 @@ C<DateTime> object.
 =item L<WebService::Mattermost::V4::API::Object::Role::CreatedAt>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

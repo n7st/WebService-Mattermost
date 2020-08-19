@@ -1,9 +1,9 @@
 package WebService::Mattermost::V4::API::Object::Role::Roles;
 
+# ABSTRACT: Adds a "roles" field to an object.
+
 use Moo::Role;
 use Types::Standard qw(Maybe Str);
-
-#requires 'raw_data';
 
 ################################################################################
 
@@ -22,10 +22,6 @@ sub _build_roles {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Role::Timestamps
-
 =head1 DESCRIPTION
 
 Attach an Roles to a v4::Object object.
@@ -39,8 +35,3 @@ Attach an Roles to a v4::Object object.
 String.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

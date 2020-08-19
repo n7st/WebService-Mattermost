@@ -1,9 +1,9 @@
 package WebService::Mattermost::V4::API::Object::Role::Status;
 
+# ABSTRACT: Adds a "status" field to an object.
+
 use Moo::Role;
 use Types::Standard qw(Maybe Str);
-
-#requires 'raw_data';
 
 ################################################################################
 
@@ -22,10 +22,6 @@ sub _build_status {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Role::Timestamps
-
 =head1 DESCRIPTION
 
 Attach an Status to a v4::Object object.
@@ -39,8 +35,3 @@ Attach an Status to a v4::Object object.
 An item's status.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

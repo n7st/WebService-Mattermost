@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::DataRetentionPolicy;
 
+# ABSTRACT: A data retention item.
+
 use Moo;
 use Types::Standard qw(Bool Maybe InstanceOf Int);
 
@@ -48,10 +50,6 @@ sub _build_messages_kept_until {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::DataRetentionPolicy
-
 =head1 DESCRIPTION
 
 A data retention policy.
@@ -81,8 +79,3 @@ DateTime.
 DateTime.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

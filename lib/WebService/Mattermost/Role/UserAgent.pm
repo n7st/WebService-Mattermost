@@ -1,5 +1,7 @@
 package WebService::Mattermost::Role::UserAgent;
 
+# ABSTRACT: Internal user agent role.
+
 use Moo::Role;
 use Types::Standard 'InstanceOf';
 
@@ -36,10 +38,6 @@ sub _build_ua {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::Role::UserAgent
 
 =head1 DESCRIPTION
 
@@ -86,8 +84,3 @@ Formats the C<MMAUTHTOKEN> header.
 Formats the C<Bearer> header.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

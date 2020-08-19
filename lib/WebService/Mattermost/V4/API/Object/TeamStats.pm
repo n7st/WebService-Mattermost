@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::TeamStats;
 
+# ABSTRACT: Stats for a team.
+
 use Moo;
 use Types::Standard qw(Int Maybe);
 
@@ -25,10 +27,6 @@ sub _build_total_member_count  { shift->raw_data->{total_member_count}  }
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::TeamStats
-
 =head1 DESCRIPTION
 
 Details a Mattermost TeamStats object.
@@ -52,8 +50,3 @@ Details a Mattermost TeamStats object.
 =item L<WebService::Mattermost::V4::API::Object::Role::BelongingToTeam>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

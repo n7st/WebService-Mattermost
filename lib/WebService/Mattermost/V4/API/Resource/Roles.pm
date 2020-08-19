@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Roles;
 
+# ABSTRACT: Wrapped API methods for the roles API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -64,10 +66,6 @@ sub get_by_names {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Roles
-
 =head1 DESCRIPTION
 
 =head2 USAGE
@@ -117,8 +115,3 @@ L<Get a list of roles by name|https://api.mattermost.com/#tag/roles%2Fpaths%2F~1
     my $response = $resource->get_by_names([ qw(NAME-1-HERE NAME-2-HERE) ]);
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

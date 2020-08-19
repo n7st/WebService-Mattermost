@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::Example::Bot;
 
+# ABSTRACT: An example Perl Mattermost bot.
+
 use Moo; # or Moose
 
 extends 'WebService::Mattermost::V4::Client';
@@ -72,10 +74,6 @@ sub gw_message_no_event {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::Example::Bot
-
 =head1 DESCRIPTION
 
 An example Mattermost WebSocket bot using L<WebService::Mattermost>. The bot connects
@@ -126,8 +124,3 @@ Triggered when an error is received from the gateway.
 Triggered when a message without an event is received from the gateway.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

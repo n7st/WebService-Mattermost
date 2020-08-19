@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Binary;
 
+# ABSTRACT: A binary item.
+
 use Moo;
 use Types::Standard qw(Maybe Str);
 
@@ -18,10 +20,6 @@ sub _build_content { shift->raw_content }
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Binary
-
 =head1 DESCRIPTION
 
 Contains raw binary for a file returned from Mattermost.
@@ -35,8 +33,3 @@ Contains raw binary for a file returned from Mattermost.
 Raw binary content.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

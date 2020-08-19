@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Log;
 
+# ABSTRACT: A log item.
+
 use Moo;
 use Types::Standard qw(Maybe InstanceOf Int Str);
 
@@ -28,10 +30,6 @@ sub _build_timestamp {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Log
-
 =head1 DESCRIPTION
 
 Details a Mattermost Log object.
@@ -53,8 +51,3 @@ UNIX timestamp.
 DateTime.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

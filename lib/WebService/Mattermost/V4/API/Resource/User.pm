@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::User;
 
+# ABSTRACT: Wrapped API methods for the users API endpoints.
+
 use Moo;
 use Types::Standard qw(HashRef Str);
 
@@ -434,10 +436,6 @@ sub _build_available_user_roles {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::User
-
 =head1 DESCRIPTION
 
 API methods relating to a single user by ID.
@@ -745,8 +743,3 @@ L<Get authorized OAuth apps|https://api.mattermost.com/#tag/OAuth%2Fpaths%2F~1us
     });
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

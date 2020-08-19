@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Role::BelongingToUser;
 
+# ABSTRACT: Mark an object as belonging to a user.
+
 use Moo::Role;
 use Types::Standard qw(InstanceOf Maybe Str);
 
@@ -32,10 +34,6 @@ sub _build_user { shift->created_by }
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Role::BelongingToUser
-
 =head1 DESCRIPTION
 
 Link a view object to its creator.
@@ -53,8 +51,3 @@ The creator's string ID.
 Linked L<WebService::Mattermost::V4::API::Object::User> object.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

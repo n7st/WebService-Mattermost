@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::SAML;
 
+# ABSTRACT: Wrapped API methods for the SAML API endpoints.
+
 use Moo;
 use Types::Standard 'InstanceOf';
 
@@ -32,10 +34,6 @@ sub _build_certificate {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::SAML
 
 =head1 DESCRIPTION
 
@@ -80,8 +78,3 @@ which handles getting and setting of certificates (IDP, public and private).
 =item L<Official SAML documentation|https://api.mattermost.com/#tag/SAML>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

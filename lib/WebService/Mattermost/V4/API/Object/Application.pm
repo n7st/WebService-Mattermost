@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Application;
 
+# ABSTRACT: An application item.
+
 use Moo;
 use Types::Standard qw(ArrayRef Bool Maybe Str);
 
@@ -33,10 +35,6 @@ sub _build_is_trusted    { shift->raw_data->{is_trusted}    }
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Application
-
 =head1 DESCRIPTION
 
 Details a Mattermost Application object.
@@ -62,8 +60,3 @@ Details a Mattermost Application object.
 =item L<WebService::Mattermost::V4::API::Object::Role::ID>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

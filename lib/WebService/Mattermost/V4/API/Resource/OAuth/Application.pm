@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::OAuth::Application;
 
+# ABSTRACT: Wrapped API methods for the OAuth application API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -76,10 +78,6 @@ sub get_info {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::OAuth::Application
-
 =head1 DESCRIPTION
 
 =head2 USAGE
@@ -141,8 +139,3 @@ L<Get info on an OAuth app|https://api.mattermost.com/#tag/OAuth%2Fpaths%2F~1oau
     my $response = $resource->get_info('ID-HERE');
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

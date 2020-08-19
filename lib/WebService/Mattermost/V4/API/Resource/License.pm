@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::License;
 
+# ABSTRACT: Wrapped API methods for the license API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -41,10 +43,6 @@ sub client {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::License
-
 =head1 DESCRIPTION
 
 =head2 USAGE
@@ -83,8 +81,3 @@ L<Get client license|https://api.mattermost.com/#tag/system%2Fpaths%2F~1license~
     my $response = $resource->client();
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::Client;
 
+# ABSTRACT: Perl websocket client for Mattermost.
+
 use Encode 'encode';
 use Mojo::IOLoop;
 use Mojo::JSON qw(decode_json encode_json);
@@ -297,10 +299,6 @@ sub _build_websocket_url {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::WS::v4 - WebSocket gateway to Mattermost
-
 =head1 DESCRIPTION
 
 This class connects to Mattermost via the WebSocket gateway and can either be
@@ -365,8 +363,3 @@ The bot received a message without an event (which is usually a "ping" item).
 Can be overridden as C<gw_message_no_event()>.
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

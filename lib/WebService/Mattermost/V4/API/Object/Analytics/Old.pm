@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Analytics::Old;
 
+# ABSTRACT: An "old" Analytics item.
+
 use Moo;
 use Types::Standard qw(Int Maybe);
 
@@ -14,13 +16,9 @@ with    qw(
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Analytics::Old
-
 =head1 DESCRIPTION
 
-Details an old Mattermost analytics node.
+Details an old Mattermost analytics item.
 
 =head1 SEE ALSO
 
@@ -31,8 +29,3 @@ Details an old Mattermost analytics node.
 =item L<WebService::Mattermost::V4::API::Object::Role::Value>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

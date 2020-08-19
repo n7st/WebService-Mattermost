@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Channel;
 
+# ABSTRACT: A channel item.
+
 use Moo;
 use Types::Standard qw(HashRef InstanceOf Int Maybe Str);
 
@@ -95,10 +97,6 @@ sub _build_total_message_count {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Channel
 
 =head1 DESCRIPTION
 
@@ -209,8 +207,3 @@ The number of messages made in the channel.
 =item L<Channel documentation|https://api.mattermost.com/#tag/channels>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

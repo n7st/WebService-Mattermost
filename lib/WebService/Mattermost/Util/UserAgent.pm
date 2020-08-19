@@ -1,5 +1,7 @@
 package WebService::Mattermost::Util::UserAgent;
 
+# ABSTRACT: Internal user agent.
+
 use Moo;
 use Mojo::UserAgent;
 use Types::Standard qw(Bool InstanceOf Int);
@@ -29,13 +31,9 @@ sub _build_ua {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::Util::UserAgent
-
 =head1 DESCRIPTION
 
-Wraps C<Mojo::Log> with standard parameters for the project.
+Adds standard parameters to C<Mojo::UserAgent>.
 
 =head2 ATTRIBUTES
 
@@ -54,8 +52,3 @@ The default inactivity timeout (15 seconds).
 The default maximum number of redirects (5).
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Audit;
 
+# ABSTRACT: An audit item.
+
 use Moo;
 use Types::Standard qw(Maybe Str);
 
@@ -29,10 +31,6 @@ sub _build_session_id { shift->raw_data->{session_id} }
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Audit
-
 =head1 DESCRIPTION
 
 Details a generic response from Mattermost.
@@ -48,8 +46,3 @@ Details a generic response from Mattermost.
 =item L<WebService::Mattermost::V4::API::Object::Role::ID>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

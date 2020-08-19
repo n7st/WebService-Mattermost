@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Compliance::Report;
 
+# ABSTRACT: A compliance report item.
+
 use Moo;
 use Types::Standard qw(Str InstanceOf Int Maybe);
 
@@ -82,10 +84,6 @@ sub _build_emails {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Compliance::Report
-
 =head1 DESCRIPTION
 
 See matching methods in L<WebService::Mattermost::V4::API::Resource::Compliance::Report>
@@ -138,8 +136,3 @@ Is the same as:
 =item L<WebService::Mattermost::V4::API::Object::Role::BelongingToUser>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

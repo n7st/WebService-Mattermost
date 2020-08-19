@@ -1,5 +1,7 @@
 package WebService::Mattermost::TestHelper;
 
+# ABSTRACT: Helper functions for the library's test suite.
+
 use strict;
 use warnings;
 
@@ -88,11 +90,9 @@ sub user_resource_expects_login {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::TestHelper - Helper functions for the test suite.
-
 =head1 DESCRIPTION
+
+Exports subroutines used by the library's test suite.
 
 =head2 SYNPOSIS
 
@@ -128,7 +128,3 @@ Stubs the user resource's "login" method with a successful response. This can be
 used to fake a successful login call.
 
 =back
-
-=head1 AUTHOR
-
-L<Mike Jones|email:mike@netsplit.org.uk>

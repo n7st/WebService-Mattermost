@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Plugin;
 
+# ABSTRACT: Wrapped API methods for the plugin API endpoints.
+
 use Moo;
 
 extends 'WebService::Mattermost::V4::API::Resource';
@@ -55,10 +57,6 @@ sub deactivate {
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Plugin
-
 =head1 DESCRIPTION
 
 =head2 USAGE
@@ -106,8 +104,3 @@ L<Deactivate plugin|https://api.mattermost.com/#tag/plugins%2Fpaths%2F~1plugins~
     my $response = $resource->deactivate('PLUGIN-ID-HERE');
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

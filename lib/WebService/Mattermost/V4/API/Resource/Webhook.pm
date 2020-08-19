@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Resource::Webhook;
 
+# ABSTRACT: Wrapped API methods for the webhook API endpoints.
+
 use Moo;
 use Types::Standard 'InstanceOf';
 
@@ -32,10 +34,6 @@ sub _build_outgoing {
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Resource::Webhook
 
 =head1 DESCRIPTION
 
@@ -71,8 +69,3 @@ L<WebService::Mattermost::V4::API::Resource::Webhook::Outgoing>.
     my $outgoing = $resource->outgoing;
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

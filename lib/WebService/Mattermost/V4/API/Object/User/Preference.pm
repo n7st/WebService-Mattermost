@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::User::Preference;
 
+# ABSTRACT: A user preference item.
+
 use Moo;
 use Types::Standard qw(Maybe Str);
 
@@ -23,10 +25,6 @@ sub _build_value    { shift->raw_data->{value}    }
 1;
 __END__
 
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::User::Preference
-
 =head1 DESCRIPTION
 
 =head2 ATTRIBUTES
@@ -48,8 +46,3 @@ WebService::Mattermost::V4::API::Object::User::Preference
 =item L<WebService::Mattermost::V4::API::Object::Role::Name>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-

@@ -1,5 +1,7 @@
 package WebService::Mattermost::V4::API::Object::Team;
 
+# ABSTRACT: A team item.
+
 use Moo;
 use Types::Standard qw(Bool Str);
 
@@ -60,10 +62,6 @@ sub _build_open_invite    { shift->raw_data->{open_invite} ? 1 : 0 }
 
 1;
 __END__
-
-=head1 NAME
-
-WebService::Mattermost::V4::API::Object::Team
 
 =head1 DESCRIPTION
 
@@ -161,8 +159,3 @@ Boolean.
 =item L<WebService::Mattermost::V4::API::Object::Role::Timestamps>
 
 =back
-
-=head1 AUTHOR
-
-Mike Jones L<email:mike@netsplit.org.uk>
-
