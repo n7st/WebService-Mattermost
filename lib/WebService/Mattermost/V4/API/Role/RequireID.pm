@@ -29,7 +29,7 @@ sub validate_id_no_next {
     my $self = shift;
     my $id   = shift;
 
-    return $id =~ $self->id_validation_regexp ? 1 : 0;
+    return ($id && $id =~ $self->id_validation_regexp) ? 1 : 0;
 }
 
 ################################################################################

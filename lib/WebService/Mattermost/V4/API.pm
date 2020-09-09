@@ -8,6 +8,7 @@ use Types::Standard qw(ArrayRef Bool InstanceOf Str);
 
 use WebService::Mattermost::V4::API::Resource::Analytics;
 use WebService::Mattermost::V4::API::Resource::Audits;
+use WebService::Mattermost::V4::API::Resource::Bots;
 use WebService::Mattermost::V4::API::Resource::Brand;
 use WebService::Mattermost::V4::API::Resource::Cache;
 use WebService::Mattermost::V4::API::Resource::Channel;
@@ -63,6 +64,7 @@ has resources              => (is => 'rw', isa => ArrayRef, default => sub { [] 
 has analytics         => (is => 'ro', isa => InstanceOf[v4 'Analytics'],          lazy => 1, builder => 1);
 has application       => (is => 'ro', isa => InstanceOf[v4 'OAuth::Application'], lazy => 1, builder => 1);
 has audits            => (is => 'ro', isa => InstanceOf[v4 'Audits'],             lazy => 1, builder => 1);
+has bots              => (is => 'ro', isa => InstanceOf[v4 'Bots'],               lazy => 1, builder => 1);
 has brand             => (is => 'ro', isa => InstanceOf[v4 'Brand'],              lazy => 1, builder => 1);
 has cache             => (is => 'ro', isa => InstanceOf[v4 'Cache'],              lazy => 1, builder => 1);
 has channel           => (is => 'ro', isa => InstanceOf[v4 'Channel'],            lazy => 1, builder => 1);
@@ -147,6 +149,7 @@ sub _new_resource {
 sub _build_analytics         { shift->_new_resource('Analytics')                        }
 sub _build_application       { shift->_new_resource('OAuth::Application', 'oauth')      }
 sub _build_audits            { shift->_new_resource('Audits')                           }
+sub _build_bots              { shift->_new_resource('Bots')                             }
 sub _build_brand             { shift->_new_resource('Brand')                            }
 sub _build_cache             { shift->_new_resource('Cache', 'caches')                  }
 sub _build_channel           { shift->_new_resource('Channel', 'channels')              }
