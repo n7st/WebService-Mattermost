@@ -20,7 +20,7 @@ describe 'WebService::Mattermost::V4::API::Resource::User' => sub {
             });
         };
 
-        it 'should send a PUT request to /user/{id}/active with the new status' => sub {
+        it 'should send a PUT request to /users/{id}/active with the new status' => sub {
             my $user_id = 'user-1234';
             my $params  = { active => 1 };
 
