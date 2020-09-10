@@ -9,6 +9,7 @@ use Types::Standard qw(Any ArrayRef Bool InstanceOf Int Maybe Object Str);
 use WebService::Mattermost::V4::API::Object::Analytics::Old;
 use WebService::Mattermost::V4::API::Object::Application;
 use WebService::Mattermost::V4::API::Object::Audit;
+use WebService::Mattermost::V4::API::Object::Bot;
 use WebService::Mattermost::V4::API::Object::Channel::Member;
 use WebService::Mattermost::V4::API::Object::Channel;
 use WebService::Mattermost::V4::API::Object::ChannelStats;

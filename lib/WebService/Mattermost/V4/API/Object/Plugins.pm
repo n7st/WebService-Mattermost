@@ -57,7 +57,7 @@ __END__
 
 Contains active and inactive plugins.
 
-=head2 attributes
+=head2 ATTRIBUTES
 
 =over 4
 

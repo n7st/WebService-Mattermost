@@ -16,7 +16,7 @@ sub get {
         endpoint => '%s',
         ids      => [ $file_id ],
         view     => 'Binary',
-    }); 
+    });
 }
 
 sub get_thumbnail {
@@ -26,7 +26,7 @@ sub get_thumbnail {
     return $self->_get({
         endpoint => '%s/thumbnail',
         ids      => [ $file_id ],
-    }); 
+    });
 }
 
 sub get_preview {
@@ -36,7 +36,7 @@ sub get_preview {
     return $self->_get({
         endpoint => '%s/preview',
         ids      => [ $file_id ],
-    }); 
+    });
 }
 
 sub get_link {
@@ -46,7 +46,7 @@ sub get_link {
     return $self->_get({
         endpoint => '%s/link',
         ids      => [ $file_id ],
-    }); 
+    });
 }
 
 sub get_metadata {
