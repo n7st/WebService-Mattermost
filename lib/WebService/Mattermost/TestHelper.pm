@@ -137,7 +137,7 @@ sub expects_api_call {
     my $args = shift;
 
     my $resource  = $args->{resource};
-    my $form_type = grep({ $args->{method} } qw(post put)) ? 'json' : 'form';
+    my $form_type = $args->{method} eq 'post' || $args->{method} eq 'put' ? 'json' : 'form';
 
     return $app->api->$resource->ua->expects($args->{method})->with_deep(
         resource_url($args->{url}) => headers(),
