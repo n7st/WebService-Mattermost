@@ -8,6 +8,7 @@ use Types::Standard qw(ArrayRef Bool InstanceOf Str);
 
 use WebService::Mattermost::V4::API::Resource::Analytics;
 use WebService::Mattermost::V4::API::Resource::Audits;
+use WebService::Mattermost::V4::API::Resource::Bots;
 use WebService::Mattermost::V4::API::Resource::Brand;
 use WebService::Mattermost::V4::API::Resource::Cache;
 use WebService::Mattermost::V4::API::Resource::Channel;
@@ -63,6 +64,7 @@ has resources              => (is => 'rw', isa => ArrayRef, default => sub { [] 
 has analytics         => (is => 'ro', isa => InstanceOf[v4 'Analytics'],          lazy => 1, builder => 1);
 has application       => (is => 'ro', isa => InstanceOf[v4 'OAuth::Application'], lazy => 1, builder => 1);
 has audits            => (is => 'ro', isa => InstanceOf[v4 'Audits'],             lazy => 1, builder => 1);
+has bots              => (is => 'ro', isa => InstanceOf[v4 'Bots'],               lazy => 1, builder => 1);
 has brand             => (is => 'ro', isa => InstanceOf[v4 'Brand'],              lazy => 1, builder => 1);
 has cache             => (is => 'ro', isa => InstanceOf[v4 'Cache'],              lazy => 1, builder => 1);
 has channel           => (is => 'ro', isa => InstanceOf[v4 'Channel'],            lazy => 1, builder => 1);
@@ -147,6 +149,7 @@ sub _new_resource {
 sub _build_analytics         { shift->_new_resource('Analytics')                        }
 sub _build_application       { shift->_new_resource('OAuth::Application', 'oauth')      }
 sub _build_audits            { shift->_new_resource('Audits')                           }
+sub _build_bots              { shift->_new_resource('Bots')                             }
 sub _build_brand             { shift->_new_resource('Brand')                            }
 sub _build_cache             { shift->_new_resource('Cache', 'caches')                  }
 sub _build_channel           { shift->_new_resource('Channel', 'channels')              }
@@ -198,159 +201,163 @@ Container for API resources.
 
 =over 4
 
-=item C<analytics>
+=item * C<analytics>
 
 See L<WebService::Mattermost::V4::API::Resource::Analytics>
 
-=item C<application>
+=item * C<application>
 
 See L<WebService::Mattermost::V4::API::Resource::OAuth::Application>
 
-=item C<audits>
+=item * C<audits>
 
 See L<WebService::Mattermost::V4::API::Resource::Audits>
 
-=item C<brand>
+=item * C<brand>
 
 See L<WebService::Mattermost::V4::API::Resource::Brand>.
 
-=item C<channels>
+=item * C<bots>
+
+See L<WebService::Mattermost::V4::API::Resource::Bots>.
+
+=item * C<channels>
 
 See L<WebService::Mattermost::V4::API::Resource::Channels>.
 
-=item C<channel>
+=item * C<channel>
 
 See L<WebService::Mattermost::V4::API::Resource::Channel>.
 
-=item C<channel_member>
+=item * C<channel_member>
 
 See L<WebService::Mattermost::V4::API::Resource::Channel::Member>.
 
-=item C<cluster>
+=item * C<cluster>
 
 See L<WebService::Mattermost::V4::API::Resource::Cluster>.
 
-=item C<config>
+=item * C<config>
 
 See L<WebService::Mattermost::V4::API::Resource::Config>.
 
-=item C<compliance>
+=item * C<compliance>
 
 See L<WebService::Mattermost::V4::API::Resource::Compliance>.
 
-=item C<compliance_report>
+=item * C<compliance_report>
 
 See L<WebService::Mattermost::V4::API::Resource::Compliance::Report>.
 
-=item C<data_retention>
+=item * C<data_retention>
 
 See L<WebService::Mattermost::V4::API::Resource::DataRetention>.
 
-=item C<database>
+=item * C<database>
 
 See L<WebService::Mattermost::V4::API::Resource::Database>.
 
-=item C<elasticsearch>
+=item * C<elasticsearch>
 
 See L<WebService::Mattermost::V4::API::Resource::ElasticSearch>.
 
-=item C<email>
+=item * C<email>
 
 See L<WebService::Mattermost::V4::API::Resource::Email>.
 
-=item C<emoji>
+=item * C<emoji>
 
 See L<WebService::Mattermost::V4::API::Resource::Emoji>.
 
-=item C<file>
+=item * C<file>
 
 See L<WebService::Mattermost::V4::API::Resource::File>.
 
-=item C<files>
+=item * C<files>
 
 See L<WebService::Mattermost::V4::API::Resource::Files>.
 
-=item C<job>
+=item * C<job>
 
 See L<WebService::Mattermost::V4::API::Resource::Job>.
 
-=item C<jobs>
+=item * C<jobs>
 
 See L<WebService::Mattermost::V4::API::Resource::Jobs>.
 
-=item C<ldap>
+=item * C<ldap>
 
 See L<WebService::Mattermost::V4::API::Resource::LDAP>.
 
-=item C<logs>
+=item * C<logs>
 
 See L<WebService::Mattermost::V4::API::Resource::Logs>.
 
-=item C<oauth>
+=item * C<oauth>
 
 See L<WebService::Mattermost::V4::API::Resource::OAuth>.
 
-=item C<plugin>
+=item * C<plugin>
 
 See L<WebService::Mattermost::V4::API::Resource::Plugin>.
 
-=item C<plugins>
+=item * C<plugins>
 
 See L<WebService::Mattermost::V4::API::Resource::Plugins>.
 
-=item C<post>
+=item * C<post>
 
 See L<WebService::Mattermost::V4::API::Resource::Post>.
 
-=item C<posts>
+=item * C<posts>
 
 See L<WebService::Mattermost::V4::API::Resource::Posts>.
 
-=item C<reactions>
+=item * C<reactions>
 
 See L<WebService::Mattermost::V4::API::Resource::Reactions>.
 
-=item C<roles>
+=item * C<roles>
 
 See L<WebService::Mattermost::V4::API::Resource::Roles>.
 
-=item C<s3>
+=item * C<s3>
 
 See L<WebService::Mattermost::V4::API::Resource::S3>.
 
-=item C<saml>
+=item * C<saml>
 
 See L<WebService::Mattermost::V4::API::Resource::SAML>.
 
-=item C<schemes>
+=item * C<schemes>
 
 See L<WebService::Mattermost::V4::API::Resource::Schemes>.
 
-=item C<system>
+=item * C<system>
 
 See L<WebService::Mattermost::V4::API::Resource::System>.
 
-=item C<team>
+=item * C<team>
 
 See L<WebService::Mattermost::V4::API::Resource::Team>.
 
-=item C<teams>
+=item * C<teams>
 
 See L<WebService::Mattermost::V4::API::Resource::Teams>.
 
-=item C<user>
+=item * C<user>
 
 See L<WebService::Mattermost::V4::API::Resource::User>.
 
-=item C<users>
+=item * C<users>
 
 See L<WebService::Mattermost::V4::API::Resource::Users>.
 
-=item C<webhooks>
+=item * C<webhooks>
 
 See L<WebService::Mattermost::V4::API::Resource::Webhook>.
 
-=item C<webrtc>
+=item * C<webrtc>
 
 See L<WebService::Mattermost::V4::API::Resource::WebRTC>.
 

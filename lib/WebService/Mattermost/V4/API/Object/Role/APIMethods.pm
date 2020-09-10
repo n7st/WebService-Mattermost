@@ -57,7 +57,7 @@ Mark methods as available for use from a result object.
     package SomeResultObj;
 
     use Moo;
-    
+
     extends 'WebService::Mattermost::V4::API::Object';
     with    'WebService::Mattermost::V4::API::Object::Role::APIMethods';
 

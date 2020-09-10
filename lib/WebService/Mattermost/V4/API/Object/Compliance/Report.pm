@@ -93,7 +93,7 @@ ID parameters are not required:
 
     my $response = $mattermost->api->compliance_report->get('ID-HERE')->item->download();
 
-Is the same as: 
+Is the same as:
 
     my $response = $mattermost->api->compliance_report->download('ID-HERE');
 
