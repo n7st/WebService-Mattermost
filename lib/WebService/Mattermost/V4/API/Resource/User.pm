@@ -198,8 +198,7 @@ sub update_active_status {
     my $id   = shift;
     my $args = shift;
 
-    return $self->_call({
-        method     => $self->put,
+    return $self->_put({
         endpoint   => '%s/active',
         ids        => [ $id ],
         parameters => $args,
