@@ -135,7 +135,7 @@ sub user_resource_expects_login {
 sub expects_api_call {
     my $app  = shift;
     my $args = shift;
-    
+
     my $resource = $args->{resource};
 
     return $app->api->$resource->ua->expects($args->{method})->with_deep(

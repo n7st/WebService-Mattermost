@@ -10,7 +10,7 @@ extends 'WebService::Mattermost::V4::API::Object';
 ################################################################################
 
 has [ qw(
-    message_deletion_enabled 
+    message_deletion_enabled
     file_deletion_enabled
 ) ] => (is => 'ro', isa => Maybe[Bool], lazy => 1, builder => 1);
 
