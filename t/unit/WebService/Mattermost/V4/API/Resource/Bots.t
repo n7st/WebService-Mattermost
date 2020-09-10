@@ -100,11 +100,12 @@ describe 'WebService::Mattermost::V4::API::Resource::Bots' => sub {
 runtests unless caller;
 
 sub expects_bot_list_call {
-    my $app = shift;
+    my $app  = shift;
     my $args = shift || {};
 
     return expects_api_call($app, {
         method     => 'get',
+        resource   => 'bots',
         url        => '/bots',
         parameters => $args,
     });
@@ -117,6 +118,7 @@ sub expects_bot_get_call {
 
     return expects_api_call($app, {
         method     => 'get',
+        resource   => 'bots',
         url        => "/bots/${id}",
         parameters => $args,
     });
