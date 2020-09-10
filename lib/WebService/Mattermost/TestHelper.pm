@@ -136,11 +136,12 @@ sub expects_api_call {
     my $app  = shift;
     my $args = shift;
 
-    my $resource = $args->{resource};
+    my $resource  = $args->{resource};
+    my $form_type = grep({ $args->{method} } qw(post put)) ? 'json' : 'form';
 
     return $app->api->$resource->ua->expects($args->{method})->with_deep(
         resource_url($args->{url}) => headers(),
-        form                       => $args->{parameters} || {},
+        $form_type                 => $args->{parameters} || {},
     )->returns(mojo_tx())->once;
 }
 
