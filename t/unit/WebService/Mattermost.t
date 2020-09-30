@@ -1,7 +1,5 @@
 #!/usr/bin/env perl
 
-use FindBin;
-use Mojo::Headers;
 use Test::Exception;
 use Test::Spec;
 

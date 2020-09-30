@@ -1,6 +1,5 @@
 #!/usr/bin/env perl
 
-use FindBin;
 use Mojo::URL;
 use Test::Spec;
 

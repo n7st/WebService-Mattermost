@@ -1,6 +1,5 @@
 #!/usr/bin/env perl
 
-use FindBin;
 use Test::Spec;
 
 use WebService::Mattermost::V4::Client;
