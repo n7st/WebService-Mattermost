@@ -11,30 +11,32 @@ describe 'WebService::Mattermost::Util::Logger' => sub {
         $vars{app} = WebService::Mattermost::Util::Logger->new();
     };
 
-    describe 'logger' => sub {
+    describe '#logger' => sub {
         it 'should be an instance of Mojo::Log' => sub {
             is 'Mojo::Log', ref $vars{app}->logger;
         };
 
-        describe 'debugf' => sub {
+        # These methods are monkey patched onto Mojo::Log, and as such are
+        # grouped inside the #logger tests.
+        describe '#debugf' => sub {
             it 'should format arguments in a debug message' => sub {
                 send_monkey_patched_method($vars{app}, 'debug');
             };
         };
 
-        describe 'infof' => sub {
+        describe '#infof' => sub {
             it 'should format arguments in a info message' => sub {
                 send_monkey_patched_method($vars{app}, 'info');
             };
         };
 
-        describe 'fatalf' => sub {
+        describe '#fatalf' => sub {
             it 'should format arguments in a fatal message' => sub {
                 send_monkey_patched_method($vars{app}, 'fatal');
             };
         };
 
-        describe 'warnf' => sub {
+        describe '#warnf' => sub {
             it 'should format arguments in a warn message' => sub {
                 send_monkey_patched_method($vars{app}, 'warn');
             };

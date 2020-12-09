@@ -113,7 +113,7 @@ sub expects_bot_list_call {
 
 sub expects_bot_get_call {
     my $app  = shift;
-    my $id   = shift || '';
+    my $id   = shift || q{};
     my $args = shift || {};
 
     return expects_api_call($app, {

@@ -21,7 +21,7 @@ describe 'WebService::Mattermost::Role::Returns' => sub {
         ok $vars{app}->DOES('WebService::Mattermost::Role::Returns');
     };
 
-    describe 'error_return' => sub {
+    describe '#error_return' => sub {
         it 'should format an error hash' => sub {
             is_deeply {
                 error   => 1,

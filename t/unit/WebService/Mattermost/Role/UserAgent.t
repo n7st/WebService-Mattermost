@@ -18,9 +18,13 @@ describe 'WebService::Mattermost::Role::UserAgent' => sub {
     };
 
     it 'should attach the user agent to the consumer' => sub {
-        can_ok $vars{app}, 'ua';
         ok $vars{app}->DOES('WebService::Mattermost::Role::UserAgent');
-        is 'Mojo::UserAgent', ref $vars{app}->ua;
+    };
+
+    describe '#ua' => sub {
+        it 'should be an instance of Mojo::UserAgent' => sub {
+            is 'Mojo::UserAgent', ref $vars{app}->ua;
+        };
     };
 };
 

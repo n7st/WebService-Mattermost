@@ -17,10 +17,14 @@ describe 'WebService::Mattermost::Role::Logger' => sub {
         $vars{app} = LoggerConsumer->new();
     };
 
-    it 'should attach the logger to the consumer' => sub {
-        can_ok $vars{app}, 'logger';
+    it 'should attach the logger role to the consumer' => sub {
         ok $vars{app}->DOES('WebService::Mattermost::Role::Logger');
-        is 'Mojo::Log', ref $vars{app}->logger;
+    };
+
+    describe '#logger' => sub {
+        it 'should be an instance of Mojo::Log' => sub {
+            is 'Mojo::Log', ref $vars{app}->logger;
+        };
     };
 };
 

@@ -32,7 +32,7 @@ describe 'WebService::Mattermost::V4::API::Role::RequireID' => sub {
     describe 'role validation' => sub {
         before each => sub { $vars{app} = EmptyRequireIDConsumer->new(); };
 
-        describe 'with the required additional role' => sub {
+        context 'with the required additional role' => sub {
             it 'should not throw a missing method error' => sub {
                 lives_ok {
                     apply_all_roles($vars{app}, qw(
@@ -43,7 +43,7 @@ describe 'WebService::Mattermost::V4::API::Role::RequireID' => sub {
             };
         };
 
-        describe 'without the required additional role' => sub {
+        context 'without the required additional role' => sub {
             it 'should throw a missing method error' => sub {
                 throws_ok {
                     apply_all_roles($vars{app},
@@ -53,22 +53,27 @@ describe 'WebService::Mattermost::V4::API::Role::RequireID' => sub {
         };
     };
 
-    describe 'validate_id' => sub {
-        it 'should allow valid UUIDs' => sub {
-            my $id = '18abe71f-ab63-4dbf-bd01-6aa60e7bb396';
+    describe '#validate_id' => sub {
+        context 'with a valid UUID' => sub {
+            it 'run the next method in the chain' => sub {
+                my $id          = '18abe71f-ab63-4dbf-bd01-6aa60e7bb396';
+                my $next_method = 'done';
 
-            RequireIDConsumer->expects('done')->with($id)->once;
+                RequireIDConsumer->expects($next_method)->with($id)->once;
 
-            $vars{app}->validate_id('done', $id);
+                $vars{app}->validate_id($next_method, $id);
 
-            ok 1;
+                ok 1;
+            };
         };
 
-        it 'should return an error for an invalid UUID' => sub {
-            is_deeply {
-                error   => 1,
-                message => 'Invalid or missing ID parameter. No API query was made.',
-            }, $vars{app}->validate_id('done', 'a bad ID');
+        context 'with an invalid UUID' => sub {
+            it 'should return an error' => sub {
+                is_deeply {
+                    error   => 1,
+                    message => 'Invalid or missing ID parameter. No API query was made.',
+                }, $vars{app}->validate_id('done', 'a bad ID');
+            };
         };
     };
 };

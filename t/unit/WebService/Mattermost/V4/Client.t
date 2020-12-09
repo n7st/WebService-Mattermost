@@ -20,22 +20,22 @@ describe 'WebService::Mattermost::V4::Client' => sub {
         $vars{app} = WebService::Mattermost::V4::Client->new($vars{init_args});
     };
 
-    describe 'websocket_url' => sub {
-        describe 'with trailing slash' => sub {
+    describe '#websocket_url' => sub {
+        context 'with trailing slash' => sub {
             it 'should switch the HTTP API URL for a websocket one' => sub {
                 is 'wss://my-mattermost-server.com/api/v4/websocket', $vars{app}->websocket_url;
             };
         };
     };
 
-    describe 'ua' => sub {
-        it 'should be an empty Mojo::Log, not the API UA' => sub {
+    describe '#ua' => sub {
+        it 'should be an empty Mojo::UserAgent, not the API UA' => sub {
             is 'Mojo::UserAgent', ref $vars{app}->ua;
             isnt 'WebService::Mattermost::Util::UserAgent', ref $vars{app}->{ua};
         };
     };
 
-    describe 'start' => sub {
+    describe '#start' => sub {
         it 'should open a WebSocket connection' => sub {
             Mojo::UserAgent
                 ->expects('websocket')
@@ -46,7 +46,7 @@ describe 'WebService::Mattermost::V4::Client' => sub {
             ok 1;
         };
 
-        describe 'debugging enabled' => sub {
+        context 'debugging enabled' => sub {
             it 'should log connection information' => sub {
                 SKIP: {
                     skip 'Test not yet complete', 1;
@@ -55,7 +55,7 @@ describe 'WebService::Mattermost::V4::Client' => sub {
             };
         };
 
-        describe 'debugging disabled' => sub {
+        context 'debugging disabled' => sub {
             it 'should not log connection information' => sub {
                 SKIP: {
                     skip 'Test not yet complete', 1;
@@ -88,17 +88,25 @@ describe 'WebService::Mattermost::V4::Client' => sub {
         };
     };
 
-    describe 'message_has_content' => sub {
-        it 'return the message if it exists' => sub {
-            is $vars{app}->message_has_content({ post_data => { message => 'Yay!' } }), 'Yay!';
+    describe '#message_has_content' => sub {
+        context 'with a real message' => sub {
+            it 'return the message' => sub {
+                is $vars{app}->message_has_content({
+                    post_data => { message => 'Yay!' },
+                }), 'Yay!';
+            };
         };
 
-        it 'should return undef if there is no post_content' => sub {
-            is $vars{app}->message_has_content({}), undef;
+        context 'with no post_content' => sub {
+            it 'should return undef' => sub {
+                is $vars{app}->message_has_content({}), undef;
+            };
         };
 
-        it 'should return undef if post_content has no message' => sub {
-            is $vars{app}->message_has_content({ post_content => {} }), undef;
+        context 'with no message' => sub {
+            it 'should return undef' => sub {
+                is $vars{app}->message_has_content({ post_content => {} }), undef;
+            };
         };
     };
 };
