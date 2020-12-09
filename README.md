@@ -1,12 +1,9 @@
 # WebService::Mattermost ![test status](https://github.com/n7st/webservice-mattermost/workflows/test/badge.svg)
 
-Suite for interacting with Mattermost chat servers. Includes API and WebSocket
-gateways.
+`WebService::Mattermost` is a suite for interacting with Mattermost chat servers.
+It includes an API client and a WebSocket gateway.
 
 See individual POD files for details.
-
-This library supercedes [Net::Mattermost::Bot](https://git.netsplit.uk/mike/Net-Mattermost-Bot)
-and replaces all functionality.
 
 ## Installation
 
@@ -43,21 +40,21 @@ my $mattermost = WebService::Mattermost->new({
 
 # API methods available under:
 my $api = $mattermost->api;
-
 ```
 
 ## WebSocket gateway usage
 
-Several events are emitted:
+### Emitted events
 
-* `gw_ws_started` when the bot opens its WebSocket connection.
-* `gw_ws_finished` when the connection closes.
-* `gw_ws_error` if an error occurs.
-* `gw_message` on a "message" event.
-* Unless it has no event type attached to it, where `gw_message_no_event` is
-  emitted (this is usually a "ping" response).
+| Event                 | Purpose                                                              |
+| :-------------------- | :------------------------------------------------------------------- |
+| `gw_message_no_event` | A message with no event type was received (ping or unknown event)    |
+| `gw_ws_started`       | The WebSocket client started                                         |
+| `gw_ws_finished`      | The WebSocket client's connection was closed                         |
+| `gw_ws_error`         | An error occurred                                                    |
+| `gw_message`          | A chat message was received                                          |
 
-The WebSocket gateway can be extended in a Moo or Moose class:
+### Extending with `Moo` or `Moose` 
 
 ```perl
 package SomePackage;
@@ -112,13 +109,7 @@ $bot->on(gw_message => sub {
 $bot->start(); # Add me last
 ```
 
-The available events are the same:
-
-* `gw_message_no_event`
-* `gw_message`
-* `gw_ws_error`
-* `gw_ws_finished`
-* `gw_ws_started`
+The available events are the same. See [here](#emitted-events) for a full list.
 
 ## Running the test suite
 
