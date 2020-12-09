@@ -14,7 +14,7 @@ has headers   => (is => 'ro', isa => ArrayRef,                    required => 1)
 has _headers => (is => 'ro', isa => Str, lazy => 1, builder => '_build__headers');
 has table    => (is => 'ro', isa => Str, lazy => 1, builder => '_build_table');
 
-has divider => (is => 'ro', isa => Str, default => '|');
+has divider => (is => 'ro', isa => Str, default => q{|});
 has align_l => (is => 'ro', isa => Str, default => ':----|');
 has align_r => (is => 'ro', isa => Str, default => '----:|');
 has align_c => (is => 'ro', isa => Str, default => ':---:|');
@@ -24,10 +24,10 @@ has align_c => (is => 'ro', isa => Str, default => ':---:|');
 sub _build__headers {
     my $self = shift;
 
-    my $headers = '';
+    my $headers = q{};
 
     foreach my $h (@{$self->headers}) {
-        $headers .= sprintf('%s %s', $self->divider, $h);
+        $headers .= sprintf '%s %s', $self->divider, $h;
     }
 
     $headers .= $self->divider."\n".$self->divider;
@@ -49,7 +49,7 @@ sub _build_table {
 
     foreach my $v (@{$self->values}) {
         $table .= $self->divider;
-        $table .= join($self->divider, join($self->divider, @{$v}));
+        $table .= join $self->divider, @{$v};
         $table .= $self->divider."\n";
     }
 

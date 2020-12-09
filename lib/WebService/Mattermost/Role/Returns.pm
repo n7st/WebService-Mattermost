@@ -10,7 +10,7 @@ sub error_return {
     my $self  = shift;
     my $error = shift;
 
-    $error = sprintf('%s. No API query was made.', $error);
+    $error = sprintf '%s. No API query was made.', $error;
 
     return { error => 1, message => $error };
 }

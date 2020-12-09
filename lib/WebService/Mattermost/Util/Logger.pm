@@ -16,10 +16,10 @@ has logger_store => (is => 'rw', isa => InstanceOf['Mojo::Log']);
 ################################################################################
 
 monkey_patch 'Mojo::Log',
-    debugf => sub { shift->debug(sprintf(shift, @_)) },
-    infof  => sub { shift->info(sprintf(shift, @_))  },
-    fatalf => sub { shift->fatal(sprintf(shift, @_)) },
-    warnf  => sub { shift->warn(sprintf(shift, @_))  };
+    debugf => sub { shift->debug(sprintf shift, @_) },
+    infof  => sub { shift->info(sprintf shift, @_)  },
+    fatalf => sub { shift->fatal(sprintf shift, @_) },
+    warnf  => sub { shift->warn(sprintf shift, @_)  };
 
 ################################################################################
 

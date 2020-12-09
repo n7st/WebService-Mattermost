@@ -15,7 +15,7 @@ has [ qw(base_url username password) ] => (is => 'ro', isa => Str, required => 1
 
 has api_version                => (is => 'ro', isa => Int,  default => 4);
 has [ qw(authenticate debug) ] => (is => 'rw', isa => Bool, default => 0);
-has [ qw(auth_token user_id) ] => (is => 'rw', isa => Str,  default => '');
+has [ qw(auth_token user_id) ] => (is => 'rw', isa => Str,  default => q{});
 
 has api => (is => 'ro', isa => Object, lazy => 1, builder => 1, clearer => 1);
 

@@ -23,7 +23,8 @@ use constant {
     PASSWORD   => 'mypassword',
 };
 
-our @ISA       = qw(Exporter);
+use base 'Exporter';
+
 our @EXPORT_OK = qw(
     AUTH_TOKEN
     BASE_URL
@@ -130,6 +131,8 @@ sub user_resource_expects_login {
         ->with($args->{username}, $args->{password})
         ->once
         ->returns($responds_with);
+
+    return;
 }
 
 sub expects_api_call {

@@ -1,0 +1,28 @@
+severity = 1
+
+[TestingAndDebugging::RequireUseStrict]
+equivalent_modules = Moo | Test::Spec
+
+[TestingAndDebugging::RequireUseWarnings]
+equivalent_modules = Moo | Test::Spec
+
+[Subroutines::ProhibitUnusedPrivateSubroutines]
+allow_name_regex = _build_\w+
+
+[Documentation::RequirePodSections]
+lib_sections = DESCRIPTION
+
+[-Perl::Critic::Policy::CodeLayout::RequireTidyCode]
+
+[-Perl::Critic::Policy::ControlStructures::ProhibitPostfixControls]
+
+[-Perl::Critic::Policy::ControlStructures::ProhibitUnlessBlocks]
+
+[-Perl::Critic::Policy::Documentation::PodSpelling]
+
+[-Perl::Critic::Policy::Modules::RequireVersionVar]
+
+[-Perl::Critic::Policy::ValuesAndExpressions::ProhibitConstantPragma]
+
+[-Perl::Critic::Policy::ValuesAndExpressions::ProhibitLongChainsOfMethodCalls]
+

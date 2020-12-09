@@ -18,14 +18,14 @@ sub mmauthtoken {
     my $self  = shift;
     my $token = shift;
 
-    return sprintf('MMAUTHTOKEN=%s', $token);
+    return sprintf 'MMAUTHTOKEN=%s', $token;
 }
 
 sub bearer {
     my $self  = shift;
     my $token = shift;
 
-    return sprintf('Bearer %s', $token);
+    return sprintf 'Bearer %s', $token;
 }
 
 ################################################################################
