@@ -20,6 +20,12 @@ describe 'WebService::Mattermost::V4::Client' => sub {
         $vars{app} = WebService::Mattermost::V4::Client->new($vars{init_args});
     };
 
+    describe 'roles' => sub {
+        it 'should include the logger role' => sub {
+            ok $vars{app}->does('WebService::Mattermost::Role::Logger');
+        };
+    };
+
     describe '#websocket_url' => sub {
         context 'with trailing slash' => sub {
             it 'should switch the HTTP API URL for a websocket one' => sub {

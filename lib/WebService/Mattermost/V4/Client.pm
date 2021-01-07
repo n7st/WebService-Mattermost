@@ -11,6 +11,7 @@ use Types::Standard qw(ArrayRef Bool InstanceOf Int Maybe Str);
 
 extends 'WebService::Mattermost';
 with    qw(
+    WebService::Mattermost::Role::Logger
     WebService::Mattermost::Role::UserAgent
     Role::EventEmitter
 );
