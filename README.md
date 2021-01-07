@@ -16,7 +16,7 @@ See individual POD files for details.
 ### Manual
 
 ```
-% git clone ssh://git@git.netsplit.uk:7170/mike/WebService-Mattermost.git
+% git clone git@github.com:n7st/WebService-Mattermost.git
 % cd WebService-Mattermost
 % dzil listdeps | cpanm
 % dzil authordeps | cpanm
