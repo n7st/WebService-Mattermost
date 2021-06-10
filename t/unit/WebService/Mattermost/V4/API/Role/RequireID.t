@@ -1,13 +1,12 @@
-#!/usr/bin/env perl -t
+#!/usr/bin/env perl -T
 
-use Moose::Util 'apply_all_roles';
 use Test::Exception;
 use Test::Spec;
 
-package EmptyRequireIDConsumer { use Moose; };
+package EmptyRequireIDConsumer { use Moo; };
 
 package RequireIDConsumer {
-    use Moose;
+    use Moo;
 
     with qw(
         WebService::Mattermost::Role::Returns
@@ -20,25 +19,23 @@ package RequireIDConsumer {
 
         return 1;
     }
+
+    1;
 };
 
 describe 'WebService::Mattermost::V4::API::Role::RequireID' => sub {
     share my %vars;
 
-    before each => sub {
-        $vars{app} = RequireIDConsumer->new();
-    };
-
     describe 'role validation' => sub {
-        before each => sub { $vars{app} = EmptyRequireIDConsumer->new(); };
-
         context 'with the required additional role' => sub {
             it 'should not throw a missing method error' => sub {
                 lives_ok {
-                    apply_all_roles($vars{app}, qw(
+                    Moo::Role->apply_roles_to_package('RequireIDConsumer', qw(
                         WebService::Mattermost::Role::Returns
                         WebService::Mattermost::V4::API::Role::RequireID
                     ));
+
+                    RequireIDConsumer->new();
                 };
             };
         };
@@ -46,14 +43,18 @@ describe 'WebService::Mattermost::V4::API::Role::RequireID' => sub {
         context 'without the required additional role' => sub {
             it 'should throw a missing method error' => sub {
                 throws_ok {
-                    apply_all_roles($vars{app},
+                    Moo::Role->apply_roles_to_package('EmptyRequireIDConsumer',
                         'WebService::Mattermost::V4::API::Role::RequireID');
-                } qr{requires the method 'error_return'};
+
+                    EmptyRequireIDConsumer->new();
+                } qr{missing error_return};
             };
         };
     };
 
     describe '#validate_id' => sub {
+        before each => sub { $vars{app} = RequireIDConsumer->new(); };
+
         context 'with a valid UUID' => sub {
             it 'run the next method in the chain' => sub {
                 my $id          = '18abe71f-ab63-4dbf-bd01-6aa60e7bb396';

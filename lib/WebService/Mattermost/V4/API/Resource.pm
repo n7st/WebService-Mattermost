@@ -177,6 +177,14 @@ sub _as_response {
         $view_name = $args->{view};
     }
 
+    unless ($res->code) {
+        $self->logger->warn('No HTTP code was received from Mattermost. Is your server alive?');
+
+        if ($res->message) {
+            $self->logger->warnf('The following may be useful: %s', $res->message);
+        }
+    }
+
     if ($res->is_error && $self->debug) {
         $self->logger->warnf('An API error occurred: %s', $res->message);
     }
@@ -184,7 +192,7 @@ sub _as_response {
     return WebService::Mattermost::V4::API::Response->new({
         auth_token  => $self->auth_token,
         base_url    => $self->base_url,
-        code        => $res->code,
+        code        => $res->code || 0,
         headers     => $res->headers,
         is_error    => $res->is_error   ? 1 : 0,
         is_success  => $res->is_success ? 1 : 0,
