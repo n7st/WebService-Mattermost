@@ -148,6 +148,11 @@ sub _call {
         $form_type    => $request->parameters,
     );
 
+    if (my $error = $tx->req->error) {
+        $self->logger->warn('No HTTP code was received from Mattermost. Is your server alive?');
+        $self->logger->warnf('The following may be useful: %s', $error->{message});
+    }
+
     return $self->_as_response($tx->res, $args);
 }
 
@@ -175,14 +180,6 @@ sub _as_response {
 
     if ($args->{view}) {
         $view_name = $args->{view};
-    }
-
-    unless ($res->code) {
-        $self->logger->warn('No HTTP code was received from Mattermost. Is your server alive?');
-
-        if ($res->message) {
-            $self->logger->warnf('The following may be useful: %s', $res->message);
-        }
     }
 
     if ($res->is_error && $self->debug) {
