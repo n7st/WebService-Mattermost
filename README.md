@@ -84,7 +84,7 @@ sub gw_message_no_event {}
 1;
 ```
 
-Or used in a script:
+### As a script
 
 ```perl
 use WebService::Mattermost::V4::Client;
