@@ -63,7 +63,7 @@ use Moo;
 
 extends 'WebService::Mattermost::V4::Client';
 
-# WebService::Mattermost::WS::v4 emits events which can be caught with these
+# WebService::Mattermost::V4::Client emits events which can be caught with these
 # methods. None of them are required and they all pass two arguments ($self,
 # HashRef $args).
 sub gw_ws_started {}
