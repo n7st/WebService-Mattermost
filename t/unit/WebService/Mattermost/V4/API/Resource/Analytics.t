@@ -14,10 +14,11 @@ describe 'WebService::Mattermost::V4::API::Resource::Analytics' => sub {
                 method   => sub { return shift->api->analytics->get(shift) },
                 url      => '/analytics/old',
                 resource => 'analytics',
+                object   => 'Analytics::Old',
             };
         };
 
-        it_should_behave_like 'a GET API endpoint';
+        it_should_behave_like 'a "single" GET API endpoint';
     };
 };
 

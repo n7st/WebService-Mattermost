@@ -14,10 +14,11 @@ describe 'WebService::Mattermost::V4::API::Resource::Audits' => sub {
                 method   => sub { return shift->api->audits->get(shift) },
                 resource => 'audits',
                 url      => '/audits',
+                object   => 'Audit',
             };
         };
 
-        it_should_behave_like 'a GET API endpoint';
+        it_should_behave_like 'a "single" GET API endpoint';
     };
 };
 

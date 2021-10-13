@@ -11,6 +11,8 @@ use constant {
     PASSWORD   => 'mypassword',
 };
 
+require 'test_helpers/mojo.pl';
+
 sub client_arguments {
     my $extra = shift || {};
 
@@ -35,19 +37,6 @@ sub headers {
     };
 }
 
-sub mojo_response {
-    my $args = shift || {};
-
-    return Mojo::Message::Response->new(%{$args});
-}
-
-sub mojo_tx {
-    return Mojo::Transaction::HTTP->new(res => mojo_response({
-        code    => 200,
-        message => 'OK',
-    }));
-}
-
 sub webservice_mattermost {
     my $extra = shift || {};
 
@@ -65,12 +54,6 @@ sub authorised_webservice_mattermost {
         auth_token   => AUTH_TOKEN,
         authenticate => 0,
     })
-}
-
-sub resource_url {
-    my $endpoint = shift;
-
-    return Mojo::URL->new(sprintf('%s%s', BASE_URL, $endpoint));
 }
 
 sub response {
@@ -114,8 +97,8 @@ sub expects_api_call {
     my $form_type = $args->{method} eq 'post' || $args->{method} eq 'put' ? 'json' : 'form';
 
     return $app->api->$resource->ua->expects($args->{method})->with_deep(
-        resource_url($args->{url}) => headers(),
-        $form_type                 => $args->{parameters} || {},
+        mojo_url($args->{url}) => headers(),
+        $form_type             => $args->{parameters} || {},
     )->returns(mojo_tx())->once;
 }
 
@@ -141,7 +124,7 @@ sub test_single_response_of_type {
     return 1;
 }
 
-shared_examples_for 'a GET API endpoint' => sub {
+shared_examples_for 'a "single" GET API endpoint' => sub {
     share my %vars;
 
     it 'sends a GET request' => sub {
@@ -154,8 +137,14 @@ shared_examples_for 'a GET API endpoint' => sub {
             parameters => $vars{get_request}{args},
         });
 
-        ok $vars{get_request}{method}->($app, $vars{get_request}{args}),
+        ok my $res = $vars{get_request}{method}->($app, $vars{get_request}{args}),
             'sends a GET request to ' . $vars{get_request}{url};
+        
+        if ($vars{get_request}{object}) {
+            my $object = sprintf 'WebService::Mattermost::V4::API::Object::%s', $vars{get_request}{object};
+
+            is ref $res->item, $object, "a ${object} was returned";
+        }
     };
 };
 
