@@ -3,12 +3,8 @@
 use Test::Spec;
 
 use WebService::Mattermost::V4::API::Object::Bot;
-use WebService::Mattermost::TestHelper qw(
-    AUTH_TOKEN
-    BASE_URL
 
-    expects_api_call
-);
+require 'test_helper.pl';
 
 use constant {
     DEFAULT_EPOCH     => 1_599_757,
@@ -19,8 +15,8 @@ describe 'WebService::Mattermost::V4::API::Object::Bot' => sub {
     describe '.new' => sub {
         it 'should build a bot object from a raw data hash' => sub {
             my $bot = WebService::Mattermost::V4::API::Object::Bot->new({
-                auth_token => AUTH_TOKEN,
-                base_url   => BASE_URL,
+                auth_token => AUTH_TOKEN(),
+                base_url   => BASE_URL(),
                 raw_data   => {
                     create_at    => DEFAULT_TIMESTAMP,
                     delete_at    => DEFAULT_TIMESTAMP,
@@ -48,8 +44,8 @@ describe 'WebService::Mattermost::V4::API::Object::Bot' => sub {
         it 'should link its creator' => sub {
             my $owner_id = 'my-owner-id';
             my $bot      = WebService::Mattermost::V4::API::Object::Bot->new({
-                auth_token => AUTH_TOKEN,
-                base_url   => BASE_URL,
+                auth_token => AUTH_TOKEN(),
+                base_url   => BASE_URL(),
                 raw_data   => { owner_id => $owner_id },
             });
 

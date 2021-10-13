@@ -3,11 +3,8 @@
 use Test::Spec;
 
 use WebService::Mattermost::V4::Client;
-use WebService::Mattermost::TestHelper qw(
-    client_arguments
-    response
-    user_resource_expects_login
-);
+
+require 'test_helper.pl';
 
 describe 'WebService::Mattermost::V4::Client' => sub {
     share my %vars;

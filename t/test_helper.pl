@@ -1,20 +1,8 @@
-package WebService::Mattermost::TestHelper;
+#!/usr/bin/env perl
 
-# ABSTRACT: Helper functions for the library's test suite.
-
-use strict;
-use warnings;
-
-use Mojo::Message::Response;
-use Mojo::Transaction::HTTP;
-use Mojo::URL;
-use Test::Most;
-
-require Exporter;
+use Test::Spec;
 
 use WebService::Mattermost;
-use WebService::Mattermost::V4::API::Resource::Users;
-use WebService::Mattermost::V4::API::Response;
 
 use constant {
     AUTH_TOKEN => 'whatever',
@@ -22,30 +10,6 @@ use constant {
     USERNAME   => 'myusername',
     PASSWORD   => 'mypassword',
 };
-
-use base 'Exporter';
-
-our @EXPORT_OK = qw(
-    AUTH_TOKEN
-    BASE_URL
-    PASSWORD
-    USERNAME
-
-    client_arguments
-    headers
-    mojo_response
-    mojo_tx
-    resource_url
-    response
-    webservice_mattermost
-    user_resource_expects_login
-
-    expects_api_call
-    test_id_error
-    test_single_response_of_type
-);
-
-################################################################################
 
 sub client_arguments {
     my $extra = shift || {};
@@ -94,6 +58,13 @@ sub webservice_mattermost {
 
         %{$extra},
     });
+}
+
+sub authorised_webservice_mattermost {
+    return webservice_mattermost({
+        auth_token   => AUTH_TOKEN,
+        authenticate => 0,
+    })
 }
 
 sub resource_url {
@@ -170,46 +141,22 @@ sub test_single_response_of_type {
     return 1;
 }
 
-################################################################################
+shared_examples_for 'a GET API endpoint' => sub {
+    share my %vars;
+
+    it 'sends a GET request' => sub {
+        my $app = authorised_webservice_mattermost();
+
+        expects_api_call($app, {
+            method     => 'get',
+            resource   => $vars{get_request}{resource},
+            url        => $vars{get_request}{url},
+            parameters => $vars{get_request}{args},
+        });
+
+        ok $vars{get_request}{method}->($app, $vars{get_request}{args}),
+            'sends a GET request to ' . $vars{get_request}{url};
+    };
+};
 
 1;
-__END__
-
-=head1 DESCRIPTION
-
-Exports subroutines used by the library's test suite.
-
-=head2 SYNPOSIS
-
-Test files should import the helper as follows:
-
-    # Exported functions are listed in METHODS
-    use WebService::Mattermost::TestHelper qw(
-        webservice_mattermost
-        ...
-    );
-
-    my $mattermost = webservice_mattermost();
-
-=head2 METHODS
-
-=over 4
-
-=item * C<client_arguments()>
-
-Basic arguments required for L<WebService::Mattermost>.
-
-=item * C<response()>
-
-A dummy L<Mojo::Message::Response>.
-
-=item * C<webservice_mattermost()>
-
-Creates a L<WebService::Mattermost> object with some defaults.
-
-=item * C<user_resource_expects_login()>
-
-Stubs the user resource's "login" method with a successful response. This can be
-used to fake a successful login call.
-
-=back

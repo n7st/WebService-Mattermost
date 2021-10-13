@@ -5,11 +5,7 @@ use Test::Spec;
 
 use WebService::Mattermost;
 
-use WebService::Mattermost::TestHelper qw(
-    client_arguments
-    response
-    user_resource_expects_login
-);
+require 'test_helper.pl';
 
 describe 'API queries' => sub {
     share my %vars;
