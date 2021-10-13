@@ -18,7 +18,7 @@ describe 'WebService::Mattermost::V4::API::Resource::Analytics' => sub {
             };
         };
 
-        it_should_behave_like 'a "single" GET API endpoint';
+        it_should_behave_like 'a GET API endpoint';
     };
 };
 

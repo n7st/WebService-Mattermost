@@ -164,7 +164,7 @@ sub expects_api_call_of_type {
     return 1;
 }
 
-shared_examples_for 'a "single" GET API endpoint' => sub {
+shared_examples_for 'a GET API endpoint' => sub {
     share my %vars;
 
     it 'sends a GET request' => sub {
