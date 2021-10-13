@@ -139,9 +139,9 @@ sub expects_api_call_of_type {
 
     # "assembled_parameters" is used when a class method takes an abstract set
     # of parameters (e.g. a single string) and assembles them into some sort of
-    # API form data. "args" are the plain arguments passed to the class method,
-    # and are used in all other cases.
-    my $parameters = $vars->{assembled_parameters} || $vars->{args};
+    # API form data. "class_method_closure_args" are the plain arguments passed
+    # to the class method, and are used in all other cases.
+    my $parameters = $vars->{assembled_parameters} || $vars->{class_method_closure_args};
 
     expects_api_call($app, {
         assembled_form_type  => $vars->{assembled_form_type},
@@ -152,7 +152,7 @@ sub expects_api_call_of_type {
         url                  => $vars->{url},
     });
 
-    ok my $res = $vars->{class_method_closure}->($app, $vars->{args}),
+    ok my $res = $vars->{class_method_closure}->($app, $vars->{class_method_closure_args}),
         sprintf 'sends a %s request to %s', uc $type, $vars->{url};
     
     if ($vars->{object}) {

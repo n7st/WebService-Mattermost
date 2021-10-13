@@ -10,11 +10,11 @@ describe 'WebService::Mattermost::V4::API::Resource::Analytics' => sub {
     describe '#get' => sub {
         before all => sub {
             $vars{get_request} = {
-                args                 => { name => 'standard', team_id => 'team-1234' },
-                class_method_closure => sub { return shift->api->analytics->get(shift) },
-                url                  => '/analytics/old',
-                resource             => 'analytics',
-                object               => 'Analytics::Old',
+                class_method_closure      => sub { return shift->api->analytics->get(shift) },
+                class_method_closure_args => { name => 'standard', team_id => 'team-1234' },
+                object                    => 'Analytics::Old',
+                resource                  => 'analytics',
+                url                       => '/analytics/old',
             };
         };
 

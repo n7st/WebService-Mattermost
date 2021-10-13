@@ -24,12 +24,12 @@ describe 'WebService::Mattermost::V4::API::Resource::Brand' => sub {
             my $filename = 'my-nice-new-image.png';
 
             $vars{post_request} = {
-                args                 => $filename,
-                assembled_form_type  => 'form',
-                assembled_parameters => { image => { file => $filename } },
-                class_method_closure => sub { return shift->api->brand->upload(shift) },
-                resource             => 'brand',
-                url                  => '/brand/image',
+                assembled_form_type       => 'form',
+                assembled_parameters      => { image => { file => $filename } },
+                class_method_closure      => sub { return shift->api->brand->upload(shift) },
+                class_method_closure_args => $filename,
+                resource                  => 'brand',
+                url                       => '/brand/image',
             };
         };
 
