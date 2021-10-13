@@ -10,11 +10,11 @@ describe 'WebService::Mattermost::V4::API::Resource::Audits' => sub {
     describe '#get' => sub {
         before all => sub {
             $vars{get_request} = {
-                args     => { page => 1, per_page => 10 },
-                method   => sub { return shift->api->audits->get(shift) },
-                resource => 'audits',
-                url      => '/audits',
-                object   => 'Audit',
+                args                 => { page => 1, per_page => 10 },
+                class_method_closure => sub { return shift->api->audits->get(shift) },
+                object               => 'Audit',
+                resource             => 'audits',
+                url                  => '/audits',
             };
         };
 

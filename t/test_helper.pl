@@ -96,6 +96,13 @@ sub expects_api_call {
     my $resource  = $args->{resource};
     my $form_type = $args->{method} eq 'post' || $args->{method} eq 'put' ? 'json' : 'form';
 
+    # An "assembled_form_type" is an override configured in some API resources,
+    # where POST/PUT might not necessarily mean a JSON endpoint (e.g. file
+    # uploads).
+    if ($args->{assembled_form_type}) {
+        $form_type = $args->{assembled_form_type};
+    }
+
     return $app->api->$resource->ua->expects($args->{method})->with_deep(
         mojo_url($args->{url}) => headers(),
         $form_type             => $args->{parameters} || {},
@@ -124,27 +131,52 @@ sub test_single_response_of_type {
     return 1;
 }
 
+sub expects_api_call_of_type {
+    my $type = shift;
+    my $vars = shift;
+
+    my $app = authorised_webservice_mattermost();
+
+    # "assembled_parameters" is used when a class method takes an abstract set
+    # of parameters (e.g. a single string) and assembles them into some sort of
+    # API form data. "args" are the plain arguments passed to the class method,
+    # and are used in all other cases.
+    my $parameters = $vars->{assembled_parameters} || $vars->{args};
+
+    expects_api_call($app, {
+        assembled_form_type  => $vars->{assembled_form_type},
+        assembled_parameters => $vars->{assembled_parameters},
+        method               => $type,
+        parameters           => $parameters,
+        resource             => $vars->{resource},
+        url                  => $vars->{url},
+    });
+
+    ok my $res = $vars->{class_method_closure}->($app, $vars->{args}),
+        sprintf 'sends a %s request to %s', uc $type, $vars->{url};
+    
+    if ($vars->{object}) {
+        my $object = sprintf 'WebService::Mattermost::V4::API::Object::%s', $vars->{object};
+
+        is ref $res->item, $object, "a ${object} was returned";
+    }
+
+    return 1;
+}
+
 shared_examples_for 'a "single" GET API endpoint' => sub {
     share my %vars;
 
     it 'sends a GET request' => sub {
-        my $app = authorised_webservice_mattermost();
+        return expects_api_call_of_type('get', $vars{get_request});
+    };
+};
 
-        expects_api_call($app, {
-            method     => 'get',
-            resource   => $vars{get_request}{resource},
-            url        => $vars{get_request}{url},
-            parameters => $vars{get_request}{args},
-        });
+shared_examples_for 'a POST API endpoint' => sub {
+    share my %vars;
 
-        ok my $res = $vars{get_request}{method}->($app, $vars{get_request}{args}),
-            'sends a GET request to ' . $vars{get_request}{url};
-        
-        if ($vars{get_request}{object}) {
-            my $object = sprintf 'WebService::Mattermost::V4::API::Object::%s', $vars{get_request}{object};
-
-            is ref $res->item, $object, "a ${object} was returned";
-        }
+    it 'sends a POST request' => sub {
+        return expects_api_call_of_type('post', $vars{post_request});
     };
 };
 
