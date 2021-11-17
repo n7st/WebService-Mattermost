@@ -114,7 +114,7 @@ The available events are the same. See [here](#emitted-events) for a full list.
 ## Running the test suite
 
 ```
-% prove -lv t/**/*.t
+% ./scripts/run_tests
 ```
 
 ## License

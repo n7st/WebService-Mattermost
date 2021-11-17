@@ -2,12 +2,7 @@
 
 use Test::Spec;
 
-use WebService::Mattermost::TestHelper qw(
-    AUTH_TOKEN
-
-    expects_api_call
-    webservice_mattermost
-);
+require 'test_helper.pl';
 
 describe 'WebService::Mattermost::V4::API::Resource::User' => sub {
     share my %vars;
@@ -16,7 +11,7 @@ describe 'WebService::Mattermost::V4::API::Resource::User' => sub {
         before each => sub {
             $vars{app} = webservice_mattermost({
                 authenticate => 0,
-                auth_token   => AUTH_TOKEN,
+                auth_token   => AUTH_TOKEN(),
             });
         };
 

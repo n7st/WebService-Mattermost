@@ -1,20 +1,8 @@
-package WebService::Mattermost::TestHelper;
+#!/usr/bin/env perl
 
-# ABSTRACT: Helper functions for the library's test suite.
-
-use strict;
-use warnings;
-
-use Mojo::Message::Response;
-use Mojo::Transaction::HTTP;
-use Mojo::URL;
-use Test::Most;
-
-require Exporter;
+use Test::Spec;
 
 use WebService::Mattermost;
-use WebService::Mattermost::V4::API::Resource::Users;
-use WebService::Mattermost::V4::API::Response;
 
 use constant {
     AUTH_TOKEN => 'whatever',
@@ -23,29 +11,7 @@ use constant {
     PASSWORD   => 'mypassword',
 };
 
-use base 'Exporter';
-
-our @EXPORT_OK = qw(
-    AUTH_TOKEN
-    BASE_URL
-    PASSWORD
-    USERNAME
-
-    client_arguments
-    headers
-    mojo_response
-    mojo_tx
-    resource_url
-    response
-    webservice_mattermost
-    user_resource_expects_login
-
-    expects_api_call
-    test_id_error
-    test_single_response_of_type
-);
-
-################################################################################
+require 'test_helpers/mojo.pl';
 
 sub client_arguments {
     my $extra = shift || {};
@@ -71,19 +37,6 @@ sub headers {
     };
 }
 
-sub mojo_response {
-    my $args = shift || {};
-
-    return Mojo::Message::Response->new(%{$args});
-}
-
-sub mojo_tx {
-    return Mojo::Transaction::HTTP->new(res => mojo_response({
-        code    => 200,
-        message => 'OK',
-    }));
-}
-
 sub webservice_mattermost {
     my $extra = shift || {};
 
@@ -96,10 +49,11 @@ sub webservice_mattermost {
     });
 }
 
-sub resource_url {
-    my $endpoint = shift;
-
-    return Mojo::URL->new(sprintf('%s%s', BASE_URL, $endpoint));
+sub authorised_webservice_mattermost {
+    return webservice_mattermost({
+        auth_token   => AUTH_TOKEN,
+        authenticate => 0,
+    })
 }
 
 sub response {
@@ -142,9 +96,16 @@ sub expects_api_call {
     my $resource  = $args->{resource};
     my $form_type = $args->{method} eq 'post' || $args->{method} eq 'put' ? 'json' : 'form';
 
+    # An "assembled_form_type" is an override configured in some API resources,
+    # where POST/PUT might not necessarily mean a JSON endpoint (e.g. file
+    # uploads).
+    if ($args->{assembled_form_type}) {
+        $form_type = $args->{assembled_form_type};
+    }
+
     return $app->api->$resource->ua->expects($args->{method})->with_deep(
-        resource_url($args->{url}) => headers(),
-        $form_type                 => $args->{parameters} || {},
+        mojo_url($args->{url}) => headers(),
+        $form_type             => $args->{parameters} || {},
     )->returns(mojo_tx())->once;
 }
 
@@ -170,46 +131,53 @@ sub test_single_response_of_type {
     return 1;
 }
 
-################################################################################
+sub expects_api_call_of_type {
+    my $type = shift;
+    my $vars = shift;
+
+    my $app = authorised_webservice_mattermost();
+
+    # "assembled_parameters" is used when a class method takes an abstract set
+    # of parameters (e.g. a single string) and assembles them into some sort of
+    # API form data. "class_method_closure_args" are the plain arguments passed
+    # to the class method, and are used in all other cases.
+    my $parameters = $vars->{assembled_parameters} || $vars->{class_method_closure_args};
+
+    expects_api_call($app, {
+        assembled_form_type  => $vars->{assembled_form_type},
+        assembled_parameters => $vars->{assembled_parameters},
+        method               => $type,
+        parameters           => $parameters,
+        resource             => $vars->{resource},
+        url                  => $vars->{url},
+    });
+
+    ok my $res = $vars->{class_method_closure}->($app, $vars->{class_method_closure_args}),
+        sprintf 'sends a %s request to %s', uc $type, $vars->{url};
+    
+    if ($vars->{object}) {
+        my $object = sprintf 'WebService::Mattermost::V4::API::Object::%s', $vars->{object};
+
+        is ref $res->item, $object, "a ${object} was returned";
+    }
+
+    return 1;
+}
+
+shared_examples_for 'a GET API endpoint' => sub {
+    share my %vars;
+
+    it 'sends a GET request' => sub {
+        return expects_api_call_of_type('get', $vars{get_request});
+    };
+};
+
+shared_examples_for 'a POST API endpoint' => sub {
+    share my %vars;
+
+    it 'sends a POST request' => sub {
+        return expects_api_call_of_type('post', $vars{post_request});
+    };
+};
 
 1;
-__END__
-
-=head1 DESCRIPTION
-
-Exports subroutines used by the library's test suite.
-
-=head2 SYNPOSIS
-
-Test files should import the helper as follows:
-
-    # Exported functions are listed in METHODS
-    use WebService::Mattermost::TestHelper qw(
-        webservice_mattermost
-        ...
-    );
-
-    my $mattermost = webservice_mattermost();
-
-=head2 METHODS
-
-=over 4
-
-=item * C<client_arguments()>
-
-Basic arguments required for L<WebService::Mattermost>.
-
-=item * C<response()>
-
-A dummy L<Mojo::Message::Response>.
-
-=item * C<webservice_mattermost()>
-
-Creates a L<WebService::Mattermost> object with some defaults.
-
-=item * C<user_resource_expects_login()>
-
-Stubs the user resource's "login" method with a successful response. This can be
-used to fake a successful login call.
-
-=back

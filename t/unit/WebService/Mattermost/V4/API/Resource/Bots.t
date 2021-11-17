@@ -2,28 +2,13 @@
 
 use Test::Spec;
 
-use WebService::Mattermost;
-use WebService::Mattermost::TestHelper qw(
-    AUTH_TOKEN
-    headers
-    resource_url
-    mojo_tx
-    webservice_mattermost
-
-    expects_api_call
-    test_id_error
-    test_single_response_of_type
-);
+require 'test_helper.pl';
 
 describe 'WebService::Mattermost::V4::API::Resource::Bots' => sub {
     share my %vars;
 
     before each => sub {
-        $vars{app} = webservice_mattermost({
-            authenticate => 0,
-            auth_token   => AUTH_TOKEN,
-        });
-
+        $vars{app}  = authorised_webservice_mattermost();
         $vars{args} = {};
     };
 
