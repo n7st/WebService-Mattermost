@@ -8,7 +8,10 @@ use Types::Standard qw(HashRef InstanceOf Str);
 
 use WebService::Mattermost::V4::API;
 
-with 'WebService::Mattermost::Role::Returns';
+with qw(
+    WebService::Mattermost::Role::Returns
+    WebService::Mattermost::V4::API::Role::NewRelatedResource
+);
 
 ################################################################################
 

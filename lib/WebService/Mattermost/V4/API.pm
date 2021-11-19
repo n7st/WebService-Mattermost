@@ -61,46 +61,47 @@ has resources              => (is => 'rw', isa => ArrayRef, default => sub { [] 
         add_resource => 'push',
     });
 
-has analytics         => (is => 'ro', isa => InstanceOf[v4 'Analytics'],          lazy => 1, builder => 1);
-has application       => (is => 'ro', isa => InstanceOf[v4 'OAuth::Application'], lazy => 1, builder => 1);
-has audits            => (is => 'ro', isa => InstanceOf[v4 'Audits'],             lazy => 1, builder => 1);
-has bots              => (is => 'ro', isa => InstanceOf[v4 'Bots'],               lazy => 1, builder => 1);
-has brand             => (is => 'ro', isa => InstanceOf[v4 'Brand'],              lazy => 1, builder => 1);
-has cache             => (is => 'ro', isa => InstanceOf[v4 'Cache'],              lazy => 1, builder => 1);
-has channel           => (is => 'ro', isa => InstanceOf[v4 'Channel'],            lazy => 1, builder => 1);
-has channel_member    => (is => 'ro', isa => InstanceOf[v4 'Channel::Member'],    lazy => 1, builder => 1);
-has channels          => (is => 'ro', isa => InstanceOf[v4 'Channels'],           lazy => 1, builder => 1);
-has cluster           => (is => 'ro', isa => InstanceOf[v4 'Cluster'],            lazy => 1, builder => 1);
-has compliance        => (is => 'ro', isa => InstanceOf[v4 'Compliance'],         lazy => 1, builder => 1);
-has compliance_report => (is => 'ro', isa => InstanceOf[v4 'Compliance::Report'], lazy => 1, builder => 1);
-has data_retention    => (is => 'ro', isa => InstanceOf[v4 'DataRetention'],      lazy => 1, builder => 1);
-has database          => (is => 'ro', isa => InstanceOf[v4 'Database'],           lazy => 1, builder => 1);
-has elasticsearch     => (is => 'ro', isa => InstanceOf[v4 'ElasticSearch'],      lazy => 1, builder => 1);
-has email             => (is => 'ro', isa => InstanceOf[v4 'Email'],              lazy => 1, builder => 1);
-has emoji             => (is => 'ro', isa => InstanceOf[v4 'Emoji'],              lazy => 1, builder => 1);
-has file              => (is => 'ro', isa => InstanceOf[v4 'File'],               lazy => 1, builder => 1);
-has files             => (is => 'ro', isa => InstanceOf[v4 'Files'],              lazy => 1, builder => 1);
-has job               => (is => 'ro', isa => InstanceOf[v4 'Job'],                lazy => 1, builder => 1);
-has jobs              => (is => 'ro', isa => InstanceOf[v4 'Jobs'],               lazy => 1, builder => 1);
-has ldap              => (is => 'ro', isa => InstanceOf[v4 'LDAP'],               lazy => 1, builder => 1);
-has logs              => (is => 'ro', isa => InstanceOf[v4 'Logs'],               lazy => 1, builder => 1);
-has oauth             => (is => 'ro', isa => InstanceOf[v4 'OAuth'],              lazy => 1, builder => 1);
-has plugin            => (is => 'ro', isa => InstanceOf[v4 'Plugin'],             lazy => 1, builder => 1);
-has plugins           => (is => 'ro', isa => InstanceOf[v4 'Plugins'],            lazy => 1, builder => 1);
-has post              => (is => 'ro', isa => InstanceOf[v4 'Post'],               lazy => 1, builder => 1);
-has posts             => (is => 'ro', isa => InstanceOf[v4 'Posts'],              lazy => 1, builder => 1);
-has reactions         => (is => 'ro', isa => InstanceOf[v4 'Reactions'],          lazy => 1, builder => 1);
-has roles             => (is => 'ro', isa => InstanceOf[v4 'Roles'],              lazy => 1, builder => 1);
-has s3                => (is => 'ro', isa => InstanceOf[v4 'S3'],                 lazy => 1, builder => 1);
-has saml              => (is => 'ro', isa => InstanceOf[v4 'SAML'],               lazy => 1, builder => 1);
-has schemes           => (is => 'ro', isa => InstanceOf[v4 'Schemes'],            lazy => 1, builder => 1);
-has system            => (is => 'ro', isa => InstanceOf[v4 'System'],             lazy => 1, builder => 1);
-has team              => (is => 'ro', isa => InstanceOf[v4 'Team'],               lazy => 1, builder => 1);
-has teams             => (is => 'ro', isa => InstanceOf[v4 'Teams'],              lazy => 1, builder => 1);
-has user              => (is => 'ro', isa => InstanceOf[v4 'User'],               lazy => 1, builder => 1);
-has users             => (is => 'ro', isa => InstanceOf[v4 'Users'],              lazy => 1, builder => 1);
-has webhooks          => (is => 'ro', isa => InstanceOf[v4 'Webhook'],            lazy => 1, builder => 1);
-has webrtc            => (is => 'ro', isa => InstanceOf[v4 'WebRTC'],             lazy => 1, builder => 1);
+has analytics         => (is => 'lazy', isa => InstanceOf[v4 'Analytics']);
+has application       => (is => 'lazy', isa => InstanceOf[v4 'OAuth::Application']);
+has audits            => (is => 'lazy', isa => InstanceOf[v4 'Audits']);
+has bots              => (is => 'lazy', isa => InstanceOf[v4 'Bots']);
+has brand             => (is => 'lazy', isa => InstanceOf[v4 'Brand']);
+has cache             => (is => 'lazy', isa => InstanceOf[v4 'Cache']);
+has channel           => (is => 'lazy', isa => InstanceOf[v4 'Channel']);
+has channel_member    => (is => 'lazy', isa => InstanceOf[v4 'Channel::Member']);
+has channels          => (is => 'lazy', isa => InstanceOf[v4 'Channels']);
+has cluster           => (is => 'lazy', isa => InstanceOf[v4 'Cluster']);
+has compliance        => (is => 'lazy', isa => InstanceOf[v4 'Compliance']);
+has compliance_report => (is => 'lazy', isa => InstanceOf[v4 'Compliance::Report']);
+has data_retention    => (is => 'lazy', isa => InstanceOf[v4 'DataRetention']);
+has database          => (is => 'lazy', isa => InstanceOf[v4 'Database']);
+has elasticsearch     => (is => 'lazy', isa => InstanceOf[v4 'ElasticSearch']);
+has email             => (is => 'lazy', isa => InstanceOf[v4 'Email']);
+has emoji             => (is => 'lazy', isa => InstanceOf[v4 'Emoji']);
+has file              => (is => 'lazy', isa => InstanceOf[v4 'File']);
+has files             => (is => 'lazy', isa => InstanceOf[v4 'Files']);
+has job               => (is => 'lazy', isa => InstanceOf[v4 'Job']);
+has jobs              => (is => 'lazy', isa => InstanceOf[v4 'Jobs']);
+has ldap              => (is => 'lazy', isa => InstanceOf[v4 'LDAP']);
+has logs              => (is => 'lazy', isa => InstanceOf[v4 'Logs']);
+has oauth             => (is => 'lazy', isa => InstanceOf[v4 'OAuth']);
+has plugin            => (is => 'lazy', isa => InstanceOf[v4 'Plugin']);
+has plugins           => (is => 'lazy', isa => InstanceOf[v4 'Plugins']);
+has post              => (is => 'lazy', isa => InstanceOf[v4 'Post']);
+has posts             => (is => 'lazy', isa => InstanceOf[v4 'Posts']);
+has reactions         => (is => 'lazy', isa => InstanceOf[v4 'Reactions']);
+has roles             => (is => 'lazy', isa => InstanceOf[v4 'Roles']);
+has s3                => (is => 'lazy', isa => InstanceOf[v4 'S3']);
+has saml              => (is => 'lazy', isa => InstanceOf[v4 'SAML']);
+has schemes           => (is => 'lazy', isa => InstanceOf[v4 'Schemes']);
+has system            => (is => 'lazy', isa => InstanceOf[v4 'System']);
+has team              => (is => 'lazy', isa => InstanceOf[v4 'Team']);
+has team_channels     => (is => 'lazy', isa => InstanceOf[v4 'Team::Channels']);
+has teams             => (is => 'lazy', isa => InstanceOf[v4 'Teams']);
+has user              => (is => 'lazy', isa => InstanceOf[v4 'User']);
+has users             => (is => 'lazy', isa => InstanceOf[v4 'Users']);
+has webhooks          => (is => 'lazy', isa => InstanceOf[v4 'Webhook']);
+has webrtc            => (is => 'lazy', isa => InstanceOf[v4 'WebRTC']);
 
 ################################################################################
 
@@ -183,6 +184,7 @@ sub _build_schemes           { shift->_new_resource('Schemes')                  
 sub _build_system            { shift->_new_resource('System')                           }
 sub _build_team              { shift->_new_resource('Team', 'teams')                    }
 sub _build_teams             { shift->_new_resource('Teams')                            }
+sub _build_team_channels     { shift->_new_resource('Team::Channels', 'team')  }
 sub _build_user              { shift->_new_resource('User', 'users')                    }
 sub _build_users             { shift->_new_resource('Users')                            }
 sub _build_webhooks          { shift->_new_resource('Webhook', 'hooks')                 }

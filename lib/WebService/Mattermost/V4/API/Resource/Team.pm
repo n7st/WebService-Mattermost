@@ -16,7 +16,7 @@ with    qw(
 
 ################################################################################
 
-has channels => (is => 'ro', isa => InstanceOf[v4 'Team::Channels'], lazy => 1, builder => 1);
+has channels => (is => 'lazy', isa => InstanceOf[v4 'Team::Channels']);
 
 ################################################################################
 
@@ -357,7 +357,7 @@ sub search_posts {
 sub _build_channels {
     my $self = shift;
 
-    return $self->_new_related_resource('teams', 'Team::Channels');
+    return $self->new_related_resource('teams', 'Team::Channels');
 }
 
 ################################################################################

@@ -3,7 +3,9 @@ package WebService::Mattermost::V4::API::Object::Team;
 # ABSTRACT: A team item.
 
 use Moo;
-use Types::Standard qw(Bool Str);
+use Types::Standard qw(Bool InstanceOf Str);
+
+use WebService::Mattermost::Helper::Alias 'v4';
 
 extends 'WebService::Mattermost::V4::API::Object';
 with    qw(
@@ -16,12 +18,13 @@ with    qw(
 
 ################################################################################
 
-has company_name   => (is => 'ro', isa => Str,  lazy => 1, builder => 1);
-has display_name   => (is => 'ro', isa => Str,  lazy => 1, builder => 1);
-has email          => (is => 'ro', isa => Str,  lazy => 1, builder => 1);
-has invite_id      => (is => 'ro', isa => Str,  lazy => 1, builder => 1);
-has is_invite_only => (is => 'ro', isa => Bool, lazy => 1, builder => 1);
-has open_invite    => (is => 'ro', isa => Bool, lazy => 1, builder => 1);
+has channels       => (is => 'lazy', isa => InstanceOf[v4 'Team::Channels']);
+has company_name   => (is => 'lazy', isa => Str);
+has display_name   => (is => 'lazy', isa => Str);
+has email          => (is => 'lazy', isa => Str);
+has invite_id      => (is => 'lazy', isa => Str);
+has is_invite_only => (is => 'lazy', isa => Bool);
+has open_invite    => (is => 'lazy', isa => Bool);
 
 ################################################################################
 
@@ -32,6 +35,7 @@ sub BUILD {
     $self->set_available_api_methods([ qw(
         add_member
         add_members
+        channels.public
         delete
         get_icon
         invite_by_emails
@@ -50,6 +54,16 @@ sub BUILD {
 }
 
 ################################################################################
+
+sub _build_channels {
+    my $self = shift;
+
+    my $team_channels = $self->new_related_resource('teams', 'Team::Channels');
+
+    $team_channels->id($self->id);
+
+    return $team_channels;
+}
 
 sub _build_company_name   { shift->raw_data->{company_name}        }
 sub _build_display_name   { shift->raw_data->{display_name}        }

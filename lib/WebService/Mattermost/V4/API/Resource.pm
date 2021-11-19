@@ -4,9 +4,9 @@ package WebService::Mattermost::V4::API::Resource;
 
 use List::MoreUtils 'all';
 use Moo;
-use Types::Standard qw(Bool HashRef Object Str);
+use Types::Standard qw(Bool HashRef Maybe Object Str);
 
-use WebService::Mattermost::Helper::Alias qw(v4 view);
+use WebService::Mattermost::Helper::Alias 'view';
 use WebService::Mattermost::V4::API::Object::Channel;
 use WebService::Mattermost::V4::API::Object::Icon;
 use WebService::Mattermost::V4::API::Object::Status;
@@ -24,6 +24,7 @@ with qw(
     WebService::Mattermost::Role::Returns
     WebService::Mattermost::Role::UserAgent
     WebService::Mattermost::V4::API::Role::RequireID
+    WebService::Mattermost::V4::API::Role::NewRelatedResource
 );
 
 ################################################################################
@@ -39,6 +40,8 @@ has headers => (is => 'ro', isa => HashRef, default => sub { {} });
 has POST    => (is => 'ro', isa => Str,     default => 'POST');
 has PUT     => (is => 'ro', isa => Str,     default => 'PUT');
 has debug   => (is => 'ro', isa => Bool,    default => 0);
+
+has id => (is => 'rw', isa => Maybe[Str]);
 
 ################################################################################
 
@@ -225,18 +228,6 @@ sub _validate {
         missing => \@missing,
         error   => sprintf('Required parameters missing: %s', join(', ', @missing)),
     };
-}
-
-sub _new_related_resource {
-    my $self     = shift;
-    my $base     = shift;
-    my $resource = shift;
-
-    return v4($resource)->new({
-        auth_token => $self->auth_token,
-        base_url   => $self->base_url,
-        resource   => $base,
-    });
 }
 
 ################################################################################
