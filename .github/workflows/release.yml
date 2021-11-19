@@ -31,5 +31,5 @@ jobs:
         env:
           DZIL_CONFIRMRELEASE_DEFAULT: 'yes'
         run: |
-          PERL5LIB=t dzil release
+          dzil release
 
