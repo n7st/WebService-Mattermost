@@ -11,6 +11,8 @@ use constant {
     PASSWORD   => 'mypassword',
 };
 
+use lib 't';
+
 require 'test_helpers/mojo.pl';
 
 sub client_arguments {

@@ -22,5 +22,5 @@ jobs:
           dzil authordeps --missing | xargs -n 5 -P 10 cpanm --no-interactive --notest --quiet
           dzil listdeps --missing --author | xargs -n 5 -P 10 cpanm --no-interactive --notest --quiet
       - name: 'Run the test suite'
-        run: ./scripts/run_tests cover_codecov
+        run: dzil test -cover
 

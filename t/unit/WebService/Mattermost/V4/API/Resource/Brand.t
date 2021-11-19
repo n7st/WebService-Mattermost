@@ -2,6 +2,8 @@
 
 use Test::Spec;
 
+use lib 't';
+
 require 'test_helper.pl';
 
 describe 'WebService::Mattermost::V4::API::Resource::Brand' => sub {

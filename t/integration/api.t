@@ -5,6 +5,8 @@ use Test::Spec;
 
 use WebService::Mattermost;
 
+use lib 't';
+
 require 'test_helper.pl';
 
 describe 'API queries' => sub {

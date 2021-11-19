@@ -4,6 +4,8 @@ use Test::Spec;
 
 use WebService::Mattermost::V4::Client;
 
+use lib 't';
+
 require 'test_helper.pl';
 
 describe 'WebService::Mattermost::V4::Client' => sub {

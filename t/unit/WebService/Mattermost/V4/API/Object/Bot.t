@@ -4,6 +4,8 @@ use Test::Spec;
 
 use WebService::Mattermost::V4::API::Object::Bot;
 
+use lib 't';
+
 require 'test_helper.pl';
 
 use constant {

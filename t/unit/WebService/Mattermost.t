@@ -7,6 +7,8 @@ use WebService::Mattermost;
 use WebService::Mattermost::V4::API::Resource::Users;
 use WebService::Mattermost::V4::API::Response;
 
+use lib 't';
+
 require 'test_helper.pl';
 
 describe 'WebService::Mattermost' => sub {
