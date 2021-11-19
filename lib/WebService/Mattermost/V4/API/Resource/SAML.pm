@@ -27,7 +27,7 @@ sub metadata {
 sub _build_certificate {
     my $self = shift;
 
-    return $self->_new_related_resource('saml', 'SAML::Certificate');
+    return $self->new_related_resource('saml', 'SAML::Certificate');
 }
 
 ################################################################################

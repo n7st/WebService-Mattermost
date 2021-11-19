@@ -35,7 +35,7 @@ sub by_ids {
 
 sub public {
     my $self    = shift;
-    my $team_id = shift;
+    my $team_id = shift || $self->id;
     my $args    = shift;
 
     return $self->_get({

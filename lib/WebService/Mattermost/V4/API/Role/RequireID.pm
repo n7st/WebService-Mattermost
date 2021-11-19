@@ -16,7 +16,7 @@ has id_validation_regexp => (is => 'ro', isa => RegexpRef, default => sub { qr{(
 sub validate_id {
     my $self = shift;
     my $next = shift;
-    my $id   = shift;
+    my $id   = shift || $self->id;
 
     if ($self->validate_id_no_next($id)) {
         return $self->$next($id, @_);
@@ -27,7 +27,7 @@ sub validate_id {
 
 sub validate_id_no_next {
     my $self = shift;
-    my $id   = shift;
+    my $id   = shift || $self->id;
 
     return ($id && $id =~ $self->id_validation_regexp) ? 1 : 0;
 }

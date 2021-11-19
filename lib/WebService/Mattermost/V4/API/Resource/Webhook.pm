@@ -21,13 +21,13 @@ has outgoing => (is => 'ro', isa => InstanceOf[v4 'Webhook::Incoming'], lazy => 
 sub _build_incoming {
     my $self = shift;
 
-    return $self->_new_related_resource('webhooks', 'Webhook::Incoming');
+    return $self->new_related_resource('webhooks', 'Webhook::Incoming');
 }
 
 sub _build_outgoing {
     my $self = shift;
 
-    return $self->_new_related_resource('webhooks', 'Webhook::Outgoing');
+    return $self->new_related_resource('webhooks', 'Webhook::Outgoing');
 }
 
 ################################################################################
