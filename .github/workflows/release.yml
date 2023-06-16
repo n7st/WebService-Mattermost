@@ -10,12 +10,18 @@ jobs:
     container:
       image: 'n7st/distzilla:5.37.0'
     steps:
-      - name: 'Get git version'
-        run: git --version
+      - name: 'Check out the code'
+        uses: 'actions/checkout@v3'
+      - uses: actions-ecosystem/action-release-label@v1
+        id: release-label
+        if: ${{ github.event.pull_request.merged == true }}
+      - uses: actions-ecosystem/action-get-latest-tag@v1
+        id: get-latest-tag
+        if: ${{ steps.release-label.outputs.level != null }}
       - name: 'Check out the code'
         uses: 'actions/checkout@v3'
         with:
-          ref: ${GITHUB_REF#refs/*/}
+          ref: ${{ steps.release-label.outputs.level }}
       - name: 'Install dependencies'
         run: |
           dzil authordeps --missing | xargs -n 5 -P 10 cpanm --no-interactive --notest --quiet
