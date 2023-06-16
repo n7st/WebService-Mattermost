@@ -10,7 +10,7 @@ jobs:
   test:
     runs-on: 'ubuntu-latest'
     container:
-      image: 'poum/distzilla'
+      image: 'n7st/distzilla:5.37.0'
     steps:
       - name: 'Check out the code'
         uses: 'actions/checkout@v2'
