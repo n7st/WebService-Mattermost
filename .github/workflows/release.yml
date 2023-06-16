@@ -13,7 +13,7 @@ jobs:
       - name: 'Get git version'
         run: git --version
       - name: 'Check out the code'
-        uses: 'actions/checkout@v2'
+        uses: 'actions/checkout@v3'
       - name: 'Check out tag'
         run: git checkout ${GITHUB_REF#refs/*/}
       - name: 'Install dependencies'

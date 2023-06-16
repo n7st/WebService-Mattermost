@@ -13,7 +13,7 @@ jobs:
       image: 'n7st/distzilla:5.37.0'
     steps:
       - name: 'Check out the code'
-        uses: 'actions/checkout@v2'
+        uses: 'actions/checkout@v3'
       - name: 'Install Codecov reporter'
         run: |
           cpanm --quiet --notest --skip-satisfied Devel::Cover::Report::Codecov
