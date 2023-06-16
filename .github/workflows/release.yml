@@ -14,8 +14,8 @@ jobs:
         run: git --version
       - name: 'Check out the code'
         uses: 'actions/checkout@v3'
-      - name: 'Check out tag'
-        run: git checkout ${GITHUB_REF#refs/*/}
+        with:
+          ref: ${GITHUB_REF#refs/*/}
       - name: 'Install dependencies'
         run: |
           dzil authordeps --missing | xargs -n 5 -P 10 cpanm --no-interactive --notest --quiet
