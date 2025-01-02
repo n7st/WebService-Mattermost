@@ -8,8 +8,6 @@ extends 'WebService::Mattermost::V4::API::Resource';
 
 ################################################################################
 
-extends 'WebService::Mattermost::V4::API::Resource';
-
 sub open {
     my $self = shift;
     my $args = shift;
