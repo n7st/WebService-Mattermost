@@ -24,6 +24,7 @@ use WebService::Mattermost::V4::API::Resource::Email;
 use WebService::Mattermost::V4::API::Resource::Emoji;
 use WebService::Mattermost::V4::API::Resource::File;
 use WebService::Mattermost::V4::API::Resource::Files;
+use WebService::Mattermost::V4::API::Resource::IntegrationActions;
 use WebService::Mattermost::V4::API::Resource::Job;
 use WebService::Mattermost::V4::API::Resource::Jobs;
 use WebService::Mattermost::V4::API::Resource::LDAP;
@@ -61,47 +62,48 @@ has resources              => (is => 'rw', isa => ArrayRef, default => sub { [] 
         add_resource => 'push',
     });
 
-has analytics         => (is => 'lazy', isa => InstanceOf[v4 'Analytics']);
-has application       => (is => 'lazy', isa => InstanceOf[v4 'OAuth::Application']);
-has audits            => (is => 'lazy', isa => InstanceOf[v4 'Audits']);
-has bots              => (is => 'lazy', isa => InstanceOf[v4 'Bots']);
-has brand             => (is => 'lazy', isa => InstanceOf[v4 'Brand']);
-has cache             => (is => 'lazy', isa => InstanceOf[v4 'Cache']);
-has channel           => (is => 'lazy', isa => InstanceOf[v4 'Channel']);
-has channel_member    => (is => 'lazy', isa => InstanceOf[v4 'Channel::Member']);
-has channels          => (is => 'lazy', isa => InstanceOf[v4 'Channels']);
-has cluster           => (is => 'lazy', isa => InstanceOf[v4 'Cluster']);
-has compliance        => (is => 'lazy', isa => InstanceOf[v4 'Compliance']);
-has compliance_report => (is => 'lazy', isa => InstanceOf[v4 'Compliance::Report']);
-has data_retention    => (is => 'lazy', isa => InstanceOf[v4 'DataRetention']);
-has database          => (is => 'lazy', isa => InstanceOf[v4 'Database']);
-has elasticsearch     => (is => 'lazy', isa => InstanceOf[v4 'ElasticSearch']);
-has email             => (is => 'lazy', isa => InstanceOf[v4 'Email']);
-has emoji             => (is => 'lazy', isa => InstanceOf[v4 'Emoji']);
-has file              => (is => 'lazy', isa => InstanceOf[v4 'File']);
-has files             => (is => 'lazy', isa => InstanceOf[v4 'Files']);
-has job               => (is => 'lazy', isa => InstanceOf[v4 'Job']);
-has jobs              => (is => 'lazy', isa => InstanceOf[v4 'Jobs']);
-has ldap              => (is => 'lazy', isa => InstanceOf[v4 'LDAP']);
-has logs              => (is => 'lazy', isa => InstanceOf[v4 'Logs']);
-has oauth             => (is => 'lazy', isa => InstanceOf[v4 'OAuth']);
-has plugin            => (is => 'lazy', isa => InstanceOf[v4 'Plugin']);
-has plugins           => (is => 'lazy', isa => InstanceOf[v4 'Plugins']);
-has post              => (is => 'lazy', isa => InstanceOf[v4 'Post']);
-has posts             => (is => 'lazy', isa => InstanceOf[v4 'Posts']);
-has reactions         => (is => 'lazy', isa => InstanceOf[v4 'Reactions']);
-has roles             => (is => 'lazy', isa => InstanceOf[v4 'Roles']);
-has s3                => (is => 'lazy', isa => InstanceOf[v4 'S3']);
-has saml              => (is => 'lazy', isa => InstanceOf[v4 'SAML']);
-has schemes           => (is => 'lazy', isa => InstanceOf[v4 'Schemes']);
-has system            => (is => 'lazy', isa => InstanceOf[v4 'System']);
-has team              => (is => 'lazy', isa => InstanceOf[v4 'Team']);
-has team_channels     => (is => 'lazy', isa => InstanceOf[v4 'Team::Channels']);
-has teams             => (is => 'lazy', isa => InstanceOf[v4 'Teams']);
-has user              => (is => 'lazy', isa => InstanceOf[v4 'User']);
-has users             => (is => 'lazy', isa => InstanceOf[v4 'Users']);
-has webhooks          => (is => 'lazy', isa => InstanceOf[v4 'Webhook']);
-has webrtc            => (is => 'lazy', isa => InstanceOf[v4 'WebRTC']);
+has analytics           => (is => 'lazy', isa => InstanceOf[v4 'Analytics']);
+has application         => (is => 'lazy', isa => InstanceOf[v4 'OAuth::Application']);
+has audits              => (is => 'lazy', isa => InstanceOf[v4 'Audits']);
+has bots                => (is => 'lazy', isa => InstanceOf[v4 'Bots']);
+has brand               => (is => 'lazy', isa => InstanceOf[v4 'Brand']);
+has cache               => (is => 'lazy', isa => InstanceOf[v4 'Cache']);
+has channel             => (is => 'lazy', isa => InstanceOf[v4 'Channel']);
+has channel_member      => (is => 'lazy', isa => InstanceOf[v4 'Channel::Member']);
+has channels            => (is => 'lazy', isa => InstanceOf[v4 'Channels']);
+has cluster             => (is => 'lazy', isa => InstanceOf[v4 'Cluster']);
+has compliance          => (is => 'lazy', isa => InstanceOf[v4 'Compliance']);
+has compliance_report   => (is => 'lazy', isa => InstanceOf[v4 'Compliance::Report']);
+has data_retention      => (is => 'lazy', isa => InstanceOf[v4 'DataRetention']);
+has database            => (is => 'lazy', isa => InstanceOf[v4 'Database']);
+has elasticsearch       => (is => 'lazy', isa => InstanceOf[v4 'ElasticSearch']);
+has email               => (is => 'lazy', isa => InstanceOf[v4 'Email']);
+has emoji               => (is => 'lazy', isa => InstanceOf[v4 'Emoji']);
+has file                => (is => 'lazy', isa => InstanceOf[v4 'File']);
+has files               => (is => 'lazy', isa => InstanceOf[v4 'Files']);
+has integration_actions => (is => 'lazy', isa => InstanceOf[v4 'IntegrationActions']);
+has job                 => (is => 'lazy', isa => InstanceOf[v4 'Job']);
+has jobs                => (is => 'lazy', isa => InstanceOf[v4 'Jobs']);
+has ldap                => (is => 'lazy', isa => InstanceOf[v4 'LDAP']);
+has logs                => (is => 'lazy', isa => InstanceOf[v4 'Logs']);
+has oauth               => (is => 'lazy', isa => InstanceOf[v4 'OAuth']);
+has plugin              => (is => 'lazy', isa => InstanceOf[v4 'Plugin']);
+has plugins             => (is => 'lazy', isa => InstanceOf[v4 'Plugins']);
+has post                => (is => 'lazy', isa => InstanceOf[v4 'Post']);
+has posts               => (is => 'lazy', isa => InstanceOf[v4 'Posts']);
+has reactions           => (is => 'lazy', isa => InstanceOf[v4 'Reactions']);
+has roles               => (is => 'lazy', isa => InstanceOf[v4 'Roles']);
+has s3                  => (is => 'lazy', isa => InstanceOf[v4 'S3']);
+has saml                => (is => 'lazy', isa => InstanceOf[v4 'SAML']);
+has schemes             => (is => 'lazy', isa => InstanceOf[v4 'Schemes']);
+has system              => (is => 'lazy', isa => InstanceOf[v4 'System']);
+has team                => (is => 'lazy', isa => InstanceOf[v4 'Team']);
+has team_channels       => (is => 'lazy', isa => InstanceOf[v4 'Team::Channels']);
+has teams               => (is => 'lazy', isa => InstanceOf[v4 'Teams']);
+has user                => (is => 'lazy', isa => InstanceOf[v4 'User']);
+has users               => (is => 'lazy', isa => InstanceOf[v4 'Users']);
+has webhooks            => (is => 'lazy', isa => InstanceOf[v4 'Webhook']);
+has webrtc              => (is => 'lazy', isa => InstanceOf[v4 'WebRTC']);
 
 ################################################################################
 
@@ -147,48 +149,49 @@ sub _new_resource {
 # name", i.e. DataRetention's base resource is "data_retention", not
 # "dataretention".
 
-sub _build_analytics         { shift->_new_resource('Analytics')                        }
-sub _build_application       { shift->_new_resource('OAuth::Application', 'oauth')      }
-sub _build_audits            { shift->_new_resource('Audits')                           }
-sub _build_bots              { shift->_new_resource('Bots')                             }
-sub _build_brand             { shift->_new_resource('Brand')                            }
-sub _build_cache             { shift->_new_resource('Cache', 'caches')                  }
-sub _build_channel           { shift->_new_resource('Channel', 'channels')              }
-sub _build_channel_member    { shift->_new_resource('Channel::Member', 'channels')      }
-sub _build_channels          { shift->_new_resource('Channels')                         }
-sub _build_cluster           { shift->_new_resource('Cluster')                          }
-sub _build_compliance        { shift->_new_resource('Compliance')                       }
-sub _build_compliance_report { shift->_new_resource('Compliance::Report', 'compliance') }
-sub _build_config            { shift->_new_resource('Config')                           }
-sub _build_data_retention    { shift->_new_resource('DataRetention', 'data_retention')  }
-sub _build_database          { shift->_new_resource('Database')                         }
-sub _build_elasticsearch     { shift->_new_resource('ElasticSearch')                    }
-sub _build_email             { shift->_new_resource('Email')                            }
-sub _build_emoji             { shift->_new_resource('Emoji')                            }
-sub _build_files             { shift->_new_resource('Files')                            }
-sub _build_file              { shift->_new_resource('File', 'files')                    }
-sub _build_job               { shift->_new_resource('Job', 'jobs')                      }
-sub _build_jobs              { shift->_new_resource('Jobs')                             }
-sub _build_ldap              { shift->_new_resource('LDAP')                             }
-sub _build_logs              { shift->_new_resource('Logs')                             }
-sub _build_oauth             { shift->_new_resource('OAuth')                            }
-sub _build_plugin            { shift->_new_resource('Plugin', 'plugins')                }
-sub _build_plugins           { shift->_new_resource('Plugins')                          }
-sub _build_post              { shift->_new_resource('Post', 'posts')                    }
-sub _build_posts             { shift->_new_resource('Posts')                            }
-sub _build_reactions         { shift->_new_resource('Reactions')                        }
-sub _build_roles             { shift->_new_resource('Roles')                            }
-sub _build_s3                { shift->_new_resource('S3', 'file')                       }
-sub _build_saml              { shift->_new_resource('SAML')                             }
-sub _build_schemes           { shift->_new_resource('Schemes')                          }
-sub _build_system            { shift->_new_resource('System')                           }
-sub _build_team              { shift->_new_resource('Team', 'teams')                    }
-sub _build_teams             { shift->_new_resource('Teams')                            }
-sub _build_team_channels     { shift->_new_resource('Team::Channels', 'team')  }
-sub _build_user              { shift->_new_resource('User', 'users')                    }
-sub _build_users             { shift->_new_resource('Users')                            }
-sub _build_webhooks          { shift->_new_resource('Webhook', 'hooks')                 }
-sub _build_webrtc            { shift->_new_resource('WebRTC')                           }
+sub _build_analytics           { shift->_new_resource('Analytics')                        }
+sub _build_application         { shift->_new_resource('OAuth::Application', 'oauth')      }
+sub _build_audits              { shift->_new_resource('Audits')                           }
+sub _build_bots                { shift->_new_resource('Bots')                             }
+sub _build_brand               { shift->_new_resource('Brand')                            }
+sub _build_cache               { shift->_new_resource('Cache', 'caches')                  }
+sub _build_channel             { shift->_new_resource('Channel', 'channels')              }
+sub _build_channel_member      { shift->_new_resource('Channel::Member', 'channels')      }
+sub _build_channels            { shift->_new_resource('Channels')                         }
+sub _build_cluster             { shift->_new_resource('Cluster')                          }
+sub _build_compliance          { shift->_new_resource('Compliance')                       }
+sub _build_compliance_report   { shift->_new_resource('Compliance::Report', 'compliance') }
+sub _build_config              { shift->_new_resource('Config')                           }
+sub _build_data_retention      { shift->_new_resource('DataRetention', 'data_retention')  }
+sub _build_database            { shift->_new_resource('Database')                         }
+sub _build_elasticsearch       { shift->_new_resource('ElasticSearch')                    }
+sub _build_email               { shift->_new_resource('Email')                            }
+sub _build_emoji               { shift->_new_resource('Emoji')                            }
+sub _build_files               { shift->_new_resource('Files')                            }
+sub _build_file                { shift->_new_resource('File', 'files')                    }
+sub _build_job                 { shift->_new_resource('Job', 'jobs')                      }
+sub _build_jobs                { shift->_new_resource('Jobs')                             }
+sub _build_integration_actions { shift->_new_resource('IntegrationActions', 'actions')    }
+sub _build_ldap                { shift->_new_resource('LDAP')                             }
+sub _build_logs                { shift->_new_resource('Logs')                             }
+sub _build_oauth               { shift->_new_resource('OAuth')                            }
+sub _build_plugin              { shift->_new_resource('Plugin', 'plugins')                }
+sub _build_plugins             { shift->_new_resource('Plugins')                          }
+sub _build_post                { shift->_new_resource('Post', 'posts')                    }
+sub _build_posts               { shift->_new_resource('Posts')                            }
+sub _build_reactions           { shift->_new_resource('Reactions')                        }
+sub _build_roles               { shift->_new_resource('Roles')                            }
+sub _build_s3                  { shift->_new_resource('S3', 'file')                       }
+sub _build_saml                { shift->_new_resource('SAML')                             }
+sub _build_schemes             { shift->_new_resource('Schemes')                          }
+sub _build_system              { shift->_new_resource('System')                           }
+sub _build_team                { shift->_new_resource('Team', 'teams')                    }
+sub _build_teams               { shift->_new_resource('Teams')                            }
+sub _build_team_channels       { shift->_new_resource('Team::Channels', 'team')           }
+sub _build_user                { shift->_new_resource('User', 'users')                    }
+sub _build_users               { shift->_new_resource('Users')                            }
+sub _build_webhooks            { shift->_new_resource('Webhook', 'hooks')                 }
+sub _build_webrtc              { shift->_new_resource('WebRTC')                           }
 
 ################################################################################
 
@@ -286,6 +289,10 @@ See L<WebService::Mattermost::V4::API::Resource::Job>.
 =item * C<jobs>
 
 See L<WebService::Mattermost::V4::API::Resource::Jobs>.
+
+=item * C<integration_actions>
+
+See L<WebService::Mattermost::V4::API::Resource::IntegrationActions>.
 
 =item * C<ldap>
 
